@@ -1,11 +1,11 @@
 # inscribi director sunumu
 
-Hackathon için altı slaytlık, Türkçe sunum. Üçüncü slayttaki QR doğrudan `https://live.inscribi.com` adresine gider.
+Hackathon için dokuz slaytlık, Türkçe sunum. Katılım QR'ı ilk slaytta: insanlar anlatım sürerken katılır, 5. slaytta canlı sahneye geçilir. QR doğrudan `https://live.inscribi.com` adresine gider. Konuşma metni, akış ve sorun planı: [KONUSMA.md](KONUSMA.md).
 
 ## Düzenleme
 
-- **PowerPoint / Keynote:** [inscribi-hackathon.pptx](output/inscribi-hackathon.pptx) dosyasını açın. Metinler ve görseller ayrı nesnelerdir, düzenlenebilir. Konuşmacı notları süre önerileri ve kaynak açıklamalarını içerir.
-- **Tarayıcı sürümü:** [src/slides.json](src/slides.json) içindeki metin, konum, boyut ve renkleri düzenleyin. Görseller [assets](assets) klasöründedir. Düzen ve gezinme davranışı [build.mjs](build.mjs) içindedir.
+- **PowerPoint / Keynote:** [inscribi-hackathon.pptx](output/inscribi-hackathon.pptx) ilk altı slaytlık sürümdür, güncel değildir. Güncel sunum HTML ve [PDF](output/inscribi-sunum.pdf) sürümüdür. Metinler ve görseller ayrı nesnelerdir, düzenlenebilir. Konuşmacı notları süre önerileri ve kaynak açıklamalarını içerir.
+- **Tarayıcı sürümü:** Slaytlar [src/make-slides.py](src/make-slides.py) ile üretilir (`python3 presentation/src/make-slides.py`), çıktısı [src/slides.json](src/slides.json). Görseller [assets](assets) klasöründedir. Düzen ve gezinme davranışı [build.mjs](build.mjs) içindedir.
 
 HTML sürümünü yeniden oluşturmak için repo kökünden çalıştırın:
 
