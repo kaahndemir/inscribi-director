@@ -87,9 +87,11 @@ Dağıtan cüzdan kontratın sahibidir; sunucu aynı `OPERATOR_PRIVATE_KEY` ile 
 
 Hikâye `src/story/story.json` dosyasıdır: açılış sahnesi, sabit sahne tarifi ve her turda dört seçenek (Türkçe etiket, İngilizce eylem). Sunucu açılışta doğrular. Seçenekler oy başladıktan sonra değiştirilemez; zincirdeki hash farkı gösterir.
 
-Şu anki içerik "Hamam böceği memeleri": Türk memeleri viral yapay zekâ böcek videoları tarzında, bütün karakterler çizgi film hamam böceği. Dilanur'un 33 video memesi ve 20 fotoğraf memesi, dörder seçenekli 14 tur. Her video izlendi (konuşma metni ve kareler), internetteki anlamı araştırıldı ve ikonik bir kare seçildi; görseller `src/story/images/`, bağlam, kaynak ve Director eylemi [docs/memes.md](docs/memes.md) dosyasında. Telefonda ve sahnede her seçenek görseliyle görünür; Director'a yalnız metin komutu gider. Gerçek kişilerin adı ve görünüşü komutlara girmez.
+Şu anki içerik bir meme kart oyunu: her turda blockchain, kripto, Monad ve hackathon temalı bir durum (ör. "Tavsiye ettiğin memecoin 100x olunca…") ve 53 memelik desteden dört meme dağıtılır; izleyici duruma en uygun meme'i seçer. Durumlar (50) ve memeler havuz bitene kadar aynı yayında tekrar etmez. Bütün karakterler çizgi film hamam böceği ve Türkçe konuşur; bayrak olarak yalnız Türk bayrağı, yalnız saygıyla kullanılır. Memeler Dilanur'un 33 video memesi (her birinden ikonik bir kare) ve 20 fotoğraf memesi; görseller `src/story/images/`, durum listesi, bağlam ve Director eylemleri [docs/memes.md](docs/memes.md) dosyasında. Telefonda ve sahnede her meme görseliyle görünür; Director'a yalnız metin komutu gider.
 
-Bir seçeneğe görsel eklemek için dosyayı `src/story/images/` altına koyup seçenekte `"image": "dosya.jpg"` yazın (küçük harf, .jpg/.png/.webp). Sunucu açılışta dosyanın varlığını denetler; görsel adresi dosya içeriğinin özetini taşır, böylece değiştirilen görsel eski önbellekten gelmez.
+Sahne ekranı tam ekrandır: video bütün ekranı kaplar; durum sorusu, oy çubukları, QR ve kazanan yazısı videonun üstünde durur. Kazanan yazısı meme'in kaç saniye sonra ekrana geleceğini, ekrandayken de kaç saniye daha oynayacağını sayar.
+
+Desteye meme eklemek için `memes` listesine `label`, `action` ve isteğe bağlı `image` yazın; görseli `src/story/images/` altına koyun (küçük harf, .jpg/.png/.webp). Sunucu açılışta dosyanın varlığını denetler; görsel adresi dosya içeriğinin özetini taşır, böylece değiştirilen görsel eski önbellekten gelmez.
 
 Hazırlık denetiminden öğrenilen: model sahnedeki nesnelere komut olmadan yönelebiliyor. Seçenekler sahnenin kendiliğinden davet etmediği ve görsel olarak belirgin hareketlerden seçilmeli.
 

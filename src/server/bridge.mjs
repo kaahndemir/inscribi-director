@@ -17,7 +17,7 @@ export class Bridge {
 
   static empty() {
     // Version 1 is the opening `configure` message of every Director session.
-    return {version: 1, entries: []};
+    return {version: 1, entries: [], lastChunk: null};
   }
 
   save() {
@@ -77,12 +77,19 @@ export class Bridge {
   // The first video chunk made with a direction is when the audience sees it. The stage reports each chunk
   // as it arrives; a chunk starts playing once the video already buffered has played out.
   chunk({prompt_version: version, playback_seconds: playback, buffer_depth_seconds: buffered}) {
-    const entry = this.state.entries.find((e) => e.version === version);
-    if (!entry || entry.shownAt || entry.status === 'rejected' || entry.status === 'abandoned') return false;
     const seconds = (value) => (Number.isFinite(value) && value > 0 ? Math.min(value, MAX_SECONDS) : 0);
     const now = this.now();
-    entry.shownAt = new Date(now + seconds(buffered) * 1000).toISOString();
-    entry.playbackMs = Math.round((seconds(playback) || DEFAULT_PLAYBACK_SECONDS) * 1000);
+    const startAt = now + seconds(buffered) * 1000;
+    const playbackMs = Math.round((seconds(playback) || DEFAULT_PLAYBACK_SECONDS) * 1000);
+    // The chunk on screen right now, whatever prompt made it: screens count down to its end.
+    this.state.lastChunk = {version, startAt, playbackMs};
+    const entry = this.state.entries.find((e) => e.version === version);
+    if (!entry || entry.shownAt || entry.status === 'rejected' || entry.status === 'abandoned') {
+      this.save();
+      return false;
+    }
+    entry.shownAt = new Date(startAt).toISOString();
+    entry.playbackMs = playbackMs;
     // A chunk made with the prompt proves it was applied, even if that report is still on its way.
     if (entry.status === 'waiting') {
       entry.status = 'applied';

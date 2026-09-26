@@ -7,56 +7,60 @@ const base = {
   opening: 'Opening scene.',
   premise: 'A robot in a room.',
   continuation: 'Continue.',
-  rounds: [{choices: [{label: 'A', action: 'Does A.'}, {label: 'B', action: 'Does B.'}, {label: 'C', action: 'Does C.'}, {label: 'D', action: 'Does D.'}]}],
+  memes: [{label: 'A', action: 'Does A.'}, {label: 'B', action: 'Does B.'}, {label: 'C', action: 'Does C.'}, {label: 'D', action: 'Does D.'}],
+  questions: [{topic: 'KONU', question: 'Bir durum…'}],
 };
 
 test('the shipped story is valid', () => {
   const story = loadStory(fileURLToPath(new URL('../../src/story/story.json', import.meta.url)));
-  assert.ok(story.rounds.length >= 2);
-  for (const round of story.rounds) assert.equal(round.choices.length, 4);
+  assert.ok(story.memes.length >= 40);
+  assert.ok(story.questions.length >= 40);
+  assert.ok(story.memes.every((m) => m.image));
 });
 
 test('prompts combine premise, action and continuation', () => {
   const story = parseStory(base);
-  assert.equal(story.rounds[0].choices[1].prompt, 'A robot in a room. Does B. Continue.');
+  assert.equal(story.memes[1].prompt, 'A robot in a room. Does B. Continue.');
 });
 
-test('rounds need four distinct, non-empty choices', () => {
+test('the deck needs four or more distinct, non-empty memes and at least one situation', () => {
   const three = structuredClone(base);
-  three.rounds[0].choices.pop();
-  assert.throws(() => parseStory(three), /exactly four/);
+  three.memes.pop();
+  assert.throws(() => parseStory(three), /at least four/);
   const duplicate = structuredClone(base);
-  duplicate.rounds[0].choices[1].label = 'A';
+  duplicate.memes[1].label = 'A';
   assert.throws(() => parseStory(duplicate), /distinct/);
   const empty = structuredClone(base);
-  empty.rounds[0].choices[2].action = ' ';
+  empty.memes[2].action = ' ';
   assert.throws(() => parseStory(empty), /non-empty/);
+  assert.throws(() => parseStory({...base, questions: []}), /questions/);
+  assert.throws(() => parseStory({...base, questions: [{topic: 'X', question: ''}]}), /question 1/);
 });
 
 test('the choices hash changes when any label or prompt changes', () => {
-  const a = parseStory(base).rounds[0].choices;
+  const a = parseStory(base).memes;
   const changed = structuredClone(base);
-  changed.rounds[0].choices[3].action = 'Does something else.';
-  assert.equal(choicesHash(a), choicesHash(parseStory(base).rounds[0].choices));
-  assert.notEqual(choicesHash(a), choicesHash(parseStory(changed).rounds[0].choices));
+  changed.memes[3].action = 'Does something else.';
+  assert.equal(choicesHash(a), choicesHash(parseStory(base).memes));
+  assert.notEqual(choicesHash(a), choicesHash(parseStory(changed).memes));
 });
 
 test('choice images must be plain file names and become URLs', () => {
   const withImage = structuredClone(base);
-  withImage.rounds[0].choices[0].image = 'm01.jpg';
+  withImage.memes[0].image = 'm01.jpg';
   const story = parseStory(withImage, {imageUrl: (name) => `/memes/${name}?v=x`});
-  assert.equal(story.rounds[0].choices[0].image, '/memes/m01.jpg?v=x');
-  assert.equal(story.rounds[0].choices[1].image, null);
+  assert.equal(story.memes[0].image, '/memes/m01.jpg?v=x');
+  assert.equal(story.memes[1].image, null);
   for (const bad of ['../secret.jpg', 'M01.JPG', 'a/b.jpg', 'x.svg']) {
-    withImage.rounds[0].choices[0].image = bad;
+    withImage.memes[0].image = bad;
     assert.throws(() => parseStory(withImage), /image/);
   }
 });
 
 test('the hash ignores images, so a new picture does not change what voters chose', () => {
   const withImage = structuredClone(base);
-  withImage.rounds[0].choices[0].image = 'm01.jpg';
-  assert.equal(choicesHash(parseStory(withImage).rounds[0].choices), choicesHash(parseStory(base).rounds[0].choices));
+  withImage.memes[0].image = 'm01.jpg';
+  assert.equal(choicesHash(parseStory(withImage).memes), choicesHash(parseStory(base).memes));
 });
 
 test('idle scenes are wrapped in the premise and their own continuation', () => {

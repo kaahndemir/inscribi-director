@@ -7,7 +7,7 @@
 // - Web Locks keep two tabs of the same browser from paying at the same time.
 import {createPublicClient, decodeEventLog, encodeFunctionData, formatEther, http, keccak256} from 'viem';
 import {generatePrivateKey, privateKeyToAccount} from 'viem/accounts';
-import {$, getJson, postJson, secondsLeft} from './shared.mjs';
+import {$, getJson, postJson, secondsLeft, secondsUntil} from './shared.mjs';
 import {icon} from '../shared/icons.mjs';
 
 const WALLET_KEY = 'inscribi-director.wallet.v1';
@@ -60,8 +60,12 @@ let busy = false;
 let syncSupported = true;
 let balanceAt = 0;
 
+// Status lines are short notices; they clear themselves so they do not leave a lasting row under the button.
+let statusTimer = null;
 const setStatus = (text) => {
   $('status').textContent = text;
+  clearTimeout(statusTimer);
+  if (text) statusTimer = setTimeout(() => ($('status').textContent = ''), 6000);
 };
 
 function loadWallet() {
@@ -244,7 +248,9 @@ function finalText(round, effect) {
   if (round.winner === null) return 'Bu turda oy çıkmadı.';
   const label = round.labels[round.winner];
   if (effect?.round !== round.id) return `Seçilen: ${label}`;
-  return effect.state === 'showing' ? `Şimdi sahnede: ${label}. Ekrana bak!` : `Seçilen: ${label}. Birazdan sahnede.`;
+  if (effect.state === 'showing') return `Şimdi sahnede: ${label}. Ekrana bak!`;
+  const eta = secondsUntil(effect.etaAt, state, fetchedAt);
+  return eta ? `Seçilen: ${label}. ${eta} sn sonra sahnede.` : `Seçilen: ${label}. Birazdan sahnede.`;
 }
 
 const clock = (seconds) => `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
@@ -331,6 +337,8 @@ function render() {
     $('round-number').textContent = '';
     $('total-votes').textContent = '0 oy';
     $('countdown').textContent = state?.director?.live ? 'İlk tur birazdan' : 'Yayın başlayınca oylama açılır';
+    $('topic').textContent = 'CANLI OYLAMA';
+    $('question').textContent = 'Duruma en uygun meme hangisi?';
     $('waiting-card').hidden = false;
     $('waiting-text').textContent = state?.director?.live ? 'Video başladı; ilk tur birazdan açılacak.' : 'Yayın başlayınca oylama burada açılacak.';
     $('choices').replaceChildren();
@@ -349,6 +357,8 @@ function render() {
   status.classList.toggle('finished', !round.open);
   $('round-status-text').textContent = round.cancelled ? 'TUR İPTAL' : round.finalized ? 'TUR TAMAMLANDI' : voted ? 'OYUN KAYDEDİLDİ' : 'SÖZ SENDE';
   $('round-number').textContent = `TUR ${String(round.number).padStart(2, '0')}`;
+  $('topic').textContent = round.topic ?? 'CANLI OYLAMA';
+  $('question').textContent = round.question ?? 'Duruma en uygun meme hangisi?';
   $('total-votes').textContent = `${total} oy`;
   $('countdown').textContent = round.open && left > 0 ? `${left} sn kaldı` : round.open ? 'Oylama kapandı' : 'Sonuç belli';
   $('waiting-card').hidden = true;

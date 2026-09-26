@@ -68,7 +68,7 @@ export const participantPage = () => `${head('inscribi · canlı meme oylaması'
         </div>
         <div class="question">
           <span class="topic">${icon('flame', 13)}<span id="topic">CANLI OYLAMA</span></span>
-          <h2 id="question">Sahnede hangi meme canlansın?</h2>
+          <h2 id="question">Duruma en uygun meme hangisi?</h2>
           <div class="question-meta">
             <span>${icon('layers-3', 14)}<span id="total-votes">0 oy</span></span>
             <span class="meta-dot"></span>
@@ -107,7 +107,7 @@ export const participantPage = () => `${head('inscribi · canlı meme oylaması'
       <section class="how-it-works">
         <h3>Nasıl çalışır?</h3>
         <div><span>01</span><p><strong>Katıl</strong>Demo MON al, cüzdan kurman gerekmez.</p></div>
-        <div><span>02</span><p><strong>Oy ver</strong>Meme'ini seç, oyunu onayla.</p></div>
+        <div><span>02</span><p><strong>Oy ver</strong>Duruma en uygun meme'i seç, oyunu onayla.</p></div>
         <div><span>03</span><p><strong>Sahnede izle</strong>Kazanan meme canlı videoda canlanır.</p></div>
       </section>
     </aside>
@@ -118,60 +118,42 @@ export const participantPage = () => `${head('inscribi · canlı meme oylaması'
 </body>
 </html>`;
 
+// The stage fills the whole screen (a TV or projector above the audience): the video is the page and
+// everything else floats over it.
 export const stagePage = () => `${head('inscribi · sahne', 'stage')}
-<body>
-<div class="operator-shell stage-shell">
-<header class="navbar">
-  ${brand}
-  <div class="nav-label"><span class="nav-live"></span>Canlı sahne</div>
-  <nav class="operator-nav" aria-label="Ekranlar"><a href="/">Oylama ${icon('arrow-up-right', 14)}</a><a class="wallet-button" href="/admin">Yönetim ${icon('arrow-up-right', 16)}</a></nav>
-</header>
-<main class="stage">
-  <div class="operator-intro">
-    <div><span class="topic">${icon('sparkles', 14)} TOPLULUĞUN SAHNESİ</span>
-      <h1>Sen seç. <span>Sahne değişsin.</span></h1>
-      <p>Her oy hikâyenin bir sonraki adımını belirler.</p>
-    </div>
-    <span class="round-status" id="live-status"><i></i><span>YAYIN BEKLENİYOR</span></span>
-  </div>
-  <div class="stage-grid">
-    <section class="arena stage-player">
-      <div class="arena-top"><span class="topic">${icon('radio', 14)} CANLI SAHNE</span><span class="round-number" id="mode"></span></div>
-      <div class="screen">
-        <video id="video" autoplay playsinline></video>
-        <div class="screen-overlay" id="overlay">
-          <div class="overlay-box">
-            <span class="stage-play-mark" aria-hidden="true">${icon('radio', 28)}</span>
-            <p id="overlay-text" role="status">Sahne hazırlanıyor…</p>
-            <button class="primary large" id="start" type="button" hidden>Yayını başlat</button>
-            <p class="muted" id="budget"></p>
-          </div>
-        </div>
-        <div class="winner-banner" id="winner" hidden></div>
-      </div>
-      <div class="arena-note director-status" id="director-status" role="status">Yayın başladığında görüntü burada görünecek.</div>
-    </section>
+<body class="stage-full">
+<main class="stage-screen">
+  <video id="video" autoplay playsinline></video>
 
-    <aside class="panel">
-      <section class="manifesto stage-join-card">
-        <span class="aside-eyebrow">${icon('scan-line', 14)} SAHNEYE KATIL</span>
-        <h2>Telefonunu çıkar.<br>Hikâyeyi sen seç.</h2>
-        <div class="join">
-          <img src="/qr.svg" alt="Katılım QR kodu" class="qr">
-          <p class="join-url" id="join-url"></p>
-        </div>
-      </section>
-      <section class="arena stage-round" id="stage-round">
-        <div class="round-head"><h2 id="stage-round-title">Oylama birazdan</h2><span class="countdown" id="stage-countdown"></span></div>
-        <p class="operator-placeholder" id="tally-placeholder">Yayın başlayınca seçenekler burada görünecek.</p>
-        <ol class="tally" id="tally"></ol>
-      </section>
-      <p class="panel-footer">Monad testnet üzerinde her oy bir işlemdir.</p>
-    </aside>
+  <div class="hud hud-question" id="hud-question" hidden>
+    <span class="topic">${icon('flame', 16)}<span id="hud-topic"></span></span>
+    <h1 id="hud-text"></h1>
+    <p class="hud-hint">Telefonundan duruma en uygun meme'i seç</p>
+  </div>
+
+  <div class="hud hud-brand">${mark(true)}<span>inscribi <b>/</b> <strong>monad</strong></span><span class="director-status" id="director-status"></span></div>
+
+  <aside class="hud hud-round" id="stage-round" hidden>
+    <div class="round-head"><h2 id="stage-round-title"></h2><span class="countdown" id="stage-countdown"></span></div>
+    <ol class="tally" id="tally"></ol>
+  </aside>
+
+  <div class="hud hud-join">
+    <img src="/qr.svg" alt="Katılım QR kodu" class="qr">
+    <div><span class="aside-eyebrow">${icon('scan-line', 14)} SAHNEYE KATIL</span><p class="join-url" id="join-url"></p></div>
+  </div>
+
+  <div class="winner-banner" id="winner" hidden></div>
+
+  <div class="screen-overlay" id="overlay">
+    <div class="overlay-box">
+      <span class="stage-play-mark" aria-hidden="true">${icon('radio', 28)}</span>
+      <p id="overlay-text" role="status">Sahne hazırlanıyor…</p>
+      <button class="primary large" id="start" type="button" hidden>Yayını başlat</button>
+      <p class="muted" id="budget"></p>
+    </div>
   </div>
 </main>
-${footer('SAHNE', 'Monad üzerinde canlı oylama.')}
-</div>
 </body>
 </html>`;
 

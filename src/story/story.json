@@ -1,356 +1,540 @@
 {
-  "title": "Hamam böceği memeleri",
-  "note": "Türk memeleri hamam böceği tarzında: Dilanur'un 33 video memesi (memes.pdf) ve 20 fotoğraf memesi (memes2). Her video izlendi ve internetteki anlamı araştırıldı; her meme için ikonik bir kare seçildi (src/story/images). Bağlam, kaynak ve Director eylemi docs/memes.md'de. Gerçek kişilerin adı ve görünüşü komutlara girmez. Kontrat tur başına dört seçenek istediği için son turda bir fotoğraf memesi üç memeyle birlikte tekrar edilir; turlar bitince sunucu turları rastgele tekrarlar.",
-  "opening": "3D animated cartoon in the style of viral AI cockroach videos. Every character is an anthropomorphic cartoon cockroach with big expressive eyes, standing upright on two legs and wearing human clothes. A cheerful cockroach with a thick black mustache, a flat cap, a white shirt and a brown knitted vest strolls calmly along a colorful miniature Istanbul neighborhood street, past a corner shop with a blue wooden door, a small patch of grass and a wooden table. He sits down at the table, sips tea from a tiny tulip glass and greets a passing neighbor in Turkish: \"Günaydın komşu!\" Calm, friendly everyday mood. Warm afternoon light. Medium-wide camera. Street ambience. No on-screen text or subtitles.",
-  "premise": "3D animated cartoon in the style of viral AI cockroach videos. Every character is an anthropomorphic cartoon cockroach with big expressive eyes, standing upright on two legs and wearing human clothes. The lead is a cockroach with a thick black mustache, a flat cap, a white shirt and a brown knitted vest, on a colorful miniature Istanbul neighborhood street with a corner shop, a blue wooden door, a small patch of grass and a wooden table. Everyone speaks Turkish. Friendly everyday neighborhood life; nobody fights or attacks anyone. Keep the same lead and street. Medium-wide camera. No on-screen text or subtitles.",
+  "title": "Hamam böceği meme kartları",
+  "note": "Kart oyunu: her turda bir durum başlığı ve desteden dört meme dağıtılır; izleyici duruma en uygun meme'i seçer. Durumlar blockchain, kripto, Monad ve hackathon temalı (ilk on başlık Yakup'un Meme Arena çalışmasından). Memeler: Dilanur'un 33 video memesi (her birinden ikonik kare) ve 20 fotoğraf memesi; bağlam docs/memes.md'de. Bütün karakterler çizgi film hamam böceği, herkes Türkçe konuşur. Bayrak olarak yalnız Türk bayrağı ve yalnız saygıyla kullanılır.",
+  "opening": "3D animated cartoon in the style of viral AI cockroach videos. Every character is an anthropomorphic cartoon cockroach with big expressive eyes, standing upright on two legs and wearing human clothes. A cheerful cockroach with a thick black mustache, a flat cap, a white shirt and a brown knitted vest strolls calmly along a colorful miniature Istanbul neighborhood street, past a corner shop with a blue wooden door, a small patch of grass and a wooden table. He sits down at the table, sips tea from a tiny tulip glass and greets a passing neighbor in Turkish: \"Günaydın komşu, hayırlı sabahlar!\" All speech is in Turkish only, never Chinese or English. No flags or banners. Calm, friendly everyday mood. Warm afternoon light. Medium-wide camera. Street ambience. No on-screen text or subtitles.",
+  "premise": "3D animated cartoon in the style of viral AI cockroach videos. Every character is an anthropomorphic cartoon cockroach with big expressive eyes, standing upright on two legs and wearing human clothes. The lead is a cockroach with a thick black mustache, a flat cap, a white shirt and a brown knitted vest, on a colorful miniature Istanbul neighborhood street with a corner shop, a blue wooden door, a small patch of grass and a wooden table. All speech and singing is in Turkish only, never Chinese or English. Friendly everyday neighborhood life; nobody fights or attacks anyone. No flags or banners appear unless the action describes the Turkish flag. Keep the same lead and street. Medium-wide camera. No on-screen text or subtitles.",
   "continuation": "Expressive cartoon faces. Continue from the current moment; do not reset the scene.",
   "idleContinuation": "Everyone else from the previous moment has gone on their way; the street is calm and friendly again. Continue from the current moment; do not reset the scene.",
   "idle": [
-    "The mustached cockroach calmly walks down the street with a newspaper under his arm, nodding hello to passers-by.",
-    "The mustached cockroach sits at the wooden table, slowly stirring his tea and watching the street, relaxed.",
-    "The mustached cockroach waters the flowers in front of the corner shop with a small watering can, humming to himself.",
-    "The mustached cockroach sweeps the pavement in front of the corner shop with a broom, taking his time.",
-    "The mustached cockroach reads a newspaper on a wooden bench, turning a page and sipping tea.",
-    "The mustached cockroach walks to work with a briefcase, checking his watch, in no hurry.",
-    "The mustached cockroach rides an old bicycle slowly along the street, ringing the bell and waving.",
-    "The mustached cockroach buys fresh simit from a street cart, pays with a smile and takes a bite."
+    "The mustached cockroach calmly walks down the street with a newspaper under his arm, nodding to passers-by and saying in Turkish: \"Hayırlı işler!\"",
+    "The mustached cockroach sits at the wooden table, slowly stirring his tea and watching the street, and says to himself in Turkish: \"Oh be, dünya varmış.\"",
+    "The mustached cockroach waters the flowers in front of the corner shop with a small watering can, humming a Turkish folk tune.",
+    "The mustached cockroach sweeps the pavement in front of the corner shop with a broom, greeting a neighbor in Turkish: \"Kolay gelsin!\"",
+    "The mustached cockroach reads a newspaper on a wooden bench, turns a page and mutters in Turkish: \"Bak sen şuna.\"",
+    "The mustached cockroach walks to work with a briefcase, checks his watch and says in Turkish: \"Geç kalmayalım.\"",
+    "The mustached cockroach rides an old bicycle slowly along the street, rings the bell and waves, calling out in Turkish: \"Selamünaleyküm!\"",
+    "The mustached cockroach buys fresh simit from a street cart, pays with a smile and says in Turkish: \"Eline sağlık usta!\""
   ],
-  "rounds": [
+  "questions": [
     {
-      "choices": [
-        {
-          "label": "Sen seçildin Recep",
-          "action": "A burst of bright white light fills the street and an old man with a long white beard, a white robe and a wooden staff appears before the mustached cockroach, points at him and says slowly and solemnly in Turkish: \"Sen seçildin Recep.\" The mustached cockroach freezes, points at his own chest and asks, baffled and whiny: \"Neden ben?\"",
-          "image": "v01.jpg"
-        },
-        {
-          "label": "Çimenlere girme",
-          "action": "A nervous teenage boy drives a small car down the street with the mustached cockroach in the passenger seat; the car veers toward the patch of grass and the engine roars. The mustached cockroach grips the dashboard and shouts in Turkish, panicking: \"Çimenlere girme, çimenlere girme! Motoru bağırtma!\"",
-          "image": "v02.jpg"
-        },
-        {
-          "label": "Yoğurt doldurmak bir sanat işidir",
-          "action": "The mustached cockroach ties on a white apron at the wooden table, where a big tray of white yogurt sits, and carefully cuts and spoons yogurt into small cups like a master craftsman while a small cartoon cockroach in an apron watches. He turns to the camera and says proudly in Turkish, in a calm interview tone: \"Bazen yoğurt doldurmak çok kolay gözüküyor ama tamamen bir sanat işi.\"",
-          "image": "v03.jpg"
-        },
-        {
-          "label": "Mavi evdeki fare",
-          "action": "A small fluffy blue cartoon mouse with big pink ears hops onto the wooden table beside the mustached cockroach. Both clasp their hands together at their bellies, press their lips shut and slowly glance sideways and up with huge, innocent eyes, as if pretending they did nothing wrong.",
-          "image": "p01.jpg"
-        }
-      ]
+      "topic": "ANLAT ANLATABİLİRSEN",
+      "question": "Arkadaşına Web3’ü beşinci kez anlatırken…"
     },
     {
-      "choices": [
-        {
-          "label": "Anneeğ",
-          "action": "The mustached cockroach kicks a football into a little goal by the corner shop, whirls his flat cap over his head and sprints straight at the camera. He makes a heart shape with both hands, then pushes his face right up to the lens and yells in Turkish, ecstatic and stretched out: \"Anneeeğ!\"",
-          "image": "v04.jpg"
-        },
-        {
-          "label": "Sayın Bezmenler",
-          "action": "The mustached cockroach, now holding a TV reporter's microphone, knocks firmly on the blue wooden door, leans his ear against it, then says into the mic in a formal, polite but insistent tone in Turkish: \"Sayın Bezmenler, lütfen açar mısınız efendim kapıyı?\" The door stays shut and he knocks again, waiting.",
-          "image": "v05.jpg"
-        },
-        {
-          "label": "La gelir misin lütfen",
-          "action": "A woman in a long black coat shouts \"İnanmıyorum!\" at the mustached cockroach, turns and storms off down the street. He spreads both hands wide and calls after her in Turkish, exasperated and pleading with a rough voice: \"La gelir misin lütfen?\"",
-          "image": "v06.jpg"
-        },
-        {
-          "label": "Ağlayan şef",
-          "action": "The mustached cockroach, wearing a tall white chef's hat and a rainbow-striped apron over his vest, hangs up a small phone at the wooden table. His lip trembles, then he buries his face in both hands and sobs loudly, shoulders shaking, while big cartoon tears drip through his fingers.",
-          "image": "p02.jpg"
-        }
-      ]
+      "topic": "UZUN VADECİYİZ",
+      "question": "Piyasa düşerken “zaten satmayacaktım” diyen sen…"
     },
     {
-      "choices": [
-        {
-          "label": "Yalan söyleme yalancı",
-          "action": "The mustached cockroach holds a phone up close to his face like a selfie, his eyes squeezed and watery, lower lip trembling, and he shakes his head while sobbing in Turkish, whiny and broken: \"La sus yalancı, yalan söyleme la, inanmıyom inanmıyom!\"",
-          "image": "v07.jpg"
-        },
-        {
-          "label": "Yeter artık, buramıza geldi ya",
-          "action": "A reporter pushes a bunch of plain microphones at the mustached cockroach's face. Red-faced and trembling with anger, he taps the edge of his flat hand against his throat and shouts in Turkish, voice cracking with exasperation: \"Yeter artık! Yeter, buramıza geldi ya! Nedir bu be?\"",
-          "image": "v08.jpg"
-        },
-        {
-          "label": "Ya ne anlatıyon be abla",
-          "action": "A woman chatters nonstop at the mustached cockroach, waving her hands and pointing in every direction. Completely lost, he stares at her, spreads his palms and says in Turkish, baffled and pleading: \"Ya ne anlatıyon be abla, gözünü seveyim be abi!\" Then he droops his shoulders and sighs: \"Böyle mi olduk abi şimdi ya?\"",
-          "image": "v09.jpg"
-        },
-        {
-          "label": "Balkona bayrak asan abi",
-          "action": "The mustached cockroach steps out onto a small balcony above the corner shop and leans over the yellow railing, carefully tying a big red flag with a white crescent and star to it. He smooths the flag with both hands, then stands up straight and gives a proud, serious little nod.",
-          "image": "p03.jpg"
-        }
-      ]
+      "topic": "MONAD HIZI",
+      "question": "Monad işlemin, gözünü kırpmadan onaylanınca…"
     },
     {
-      "choices": [
-        {
-          "label": "Gene başladı",
-          "action": "The mustached cockroach sits hunched on a low stool beside a small iron wood stove. The stove clanks and coughs out another puff of smoke; he rolls his eyes, flicks his hand at it again and again and grumbles in Turkish in a flat, weary monotone: \"Gene başladı, gene başladı, gene başladı!\"",
-          "image": "v10.jpg"
-        },
-        {
-          "label": "Bu benim kaderim",
-          "action": "The mustached cockroach staggers under a huge armful of pink quilts and pillows, shoves them through the blue wooden door into a cramped storeroom stacked with bedding, then bends to pick up yet another bundle. Resigned, sighing, he mutters in Turkish in a sing-song monotone: \"Bu benim kaderim, bu benim kaderim.\"",
-          "image": "v11.jpg"
-        },
-        {
-          "label": "Abi geldiler abi",
-          "action": "The mustached cockroach holds a smartphone right up to his face as if live streaming. Suddenly a flood of cartoon hearts and gift boxes bursts out of the screen around him; overwhelmed, eyes squeezed half shut, mouth wide open, he wails in Turkish in a high, emotional, almost crying voice: \"Abi geldiler abi!\"",
-          "image": "v12.jpg"
-        },
-        {
-          "label": "Debug çözen yazılımcı",
-          "action": "The mustached cockroach sits at the wooden table typing fast on a keyboard in front of a big monitor full of glowing lines of code, a paper coffee cup beside him. He hits one final key, then swivels around to the camera with a huge, satisfied grin and says proudly in Turkish: \"Çalışıyor!\"",
-          "image": "p04.jpg"
-        }
-      ]
+      "topic": "AIRDROP NÖBETİ",
+      "question": "Airdrop açıklanacak diye sabahtan beri sayfayı yenilerken…"
     },
     {
-      "choices": [
-        {
-          "label": "Ee sen şimdi naneyi yemedin mi",
-          "action": "A young man in a blue T-shirt marches up to the mustached cockroach on the patch of grass; they stand nose to nose, holding each other's shirt fronts as if a fight is coming, but nobody swings. The mustached cockroach tilts his head and asks in Turkish, calm, slow and deadpan: \"Ee şimdi sen naneyi yemedin mi?\"",
-          "image": "v13.jpg"
-        },
-        {
-          "label": "Aç lan gapıyı",
-          "action": "The mustached cockroach storms down the street to the blue wooden door, pounds on it with his fist, grabs the handle and rattles it hard, then leans in and yells in Turkish, furious and impatient, in a thick Anatolian accent: \"Aç lan gapıyı!\"",
-          "image": "v14.jpg"
-        },
-        {
-          "label": "Terliyorum",
-          "action": "A serious woman stands beside the mustached cockroach and talks earnestly to a reporter holding a microphone. The mustached cockroach sits at the wooden table, bored, rolling his head and staring at the sky, then interrupts her, fanning his face with his cap, and says in Turkish in a small, flat, whiny voice: \"Terliyorum.\"",
-          "image": "v15.jpg"
-        },
-        {
-          "label": "Birbirini gösteren kahramanlar",
-          "action": "Two cockroaches in identical red-and-blue full-body superhero suits and masks drop down beside the mustached cockroach. All three freeze in a triangle, lean forward and jab stiff outstretched fingers at each other, eyes wide in shock, each accusing the others of being the copy.",
-          "image": "p05.jpg"
-        }
-      ]
+      "topic": "BİR KÜÇÜK PANİK",
+      "question": "Coin’i yanlış ağa gönderdiğini fark ettiğin o an…"
     },
     {
-      "choices": [
-        {
-          "label": "Çok şükür Yarabbi",
-          "action": "The mustached cockroach sits at the wooden table next to a row of huge water bottles while a reporter holds a microphone to him. He gulps down a full glass of water in long greedy swallows, one hand pressed on his chest, then lowers the glass, closes his eyes and exhales with deep relief in Turkish: \"Oh, çok şükür Yarabbim.\"",
-          "image": "v16.jpg"
-        },
-        {
-          "label": "Selam sana İmparator",
-          "action": "The mustached cockroach stands on the street at night under bright floodlights, a red-and-yellow scarf around his neck and a red-and-yellow flag waving behind him. He raises his right arm high with an open palm in a solemn salute and shouts three times in Turkish, rhythmically, hoarse and full of passion: \"Selam sana İmparator!\"",
-          "image": "v17.jpg"
-        },
-        {
-          "label": "Hemen engellendin koçum",
-          "action": "The mustached cockroach sits at the wooden table staring down at his smartphone, reading an annoying message. Unimpressed, he jabs the screen with his finger, looks up at the camera with a smug little smile and says in Turkish, calm and dismissive: \"Hemen engellendin, hemen engellendin koçum. Sana güle güle!\" and waves goodbye.",
-          "image": "v18.jpg"
-        },
-        {
-          "label": "Ciddi kedi",
-          "action": "An orange cartoon cat hops onto the wooden table next to the mustached cockroach. Both turn slowly toward the camera and freeze, staring dead straight ahead with huge round eyes and completely blank, serious faces, not blinking, while a leaf drifts past.",
-          "image": "p06.jpg"
-        }
-      ]
+      "topic": "KESİN BİLGİ Mİ?",
+      "question": "Gruptaki arkadaş “bu coin kesin 100x” deyince…"
     },
     {
-      "choices": [
-        {
-          "label": "Nasıl",
-          "action": "A smiling woman walks up to the mustached cockroach and greets him warmly, asking in Azerbaijani: \"Necəsiz?\" The mustached cockroach freezes, squints, leans his ear toward her with a puzzled, sheepish half-smile and asks in Turkish, drawn out and confused: \"Nasıl?\"",
-          "image": "v19.jpg"
-        },
-        {
-          "label": "Yirmağa gideyrum",
-          "action": "The mustached cockroach slips on a sheet of snow at the top of the steep street and slides down on his back, unable to stop, holding his phone up to film himself, arms flailing, speeding toward a little stream at the bottom. He yells in Turkish with a Black Sea accent, half laughing, half panicking: \"Ula yirmağa gideyrum! Yirmağa gideyrum!\"",
-          "image": "v20.jpg"
-        },
-        {
-          "label": "Noluyor lan kim bu",
-          "action": "The mustached cockroach dozes on a chair by the wooden table, then jolts awake, eyes bulging, whipping his head left and right in alarm, and shouts in Turkish, gruff and panicked: \"Noluyo lan? Kim lan bu?\" Then he leaps up and dives behind the table to peek out suspiciously.",
-          "image": "v21.jpg"
-        },
-        {
-          "label": "Denizde overthink",
-          "action": "The mustached cockroach walks to where the street opens onto a sparkling blue sea, clasps his hands behind his back and stands still, gazing at the far shore with a heavy, faraway look. The wind ruffles his vest; he lets out a long, slow sigh, lost in deep thought.",
-          "image": "p07.jpg"
-        }
-      ]
+      "topic": "SON BİR BAKIŞ",
+      "question": "“Son kez grafiğe bakıp yatacağım” deyip saati 04.00 yapınca…"
     },
     {
-      "choices": [
-        {
-          "label": "La bizi kim alabilir",
-          "action": "A cartoon street reporter holds a red microphone up to him. He pulls his chin up, spreads both open palms wide, shrugs and says in Turkish with cocky Black Sea swagger, totally unbothered: \"La bizi kim alabilir? Biz buradayız, şansı yok!\" He then taps his chest proudly and grins.",
-          "image": "v22.jpg"
-        },
-        {
-          "label": "Aynen aynen",
-          "action": "He sits at the wooden table wearing big gaming headphones in front of a small laptop, listens, then leans back with a sly sarcastic smirk, nods slowly again and again and says in Turkish, mockingly and drawn out: \"Aynen, aynen!\" before chuckling to himself.",
-          "image": "v23.jpg"
-        },
-        {
-          "label": "Biz de birileriyiz",
-          "action": "A neighbor points admiringly at a flashy stranger in a shiny suit strolling past. The mustached cockroach frowns, slightly offended, puts a hand on his chest, then spreads his hands and says in Turkish, calm but proud: \"Canım, biz de birileriyiz yani. Biz de kendi çapımızda birileriyiz!\"",
-          "image": "v24.jpg"
-        },
-        {
-          "label": "Klavye başında masum bebek",
-          "action": "A tiny baby cockroach in a red sweater with a white collar sits on a chair at the wooden table, both hands on a big computer keyboard. It slowly turns its head to the camera with a sly, innocent little smile, fingers still resting on the keys, while the mustached cockroach eyes it suspiciously.",
-          "image": "p08.jpg"
-        }
-      ]
+      "topic": "GAS SÜRPRİZİ",
+      "question": "Göndereceğin paradan fazla işlem ücreti görünce…"
     },
     {
-      "choices": [
-        {
-          "label": "Beni ilgilendirmiyor hanımefendi",
-          "action": "His mobile phone rings; he answers it and listens to a chattering woman's voice. His face goes flat and stern and he repeats in Turkish, slow and utterly unimpressed: \"Beni ilgilendirmiyor. Beni ilgilendirmiyor hanımefendi, beni ilgilendirmiyor.\" Then he lowers the phone, frowns at the screen and jabs the button to hang up.",
-          "image": "v25.jpg"
-        },
-        {
-          "label": "Alacaksan al beni",
-          "action": "A rope swing hangs from a wooden beam by the corner shop. He plops onto it, swings back and forth with both hands folded on his belly, bats his eyelashes coyly and sings a folk tune in Turkish, playful and flirty: \"Alacaksan al beni, sonra pişman olursun!\" while neighbors laugh.",
-          "image": "v26.jpg"
-        },
-        {
-          "label": "Her gün de karşıma çıkıyorsun",
-          "action": "Walking past the corner shop, he nearly bumps into the same grinning neighbor who pops out from behind the blue door. He jumps back, throws both arms up in exasperation and shouts in Turkish, fed up: \"Yine mi sen lan? Her gün de karşıma çıkıyorsun! Yeter lan!\"",
-          "image": "v27.jpg"
-        },
-        {
-          "label": "Hava durumu",
-          "action": "A cockroach weather presenter in a pink suit stands at a giant weather board beside the mustached cockroach and dramatically points at two enormous red bars towering over tiny ones. The mustached cockroach gasps in horror, fans himself with his cap and cries in Turkish: \"Aman Allahım! Yarın tam iki derece daha sıcak!\" then faints onto the grass.",
-          "image": "p09.jpg"
-        }
-      ]
+      "topic": "AİLE TOPLANTISI",
+      "question": "Aile sofrasında “bu kripto tam olarak ne?” diye sana dönülünce…"
     },
     {
-      "choices": [
-        {
-          "label": "İlkkan, seni hiç dinlemedim ama bence haksızsın",
-          "action": "A thin friend beside the mustached cockroach talks nonstop, waving his hands. The mustached cockroach squeezes his eyes shut, grabs his head with both hands and groans in Turkish, weary and dismissive: \"Yani seni hiç dinlemedim ama yani bence haksızsın ya... üff!\"",
-          "image": "v28.jpg"
-        },
-        {
-          "label": "Bu halıyı dokuyan çocuk kör oldu",
-          "action": "The mustached cockroach flings open a colorful patterned carpet on the street, kneels on it and lovingly strokes the pattern in front of a doubtful customer in a dark suit. He looks up with a sincere, pleading salesman face and says in Turkish: \"Samimiyetimle söylüyorum, bunu dokuyan çocuk kör oldu ya!\"",
-          "image": "v29.jpg"
-        },
-        {
-          "label": "Cama ekmek banan adam",
-          "action": "The corner shop window shows golden roast chickens turning on a spit. The mustached cockroach presses a piece of bread against the glass, rubs it slowly up and down over the chickens as if dipping it in their juices, then bites it with closed eyes and chews blissfully, murmuring \"Mmm...\"",
-          "image": "v30.jpg"
-        },
-        {
-          "label": "Hello fellow agents",
-          "action": "A cockroach in a bright red lobster costume with a skateboard slung over his shoulder strolls up to the mustached cockroach and a group of young cockroaches, flashes an awkward, too-wide grin and says in English: \"Hello, fellow agents.\" The young cockroaches freeze and exchange suspicious side-eyes.",
-          "image": "p10.jpg"
-        }
-      ]
+      "topic": "GRUBUN UZMANI",
+      "question": "Dün cüzdan açan arkadaş bugün sana yatırım anlatırken…"
     },
     {
-      "choices": [
-        {
-          "label": "Benim oğlum koronavirüsün ilacını bulmuştur",
-          "action": "A reporter holding a red microphone interviews a woman on the street. The mustached cockroach pushes in from behind, raises his index finger, leans into the mic and announces in Turkish, dead serious and proud: \"Benim oğlum, on beş yaşındaki oğlum, koronavirüsün ilacını bulmuştur! Hayırlı olsun ülkemize!\" The reporter's jaw drops.",
-          "image": "v31.jpg"
-        },
-        {
-          "label": "Yalnız penguen",
-          "action": "A group of cartoon penguins waddles happily one way down the street while the mustached cockroach waddles alone the opposite way, arms stiff at his sides like flippers. A calm voice asks in Turkish: \"Neden bay penguen, neden inat ediyorsun?\" Without looking back he answers, solemn and determined: \"Çünkü bu benim seçimim.\"",
-          "image": "v32.jpg"
-        },
-        {
-          "label": "Bonibon yiyen fare",
-          "action": "Colorful candy-coated chocolate buttons spill from a tipped-over candy tube onto the wooden table. The mustached cockroach and a small gray clay mouse sit side by side, each holding one big red candy with both hands, nibbling it super fast with crunching sounds, cheeks puffed and eyes wide, glancing around suspiciously.",
-          "image": "v33.jpg"
-        },
-        {
-          "label": "Keyifli köpek",
-          "action": "A fluffy cartoon shiba inu dog lounges on a cream sofa next to the wooden table, front paws crossed, and throws a slow, smug side-eye with raised eyebrows. The mustached cockroach sits beside it, crosses his arms the same way, copies the smug side-eye and says in a pleased hum in Turkish: \"Oh, keyfim yerinde.\"",
-          "image": "p11.jpg"
-        }
-      ]
+      "topic": "MEMECOIN",
+      "question": "Tavsiye ettiğin memecoin 100x olunca…"
     },
     {
-      "choices": [
-        {
-          "label": "Siyah takımlı gözlüklü adamlar",
-          "action": "Dozens of identical cockroaches in black suits, thin black ties and small dark sunglasses march out of the corner shop and surround the mustached cockroach in a tight, stone-faced crowd. In perfect unison they adjust their sunglasses and say in a flat monotone in Turkish: \"Ben de... ben de... ben de.\" The mustached cockroach looks around, sweating.",
-          "image": "p12.jpg"
-        },
-        {
-          "label": "Metroda yorgun çocuk",
-          "action": "The mustached cockroach slumps on a bench by the wooden table next to a small cockroach kid in a puffy black jacket with one white earphone in. The kid stares blankly into nothing with heavy half-closed eyes, drooping cheeks and hands clasped in his lap, utterly drained; the mustached cockroach glances at him, sighs and slumps into the exact same tired pose.",
-          "image": "p13.jpg"
-        },
-        {
-          "label": "Kafasını tutan maymun",
-          "action": "A small cartoon monkey sits on the wooden table next to the mustached cockroach. Both suddenly freeze, grab the tops of their heads with both hands, eyes bulging and mouths stretched in a helpless, panicked grimace, and stare straight into the camera in stunned disbelief.",
-          "image": "p14.jpg"
-        },
-        {
-          "label": "Muhehehe kedi",
-          "action": "A fluffy white cartoon cat pushes its face right up to the camera beside the mustached cockroach, squints one eye, pokes out the tip of its tongue and giggles mischievously: \"Muhehehe!\" The mustached cockroach leans in with the same sly squint and snickers along, rubbing his hands together.",
-          "image": "p15.jpg"
-        }
-      ]
+      "topic": "MEMECOIN",
+      "question": "Tavsiye ettiğin memecoin ertesi gün sıfırlanınca…"
     },
     {
-      "choices": [
-        {
-          "label": "Müzik dinleyen köpek",
-          "action": "A brown cartoon dog sits beside the mustached cockroach as a soft soulful song plays. Both lift their chins into warm golden light, close their eyes and sway slowly, lips pressed in blissful calm, completely lost in the music and at peace with the world.",
-          "image": "p16.jpg"
-        },
-        {
-          "label": "Göğe bakıp no no no",
-          "action": "The mustached cockroach suddenly freezes, slowly tilts his head all the way back and stares up at the sky, eyes huge and watery, eyebrows raised, mouth hanging open in overwhelmed dread. His lip trembles as he whispers in panicked disbelief: \"No no no no...\"",
-          "image": "p17.jpg"
-        },
-        {
-          "label": "Uzanan kedi",
-          "action": "A tiny gray cartoon kitten lies flat on its back on the wooden table, belly up, paws folded on its chest, fast asleep. The mustached cockroach yawns hugely, lies down beside it in the exact same pose, folds his hands on his vest, closes his eyes with a blissful smile and lets out a long, contented \"Ohhh...\"",
-          "image": "p18.jpg"
-        },
-        {
-          "label": "Üzgün kurbağa",
-          "action": "A small sad green cartoon frog sits on the wooden table with droopy eyelids, big watery eyes and a heavy down-turned lip, both hands raised beside its cheeks in despair. The mustached cockroach sits next to it and copies the exact pose, lower lip trembling, eyes glistening, and lets out a long, sad sigh.",
-          "image": "p19.jpg"
-        }
-      ]
+      "topic": "RUG PULL",
+      "question": "Geliştiriciler projenin Twitter hesabını silince…"
     },
     {
-      "choices": [
-        {
-          "label": "Yangında gülen kız",
-          "action": "Behind him an old wooden shed down the street burns with big cartoon flames and smoke while firefighter cockroaches spray it with a hose. In the foreground the mustached cockroach slowly turns to the camera with a small, sly, knowing smirk and narrowed eyes, as if he started it, then blinks innocently.",
-          "image": "p20.jpg"
-        },
-        {
-          "label": "Çimenlere girme",
-          "action": "A nervous teenage boy drives a small car down the street with the mustached cockroach in the passenger seat; the car veers toward the patch of grass and the engine roars. The mustached cockroach grips the dashboard and shouts in Turkish, panicking: \"Çimenlere girme, çimenlere girme! Motoru bağırtma!\"",
-          "image": "v02.jpg"
-        },
-        {
-          "label": "Aç lan gapıyı",
-          "action": "The mustached cockroach storms down the street to the blue wooden door, pounds on it with his fist, grabs the handle and rattles it hard, then leans in and yells in Turkish, furious and impatient, in a thick Anatolian accent: \"Aç lan gapıyı!\"",
-          "image": "v14.jpg"
-        },
-        {
-          "label": "Ciddi kedi",
-          "action": "An orange cartoon cat hops onto the wooden table next to the mustached cockroach. Both turn slowly toward the camera and freeze, staring dead straight ahead with huge round eyes and completely blank, serious faces, not blinking, while a leaf drifts past.",
-          "image": "p06.jpg"
-        }
-      ]
+      "topic": "SEED PHRASE",
+      "question": "Seed phrase’ini yazdığın kâğıdı annen çöpe atınca…"
+    },
+    {
+      "topic": "CÜZDAN",
+      "question": "Cüzdan şifresini hatırlamaya çalışırken üçüncü denemen de yanlış çıkınca…"
+    },
+    {
+      "topic": "BOĞA SEZONU",
+      "question": "Portföyün bir gecede ikiye katlanınca…"
+    },
+    {
+      "topic": "AYI SEZONU",
+      "question": "Portföyün bir gecede yarıya inince…"
+    },
+    {
+      "topic": "HODL",
+      "question": "Herkes satarken sen hâlâ tutuyorsan…"
+    },
+    {
+      "topic": "FOMO",
+      "question": "Satın aldığın saniye grafik aşağı dönünce…"
+    },
+    {
+      "topic": "EKRAN GÖRÜNTÜSÜ",
+      "question": "Kâr ekran görüntüsünü paylaşıp beş dakika sonra zarara geçince…"
+    },
+    {
+      "topic": "NFT",
+      "question": "Sağ tıklayıp kaydettiğin NFT’nin fiyatını öğrenince…"
+    },
+    {
+      "topic": "WHITEPAPER",
+      "question": "Projenin whitepaper’ı tek sayfa ve yarısı emoji çıkınca…"
+    },
+    {
+      "topic": "YÖNETİŞİM",
+      "question": "DAO oylamasında tek oyla kaybedince…"
+    },
+    {
+      "topic": "STAKING",
+      "question": "“Kilitli” yazan stake’ini acil çekmen gerekince…"
+    },
+    {
+      "topic": "TESTNET",
+      "question": "Testnet coin’leriyle zengin olduğunu sanan arkadaşa…"
+    },
+    {
+      "topic": "FAUCET",
+      "question": "Faucet’ten gelen demo MON cüzdanına düşünce…"
+    },
+    {
+      "topic": "MONAD",
+      "question": "Saniyede 10.000 işlemi ilk kez canlı görünce…"
+    },
+    {
+      "topic": "MONAD",
+      "question": "Blok süresinin bir saniyenin altında olduğunu öğrenen eski blockchain’ci…"
+    },
+    {
+      "topic": "ZİNCİR ÜSTÜ",
+      "question": "Oyunun zincire yazıldığını görünce…"
+    },
+    {
+      "topic": "İŞLEM ONAYI",
+      "question": "Onay beklerken işlem “pending”de takılı kalınca…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Hackathon’da gece 03.00’te kod ilk kez çalışınca…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Demodan beş dakika önce her şey bozulunca…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Jüri “bunun iş modeli ne?” diye sorunca…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Doksan saniyelik sunumu dördüncü dakikaya uzatınca…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Wi-Fi tam deploy anında gidince…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Takım arkadaşın main branch’e direkt push atınca…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "“Bende çalışıyordu” diyen yazılımcı sahnede…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Sponsor masasında bedava tişört bitince…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Pizza geldi diye bütün salon aynı anda kalkınca…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Teslime bir dakika kala GitHub reposunun private olduğunu fark edince…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Kazananlar açıklanırken takımının adı okununca…"
+    },
+    {
+      "topic": "HACKATHON",
+      "question": "Başka takım senin fikrini sahnede sununca…"
+    },
+    {
+      "topic": "YAZILIMCI",
+      "question": "Cuma akşamı production’a deploy atınca…"
+    },
+    {
+      "topic": "YAZILIMCI",
+      "question": "Bir saattir aradığın hatanın eksik bir noktalı virgül çıkınca…"
+    },
+    {
+      "topic": "YAZILIMCI",
+      "question": "Yapay zekâya “bunu düzelt” deyip bütün projeyi baştan yazdırınca…"
+    },
+    {
+      "topic": "YAZILIMCI",
+      "question": "Kodu yorum satırı olmadan devralınca…"
+    },
+    {
+      "topic": "YAZILIMCI",
+      "question": "“Küçük bir değişiklik” diye başlayan iş üç gün sürünce…"
+    },
+    {
+      "topic": "İSTANBUL",
+      "question": "Metrobüste yanındaki kişinin telefonunda grafiği yeşil görünce…"
+    },
+    {
+      "topic": "İSTANBUL",
+      "question": "Kripto kazancıyla İstanbul’da kira ödemeye çalışınca…"
+    },
+    {
+      "topic": "SAHNE SENDE",
+      "question": "Bu oylamada senin seçtiğin meme kazanınca…"
+    }
+  ],
+  "memes": [
+    {
+      "id": "v01",
+      "label": "Sen seçildin Recep",
+      "action": "A burst of bright white light fills the street and an old man with a long white beard, a white robe and a wooden staff appears before the mustached cockroach, points at him and says slowly and solemnly in Turkish: \"Sen seçildin Recep.\" The mustached cockroach freezes, points at his own chest and asks, baffled and whiny: \"Neden ben?\"",
+      "image": "v01.jpg"
+    },
+    {
+      "id": "v02",
+      "label": "Çimenlere girme",
+      "action": "A nervous teenage boy drives a small car down the street with the mustached cockroach in the passenger seat; the car veers toward the patch of grass and the engine roars. The mustached cockroach grips the dashboard and shouts in Turkish, panicking: \"Çimenlere girme, çimenlere girme! Motoru bağırtma!\"",
+      "image": "v02.jpg"
+    },
+    {
+      "id": "v03",
+      "label": "Yoğurt doldurmak bir sanat işidir",
+      "action": "The mustached cockroach ties on a white apron at the wooden table, where a big tray of white yogurt sits, and carefully cuts and spoons yogurt into small cups like a master craftsman while a small cartoon cockroach in an apron watches. He turns to the camera and says proudly in Turkish, in a calm interview tone: \"Bazen yoğurt doldurmak çok kolay gözüküyor ama tamamen bir sanat işi.\"",
+      "image": "v03.jpg"
+    },
+    {
+      "id": "v04",
+      "label": "Anneeğ",
+      "action": "The mustached cockroach kicks a football into a little goal by the corner shop, whirls his flat cap over his head and sprints straight at the camera. He makes a heart shape with both hands, then pushes his face right up to the lens and yells in Turkish, ecstatic and stretched out: \"Anneeeğ!\"",
+      "image": "v04.jpg"
+    },
+    {
+      "id": "v05",
+      "label": "Sayın Bezmenler",
+      "action": "The mustached cockroach, now holding a TV reporter's microphone, knocks firmly on the blue wooden door, leans his ear against it, then says into the mic in a formal, polite but insistent tone in Turkish: \"Sayın Bezmenler, lütfen açar mısınız efendim kapıyı?\" The door stays shut and he knocks again, waiting.",
+      "image": "v05.jpg"
+    },
+    {
+      "id": "v06",
+      "label": "La gelir misin lütfen",
+      "action": "A woman in a long black coat shouts \"İnanmıyorum!\" at the mustached cockroach, turns and storms off down the street. He spreads both hands wide and calls after her in Turkish, exasperated and pleading with a rough voice: \"La gelir misin lütfen?\"",
+      "image": "v06.jpg"
+    },
+    {
+      "id": "v07",
+      "label": "Yalan söyleme yalancı",
+      "action": "The mustached cockroach holds a phone up close to his face like a selfie, his eyes squeezed and watery, lower lip trembling, and he shakes his head while sobbing in Turkish, whiny and broken: \"La sus yalancı, yalan söyleme la, inanmıyom inanmıyom!\"",
+      "image": "v07.jpg"
+    },
+    {
+      "id": "v08",
+      "label": "Yeter artık, buramıza geldi ya",
+      "action": "A reporter pushes a bunch of plain microphones at the mustached cockroach's face. Red-faced and trembling with anger, he taps the edge of his flat hand against his throat and shouts in Turkish, voice cracking with exasperation: \"Yeter artık! Yeter, buramıza geldi ya! Nedir bu be?\"",
+      "image": "v08.jpg"
+    },
+    {
+      "id": "v09",
+      "label": "Ya ne anlatıyon be abla",
+      "action": "A woman chatters nonstop at the mustached cockroach, waving her hands and pointing in every direction. Completely lost, he stares at her, spreads his palms and says in Turkish, baffled and pleading: \"Ya ne anlatıyon be abla, gözünü seveyim be abi!\" Then he droops his shoulders and sighs: \"Böyle mi olduk abi şimdi ya?\"",
+      "image": "v09.jpg"
+    },
+    {
+      "id": "v10",
+      "label": "Gene başladı",
+      "action": "The mustached cockroach sits hunched on a low stool beside a small iron wood stove. The stove clanks and coughs out another puff of smoke; he rolls his eyes, flicks his hand at it again and again and grumbles in Turkish in a flat, weary monotone: \"Gene başladı, gene başladı, gene başladı!\"",
+      "image": "v10.jpg"
+    },
+    {
+      "id": "v11",
+      "label": "Bu benim kaderim",
+      "action": "The mustached cockroach staggers under a huge armful of pink quilts and pillows, shoves them through the blue wooden door into a cramped storeroom stacked with bedding, then bends to pick up yet another bundle. Resigned, sighing, he mutters in Turkish in a sing-song monotone: \"Bu benim kaderim, bu benim kaderim.\"",
+      "image": "v11.jpg"
+    },
+    {
+      "id": "v12",
+      "label": "Abi geldiler abi",
+      "action": "The mustached cockroach holds a smartphone right up to his face as if live streaming. Suddenly a flood of cartoon hearts and gift boxes bursts out of the screen around him; overwhelmed, eyes squeezed half shut, mouth wide open, he wails in Turkish in a high, emotional, almost crying voice: \"Abi geldiler abi!\"",
+      "image": "v12.jpg"
+    },
+    {
+      "id": "v13",
+      "label": "Ee sen şimdi naneyi yemedin mi",
+      "action": "A young man in a blue T-shirt marches up to the mustached cockroach on the patch of grass; they stand nose to nose, holding each other's shirt fronts as if a fight is coming, but nobody swings. The mustached cockroach tilts his head and asks in Turkish, calm, slow and deadpan: \"Ee şimdi sen naneyi yemedin mi?\"",
+      "image": "v13.jpg"
+    },
+    {
+      "id": "v14",
+      "label": "Aç lan gapıyı",
+      "action": "The mustached cockroach storms down the street to the blue wooden door, pounds on it with his fist, grabs the handle and rattles it hard, then leans in and yells in Turkish, furious and impatient, in a thick Anatolian accent: \"Aç lan gapıyı!\"",
+      "image": "v14.jpg"
+    },
+    {
+      "id": "v15",
+      "label": "Terliyorum",
+      "action": "A serious woman stands beside the mustached cockroach and talks earnestly to a reporter holding a microphone. The mustached cockroach sits at the wooden table, bored, rolling his head and staring at the sky, then interrupts her, fanning his face with his cap, and says in Turkish in a small, flat, whiny voice: \"Terliyorum.\"",
+      "image": "v15.jpg"
+    },
+    {
+      "id": "v16",
+      "label": "Çok şükür Yarabbi",
+      "action": "The mustached cockroach sits at the wooden table next to a row of huge water bottles while a reporter holds a microphone to him. He gulps down a full glass of water in long greedy swallows, one hand pressed on his chest, then lowers the glass, closes his eyes and exhales with deep relief in Turkish: \"Oh, çok şükür Yarabbim.\"",
+      "image": "v16.jpg"
+    },
+    {
+      "id": "v17",
+      "label": "Selam sana İmparator",
+      "action": "The mustached cockroach stands on the street at night under bright floodlights, a red-and-yellow scarf around his neck. He raises his right arm high with an open palm in a solemn salute and shouts three times in Turkish, rhythmically, hoarse and full of passion: \"Selam sana İmparator!\"",
+      "image": "v17.jpg"
+    },
+    {
+      "id": "v18",
+      "label": "Hemen engellendin koçum",
+      "action": "The mustached cockroach sits at the wooden table staring down at his smartphone, reading an annoying message. Unimpressed, he jabs the screen with his finger, looks up at the camera with a smug little smile and says in Turkish, calm and dismissive: \"Hemen engellendin, hemen engellendin koçum. Sana güle güle!\" and waves goodbye.",
+      "image": "v18.jpg"
+    },
+    {
+      "id": "v19",
+      "label": "Nasıl",
+      "action": "A smiling woman walks up to the mustached cockroach and greets him warmly, asking in Azerbaijani: \"Necəsiz?\" The mustached cockroach freezes, squints, leans his ear toward her with a puzzled, sheepish half-smile and asks in Turkish, drawn out and confused: \"Nasıl?\"",
+      "image": "v19.jpg"
+    },
+    {
+      "id": "v20",
+      "label": "Yirmağa gideyrum",
+      "action": "The mustached cockroach slips on a sheet of snow at the top of the steep street and slides down on his back, unable to stop, holding his phone up to film himself, arms flailing, speeding toward a little stream at the bottom. He yells in Turkish with a Black Sea accent, half laughing, half panicking: \"Ula yirmağa gideyrum! Yirmağa gideyrum!\"",
+      "image": "v20.jpg"
+    },
+    {
+      "id": "v21",
+      "label": "Noluyor lan kim bu",
+      "action": "The mustached cockroach dozes on a chair by the wooden table, then jolts awake, eyes bulging, whipping his head left and right in alarm, and shouts in Turkish, gruff and panicked: \"Noluyo lan? Kim lan bu?\" Then he leaps up and dives behind the table to peek out suspiciously.",
+      "image": "v21.jpg"
+    },
+    {
+      "id": "v22",
+      "label": "La bizi kim alabilir",
+      "action": "A cartoon street reporter holds a red microphone up to him. He pulls his chin up, spreads both open palms wide, shrugs and says in Turkish with cocky Black Sea swagger, totally unbothered: \"La bizi kim alabilir? Biz buradayız, şansı yok!\" He then taps his chest proudly and grins.",
+      "image": "v22.jpg"
+    },
+    {
+      "id": "v23",
+      "label": "Aynen aynen",
+      "action": "He sits at the wooden table wearing big gaming headphones in front of a small laptop, listens, then leans back with a sly sarcastic smirk, nods slowly again and again and says in Turkish, mockingly and drawn out: \"Aynen, aynen!\" before chuckling to himself.",
+      "image": "v23.jpg"
+    },
+    {
+      "id": "v24",
+      "label": "Biz de birileriyiz",
+      "action": "A neighbor points admiringly at a flashy stranger in a shiny suit strolling past. The mustached cockroach frowns, slightly offended, puts a hand on his chest, then spreads his hands and says in Turkish, calm but proud: \"Canım, biz de birileriyiz yani. Biz de kendi çapımızda birileriyiz!\"",
+      "image": "v24.jpg"
+    },
+    {
+      "id": "v25",
+      "label": "Beni ilgilendirmiyor hanımefendi",
+      "action": "His mobile phone rings; he answers it and listens to a chattering woman's voice. His face goes flat and stern and he repeats in Turkish, slow and utterly unimpressed: \"Beni ilgilendirmiyor. Beni ilgilendirmiyor hanımefendi, beni ilgilendirmiyor.\" Then he lowers the phone, frowns at the screen and jabs the button to hang up.",
+      "image": "v25.jpg"
+    },
+    {
+      "id": "v26",
+      "label": "Alacaksan al beni",
+      "action": "A rope swing hangs from a wooden beam by the corner shop. He plops onto it, swings back and forth with both hands folded on his belly, bats his eyelashes coyly and sings a folk tune in Turkish, playful and flirty: \"Alacaksan al beni, sonra pişman olursun!\" while neighbors laugh.",
+      "image": "v26.jpg"
+    },
+    {
+      "id": "v27",
+      "label": "Her gün de karşıma çıkıyorsun",
+      "action": "Walking past the corner shop, he nearly bumps into the same grinning neighbor who pops out from behind the blue door. He jumps back, throws both arms up in exasperation and shouts in Turkish, fed up: \"Yine mi sen lan? Her gün de karşıma çıkıyorsun! Yeter lan!\"",
+      "image": "v27.jpg"
+    },
+    {
+      "id": "v28",
+      "label": "İlkkan, seni hiç dinlemedim ama bence haksızsın",
+      "action": "A thin friend beside the mustached cockroach talks nonstop, waving his hands. The mustached cockroach squeezes his eyes shut, grabs his head with both hands and groans in Turkish, weary and dismissive: \"Yani seni hiç dinlemedim ama yani bence haksızsın ya... üff!\"",
+      "image": "v28.jpg"
+    },
+    {
+      "id": "v29",
+      "label": "Bu halıyı dokuyan çocuk kör oldu",
+      "action": "The mustached cockroach flings open a colorful patterned carpet on the street, kneels on it and lovingly strokes the pattern in front of a doubtful customer in a dark suit. He looks up with a sincere, pleading salesman face and says in Turkish: \"Samimiyetimle söylüyorum, bunu dokuyan çocuk kör oldu ya!\"",
+      "image": "v29.jpg"
+    },
+    {
+      "id": "v30",
+      "label": "Cama ekmek banan adam",
+      "action": "The corner shop window shows golden roast chickens turning on a spit. The mustached cockroach presses a piece of bread against the glass, rubs it slowly up and down over the chickens as if dipping it in their juices, then bites it with closed eyes and chews blissfully, murmuring \"Mmm...\"",
+      "image": "v30.jpg"
+    },
+    {
+      "id": "v31",
+      "label": "Benim oğlum koronavirüsün ilacını bulmuştur",
+      "action": "A reporter holding a red microphone interviews a woman on the street. The mustached cockroach pushes in from behind, raises his index finger, leans into the mic and announces in Turkish, dead serious and proud: \"Benim oğlum, on beş yaşındaki oğlum, koronavirüsün ilacını bulmuştur! Hayırlı olsun ülkemize!\" The reporter's jaw drops.",
+      "image": "v31.jpg"
+    },
+    {
+      "id": "v32",
+      "label": "Yalnız penguen",
+      "action": "A group of cartoon penguins waddles happily one way down the street while the mustached cockroach waddles alone the opposite way, arms stiff at his sides like flippers. A calm voice asks in Turkish: \"Neden bay penguen, neden inat ediyorsun?\" Without looking back he answers, solemn and determined: \"Çünkü bu benim seçimim.\"",
+      "image": "v32.jpg"
+    },
+    {
+      "id": "v33",
+      "label": "Bonibon yiyen fare",
+      "action": "Colorful candy-coated chocolate buttons spill from a tipped-over candy tube onto the wooden table. The mustached cockroach and a small gray clay mouse sit side by side, each holding one big red candy with both hands, nibbling it super fast with crunching sounds, cheeks puffed and eyes wide, glancing around suspiciously.",
+      "image": "v33.jpg"
+    },
+    {
+      "id": "p01",
+      "label": "Mavi evdeki fare",
+      "action": "A small fluffy blue cartoon mouse with big pink ears hops onto the wooden table beside the mustached cockroach. Both clasp their hands together at their bellies, press their lips shut and slowly glance sideways and up with huge, innocent eyes, as if pretending they did nothing wrong.",
+      "image": "p01.jpg"
+    },
+    {
+      "id": "p02",
+      "label": "Ağlayan şef",
+      "action": "The mustached cockroach, wearing a tall white chef's hat and a plain white apron over his vest, hangs up a small phone at the wooden table. His lip trembles, then he buries his face in both hands and sobs loudly, shoulders shaking, while big cartoon tears drip through his fingers.",
+      "image": "p02.jpg"
+    },
+    {
+      "id": "p03",
+      "label": "Balkona bayrak asan abi",
+      "action": "The mustached cockroach steps out onto a small balcony above the corner shop and leans over the yellow railing, carefully tying the Turkish flag, red with a white crescent and star, to it; he handles it with great respect and it never touches the ground. He smooths the flag with both hands, then stands up straight and gives a proud, serious little nod.",
+      "image": "p03.jpg"
+    },
+    {
+      "id": "p04",
+      "label": "Debug çözen yazılımcı",
+      "action": "The mustached cockroach sits at the wooden table typing fast on a keyboard in front of a big monitor full of glowing lines of code, a paper coffee cup beside him. He hits one final key, then swivels around to the camera with a huge, satisfied grin and says proudly in Turkish: \"Çalışıyor!\"",
+      "image": "p04.jpg"
+    },
+    {
+      "id": "p05",
+      "label": "Birbirini gösteren kahramanlar",
+      "action": "Two cockroaches in identical red-and-blue full-body superhero suits and masks drop down beside the mustached cockroach. All three freeze in a triangle, lean forward and jab stiff outstretched fingers at each other, eyes wide in shock, each accusing the others of being the copy.",
+      "image": "p05.jpg"
+    },
+    {
+      "id": "p06",
+      "label": "Ciddi kedi",
+      "action": "An orange cartoon cat hops onto the wooden table next to the mustached cockroach. Both turn slowly toward the camera and freeze, staring dead straight ahead with huge round eyes and completely blank, serious faces, not blinking, while a leaf drifts past.",
+      "image": "p06.jpg"
+    },
+    {
+      "id": "p07",
+      "label": "Denizde overthink",
+      "action": "The mustached cockroach walks to where the street opens onto a sparkling blue sea, clasps his hands behind his back and stands still, gazing at the far shore with a heavy, faraway look. The wind ruffles his vest; he lets out a long, slow sigh, lost in deep thought.",
+      "image": "p07.jpg"
+    },
+    {
+      "id": "p08",
+      "label": "Klavye başında masum bebek",
+      "action": "A tiny baby cockroach in a red sweater with a white collar sits on a chair at the wooden table, both hands on a big computer keyboard. It slowly turns its head to the camera with a sly, innocent little smile, fingers still resting on the keys, while the mustached cockroach eyes it suspiciously.",
+      "image": "p08.jpg"
+    },
+    {
+      "id": "p09",
+      "label": "Hava durumu",
+      "action": "A cockroach weather presenter in a pink suit stands at a giant weather board beside the mustached cockroach and dramatically points at two enormous red bars towering over tiny ones. The mustached cockroach gasps in horror, fans himself with his cap and cries in Turkish: \"Aman Allahım! Yarın tam iki derece daha sıcak!\" then faints onto the grass.",
+      "image": "p09.jpg"
+    },
+    {
+      "id": "p10",
+      "label": "Hello fellow agents",
+      "action": "A cockroach in a bright red lobster costume with a skateboard slung over his shoulder strolls up to the mustached cockroach and a group of young cockroaches, flashes an awkward, too-wide grin and says in Turkish: \"Selam millet, ben de sizden biriyim!\" The young cockroaches freeze and exchange suspicious side-eyes.",
+      "image": "p10.jpg"
+    },
+    {
+      "id": "p11",
+      "label": "Keyifli köpek",
+      "action": "A fluffy cartoon shiba inu dog lounges on a cream sofa next to the wooden table, front paws crossed, and throws a slow, smug side-eye with raised eyebrows. The mustached cockroach sits beside it, crosses his arms the same way, copies the smug side-eye and says in a pleased hum in Turkish: \"Oh, keyfim yerinde.\"",
+      "image": "p11.jpg"
+    },
+    {
+      "id": "p12",
+      "label": "Siyah takımlı gözlüklü adamlar",
+      "action": "Dozens of identical cockroaches in black suits, thin black ties and small dark sunglasses march out of the corner shop and surround the mustached cockroach in a tight, stone-faced crowd. In perfect unison they adjust their sunglasses and say in a flat monotone in Turkish: \"Ben de... ben de... ben de.\" The mustached cockroach looks around, sweating.",
+      "image": "p12.jpg"
+    },
+    {
+      "id": "p13",
+      "label": "Metroda yorgun çocuk",
+      "action": "The mustached cockroach slumps on a bench by the wooden table next to a small cockroach kid in a puffy black jacket with one white earphone in. The kid stares blankly into nothing with heavy half-closed eyes, drooping cheeks and hands clasped in his lap, utterly drained; the mustached cockroach glances at him, sighs and slumps into the exact same tired pose.",
+      "image": "p13.jpg"
+    },
+    {
+      "id": "p14",
+      "label": "Kafasını tutan maymun",
+      "action": "A small cartoon monkey sits on the wooden table next to the mustached cockroach. Both suddenly freeze, grab the tops of their heads with both hands, eyes bulging and mouths stretched in a helpless, panicked grimace, and stare straight into the camera in stunned disbelief.",
+      "image": "p14.jpg"
+    },
+    {
+      "id": "p15",
+      "label": "Muhehehe kedi",
+      "action": "A fluffy white cartoon cat pushes its face right up to the camera beside the mustached cockroach, squints one eye, pokes out the tip of its tongue and giggles mischievously: \"Muhehehe!\" The mustached cockroach leans in with the same sly squint and snickers along, rubbing his hands together.",
+      "image": "p15.jpg"
+    },
+    {
+      "id": "p16",
+      "label": "Müzik dinleyen köpek",
+      "action": "A brown cartoon dog sits beside the mustached cockroach as a soft soulful song plays. Both lift their chins into warm golden light, close their eyes and sway slowly, lips pressed in blissful calm, completely lost in the music and at peace with the world.",
+      "image": "p16.jpg"
+    },
+    {
+      "id": "p17",
+      "label": "Göğe bakıp no no no",
+      "action": "The mustached cockroach suddenly freezes, slowly tilts his head all the way back and stares up at the sky, eyes huge and watery, eyebrows raised, mouth hanging open in overwhelmed dread. His lip trembles as he whispers in panicked disbelief: \"No no no no...\"",
+      "image": "p17.jpg"
+    },
+    {
+      "id": "p18",
+      "label": "Uzanan kedi",
+      "action": "A tiny gray cartoon kitten lies flat on its back on the wooden table, belly up, paws folded on its chest, fast asleep. The mustached cockroach yawns hugely, lies down beside it in the exact same pose, folds his hands on his vest, closes his eyes with a blissful smile and lets out a long, contented \"Ohhh...\"",
+      "image": "p18.jpg"
+    },
+    {
+      "id": "p19",
+      "label": "Üzgün kurbağa",
+      "action": "A small sad green cartoon frog sits on the wooden table with droopy eyelids, big watery eyes and a heavy down-turned lip, both hands raised beside its cheeks in despair. The mustached cockroach sits next to it and copies the exact pose, lower lip trembling, eyes glistening, and lets out a long, sad sigh.",
+      "image": "p19.jpg"
+    },
+    {
+      "id": "p20",
+      "label": "Yangında gülen kız",
+      "action": "Behind him an old wooden shed down the street burns with big cartoon flames and smoke while firefighter cockroaches spray it with a hose. In the foreground the mustached cockroach slowly turns to the camera with a small, sly, knowing smirk and narrowed eyes, as if he started it, then blinks innocently.",
+      "image": "p20.jpg"
     }
   ]
 }

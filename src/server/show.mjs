@@ -2,9 +2,9 @@
 // hands each winner to the bridge.
 //
 // Round flow while the Director is live:
-//   open (story step N) -> votes until the on-chain deadline -> finalize -> winner prompt
-//   -> the winner's first video chunk plays in full -> next step
-// Steps run in story order; once every step has been used in this session, steps repeat at random.
+//   deal (a situation + four memes) -> open -> votes until the on-chain deadline -> finalize -> winner prompt
+//   -> the winner's first video chunk plays in full -> calm everyday scene -> next deal
+// Like a meme card game: situations and memes are dealt at random and do not repeat until the pool runs out.
 // If the session ends while a round is open, that round is cancelled so voters can take a refund.
 import {formatEther, parseEther} from 'viem';
 import {choicesHash} from './story.mjs';
@@ -155,8 +155,21 @@ export class Show {
     if (!entry || entry.status === 'rejected' || entry.status === 'abandoned') return null;
     const choice = this.choicesFor(this.rounds[entry.round])?.[entry.choice];
     if (!choice) return null;
-    const showing = !!entry.shownAt && this.now() >= Date.parse(entry.shownAt);
-    return {round: entry.round, label: choice.label, image: choice.image ?? null, state: showing ? 'showing' : 'coming'};
+    const now = this.now();
+    const showing = !!entry.shownAt && now >= Date.parse(entry.shownAt);
+    if (showing) return {round: entry.round, label: choice.label, image: choice.image ?? null, state: 'showing', endsAt: Date.parse(entry.shownAt) + entry.playbackMs};
+    return {round: entry.round, label: choice.label, image: choice.image ?? null, state: 'coming', etaAt: this.eta(entry, now)};
+  }
+
+  // When a chosen meme should reach the screen: an accepted prompt starts with the chunk after the one
+  // playing now; one still waiting for the provider needs one more chunk. Null when there is no chunk yet.
+  eta(entry, now) {
+    const last = this.bridge.state.lastChunk;
+    if (!last) return null;
+    let at = last.startAt + last.playbackMs;
+    if (entry.status !== 'applied') at += last.playbackMs;
+    while (at < now) at += last.playbackMs;
+    return at;
   }
 
   // Operator-facing actions ------------------------------------------------------------
@@ -177,29 +190,36 @@ export class Show {
     if (!Number.isInteger(duration) || duration < 5 || duration > 600) throw new Error('round duration must be 5-600 seconds');
     if (!this.session.live) throw new Error('the Director session is not live');
     if (this.latest?.open) throw new Error('a round is already open');
-    const step = this.nextStep();
-    const storyRound = this.story.rounds[step];
+    const {question, memes} = this.deal();
 
-    const hash = choicesHash(storyRound.choices);
+    const hash = choicesHash(memes.map((i) => this.story.memes[i]));
     const fee = parseEther(this.config.voteFeeMon);
     await this.chain.write('open', [hash, BigInt(duration), fee]);
     const id = Number(await this.chain.read('latestRound'));
-    this.rounds[id] = {round: id, step, attempt: this.session.state.attempts, choicesHash: hash, openedAt: new Date().toISOString()};
+    this.rounds[id] = {round: id, question, memes, attempt: this.session.state.attempts, choicesHash: hash, openedAt: new Date().toISOString()};
     this.store.write('rounds', this.rounds);
-    this.log('round opened', {id, step: step + 1});
+    this.log('round opened', {id, question: question + 1, memes: memes.map((i) => this.story.memes[i].id)});
     await this.refresh();
     return this.rounds[id];
   }
 
-  // Story order first; afterwards a random step, never the same one twice in a row.
-  nextStep() {
-    const opened = this.roundsThisSession();
-    const total = this.story.rounds.length;
-    if (opened.length < total) return opened.length;
-    if (total === 1) return 0;
-    const last = opened.at(-1).step;
-    const pick = Math.floor(this.random() * (total - 1));
-    return pick >= last ? pick + 1 : pick;
+  // A situation not yet used in this session and four memes not yet dealt in this session. When a pool
+  // runs out it starts over, leaving out what the previous round showed.
+  deal() {
+    const opened = this.roundsThisSession().filter((r) => Array.isArray(r.memes));
+    const previous = opened.at(-1);
+    const pickFrom = (total, used, count, avoid) => {
+      let pool = [...Array(total).keys()].filter((i) => !used.has(i));
+      if (pool.length < count) pool = [...Array(total).keys()].filter((i) => !avoid.includes(i));
+      const picks = [];
+      while (picks.length < count) picks.push(pool.splice(Math.floor(this.random() * pool.length), 1)[0]);
+      return picks;
+    };
+    const usedQuestions = new Set(opened.map((r) => r.question));
+    const usedMemes = new Set(opened.flatMap((r) => r.memes));
+    const [question] = pickFrom(this.story.questions.length, usedQuestions, 1, previous ? [previous.question] : []);
+    const memes = pickFrom(this.story.memes.length, usedMemes, 4, previous?.memes ?? []);
+    return {question, memes};
   }
 
   async finalizeLatest() {
@@ -229,14 +249,16 @@ export class Show {
     const round = this.latest;
     if (!round?.finalized || round.winner === NO_WINNER || !round.meta || !this.session.live) return;
     if (round.meta.attempt !== this.session.state.attempts) return;
-    const choice = this.story.rounds[round.meta.step]?.choices[round.winner];
+    const choice = this.choicesFor(round.meta)?.[round.winner];
     if (choice) this.bridge.steer(round.id, round.winner, choice.prompt);
   }
 
   // Views -------------------------------------------------------------------------------
 
   choicesFor(meta) {
-    return meta ? this.story.rounds[meta.step]?.choices ?? null : null;
+    if (!Array.isArray(meta?.memes)) return null;
+    const choices = meta.memes.map((i) => this.story.memes[i]);
+    return choices.every(Boolean) ? choices : null;
   }
 
   publicState() {
@@ -252,7 +274,8 @@ export class Show {
       round: round && choices
         ? {
             id: round.id,
-            storyStep: round.meta.step + 1,
+            topic: this.story.questions[round.meta.question]?.topic ?? null,
+            question: this.story.questions[round.meta.question]?.question ?? null,
             number: Object.values(this.rounds).filter((r) => r.attempt === round.meta.attempt && r.round <= round.id).length,
             labels: choices.map((c) => c.label),
             images: choices.map((c) => c.image ?? null),
@@ -267,6 +290,7 @@ export class Show {
         : null,
       cancelledRounds: this.cancelled,
       effect: this.effect(),
+      serverNow: this.now(),
       director: {status: session.status, live: session.status === 'live', firstFrame: !!session.firstFrameAt},
     };
   }
@@ -281,7 +305,7 @@ export class Show {
       drip,
       operator: {address: this.chain.operator, balanceMon: this.operatorBalance === null ? null : formatEther(this.operatorBalance)},
       settings: {autoRounds: this.config.autoRounds, roundSeconds: this.config.roundSeconds, directorMode: this.config.directorMode, voteFeeMon: this.config.voteFeeMon, chunkSeconds: this.config.chunkSeconds},
-      story: {title: this.story.title, opening: this.story.opening, steps: this.story.rounds.length},
+      story: {title: this.story.title, opening: this.story.opening, memes: this.story.memes.length, questions: this.story.questions.length},
       // Spend at provider list price ($0.08/s, 60 s minimum per session); an upper bound of the real bill on the fal dashboard.
       spentUsd: session.spentUsd,
       budgetUsd: session.budgetUsd,

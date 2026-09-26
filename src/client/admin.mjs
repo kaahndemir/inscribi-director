@@ -79,7 +79,8 @@ function render() {
 
   fill($('round'), round
     ? [
-        ['Zincir turu', `#${round.id} · bu yayında ${round.number}. tur · soru ${round.storyStep}/${state.story.steps}`],
+        ['Zincir turu', `#${round.id} · bu yayında ${round.number}. tur`],
+        ['Durum sorusu', round.question ?? '-'],
         ['Durum', round.cancelled ? 'İptal' : round.finalized ? 'Sonuçlandı' : round.open ? `Açık · ${secondsLeft(round, state.blockTime, fetchedAt)} sn` : '-'],
         ['Oylar', round.labels.map((label, i) => `${label}: ${round.counts[i]}`).join(' · ')],
         ['Kazanan', round.winner === null ? '-' : round.labels[round.winner]],

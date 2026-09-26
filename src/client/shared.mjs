@@ -23,6 +23,16 @@ export function secondsLeft(round, blockTime, fetchedAt) {
   return Math.max(0, Math.ceil(round.deadline - chainNow));
 }
 
+// Server time now, from the server clock in the last state and the local time since it was fetched.
+export const serverNow = (state, fetchedAt) => (state?.serverNow ?? fetchedAt) + (Date.now() - fetchedAt);
+
+// Whole seconds until a server timestamp, or null when it is unknown or past.
+export function secondsUntil(at, state, fetchedAt) {
+  if (!at) return null;
+  const left = Math.ceil((at - serverNow(state, fetchedAt)) / 1000);
+  return left > 0 ? left : null;
+}
+
 export function formatSeconds(seconds) {
   return seconds > 0 ? `${seconds} sn` : '';
 }

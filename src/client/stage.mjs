@@ -3,7 +3,7 @@
 // and relays the provider's answers back to the server.
 import {createFalClient} from '@fal-ai/client';
 import {wma} from '@fal-ai/client/realtime';
-import {$, getJson, postJson, secondsLeft, formatSeconds} from './shared.mjs';
+import {$, getJson, postJson, secondsLeft, secondsUntil} from './shared.mjs';
 import {icon} from '../shared/icons.mjs';
 
 const DIRECTOR_APP = 'minimax/h3-max/director';
@@ -177,8 +177,6 @@ function renderTally(round) {
 function render() {
   const {round, session} = state;
   $('join-url').textContent = state.joinUrl.replace(/^https?:\/\//, '');
-  $('mode').textContent = state.settings.directorMode === 'fake' ? 'PROVA' : 'DIRECTOR';
-  $('live-status').lastElementChild.textContent = session.status === 'live' ? 'YAYIN CANLI' : 'YAYIN BEKLENİYOR';
   const limit = session.maxMs === null ? 'süre sınırı yok' : `en fazla ${Math.round(session.maxMs / 1000)} sn`;
   const budget = session.budgetUsd === null ? '' : ` · fal ${session.spentUsd.toFixed(2)}/${session.budgetUsd} USD`;
   $('budget').textContent = `Kalan yayın hakkı: ${session.remaining}/${session.maxSessions} · ${limit}${budget}`;
@@ -196,33 +194,46 @@ function render() {
   }
 
   renderWinner(round);
-  $('tally-placeholder').hidden = !!round;
+  // While the winner plays, the video has the screen to itself (only the banner and the QR stay).
+  const showing = !!round && state.effect?.round === round.id && state.effect.state === 'showing';
+  $('hud-question').hidden = !round?.question || showing;
+  $('stage-round').hidden = !round || showing;
   if (!round) {
-    $('stage-round-title').textContent = session.status === 'live' ? 'İlk tur birazdan' : 'Oylama birazdan';
-    $('stage-countdown').textContent = '';
     $('tally').replaceChildren();
     tallyFor = null;
     return;
   }
+  $('hud-topic').textContent = round.topic ?? '';
+  $('hud-text').textContent = round.question ?? '';
   $('stage-round-title').textContent = `Tur ${round.number}`;
-  $('stage-countdown').textContent = round.open ? formatSeconds(secondsLeft(round, state.blockTime, fetchedAt)) : '';
+  const left = secondsLeft(round, state.blockTime, fetchedAt);
+  $('stage-countdown').textContent = round.open ? (left > 0 ? `${left} sn` : 'süre doldu') : round.finalized ? 'sonuç' : '';
   renderTally(round);
 }
 
 // Between rounds the banner follows the winner: chosen, then on screen while its first chunk plays.
+// The banner says what is chosen, how many seconds until it reaches the screen, and then how long it plays.
 let bannerKey = null;
 function renderWinner(round) {
   // The winner of the latest round only; a round without votes shows nothing new.
   const effect = state.effect?.round === round?.id ? state.effect : null;
   let banner = null;
   if (round?.open) banner = null;
-  else if (effect?.state === 'showing') banner = {title: 'Şimdi sahnede', label: effect.label, image: effect.image, showing: true};
-  else if (effect) banner = {title: 'Seçilen · sahneye geliyor…', label: effect.label, image: effect.image};
-  else if (round?.finalized && round.winner !== null) banner = {title: 'Seçilen', label: round.labels[round.winner], image: round.images?.[round.winner]};
+  else if (effect?.state === 'showing') {
+    const left = secondsUntil(effect.endsAt, state, fetchedAt);
+    banner = {key: 'showing', title: left ? `Şimdi sahnede · ${left} sn` : 'Şimdi sahnede', label: effect.label, image: effect.image, showing: true};
+  } else if (effect) {
+    const eta = secondsUntil(effect.etaAt, state, fetchedAt);
+    banner = {key: 'coming', title: eta ? `Seçilen · ${eta} sn sonra sahnede` : 'Seçilen · birazdan sahnede', label: effect.label, image: effect.image};
+  } else if (round?.finalized && round.winner !== null) banner = {key: 'chosen', title: 'Seçilen', label: round.labels[round.winner], image: round.images?.[round.winner]};
   const winner = $('winner');
   winner.hidden = !banner;
-  const key = banner && `${banner.title}|${banner.label}`;
-  if (!banner || key === bannerKey) return;
+  if (!banner) return;
+  const key = `${banner.key}|${banner.label}`;
+  if (key === bannerKey) {
+    winner.querySelector('small').textContent = banner.title;
+    return;
+  }
   bannerKey = key;
   winner.classList.toggle('showing', !!banner.showing);
   const parts = [];
