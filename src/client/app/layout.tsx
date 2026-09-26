@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Monad Pulse — Her soruya bir meme',
-  description: "Meme'ini seç, topluluğun nabzını tut. Monad Pulse mobil oylama deneyimi.",
+  title: 'Inscribi — Monad üzerinde canlı oylama',
+  description: 'Inscribi ile meme seç, oy ver, sahneyi yönlendir. Monad testnet üzerinde canlı oylama deneyimi.',
 };
 
 export const viewport: Viewport = {

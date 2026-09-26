@@ -168,15 +168,15 @@ export default function MemeArena() {
     return (
       <>
         <header className="navbar">
-          <a className="brand" href="/" aria-label="Monad Pulse ana sayfa">
-            <Mark /><span>monad <b>/</b> <strong>pulse</strong></span>
+          <a className="brand" href="/" aria-label="Inscribi ana sayfa">
+            <Mark /><span>inscribi <b>/</b> <strong>monad</strong></span>
           </a>
           <div className="nav-label"><span className="nav-live" />Canlı Arena</div>
           <div className="wallet-wrap">
             <button className="wallet-button" onClick={() => setWalletOpen(!walletOpen)} aria-expanded={walletOpen}>
               <span className="wallet-avatar"><Wallet size={17} /></span>
               <span className="wallet-copy">
-                <span>Monad Wallet {wallet.funded && <span className="demo-label">DEMO</span>}</span>
+                <span>Inscribi Wallet {wallet.funded && <span className="demo-label">DEMO</span>}</span>
                 <strong>{wallet.displayAddress || '…'}</strong>
               </span>
               <ChevronDown size={14} />
@@ -192,14 +192,6 @@ export default function MemeArena() {
         </header>
 
         <main>
-          <section className="intro">
-            <div>
-              <div className="eyebrow"><span />CANLI OYLAMA</div>
-              <h1>Sahnedeki videonun<br className="mobile-break" /> devamını <span>sen seç.</span></h1>
-              <p>Her oy bir Monad işlemi. 0,001 demo MON.</p>
-            </div>
-            <div className="built-on"><Mark small /><span>BUILT ON<strong>Monad</strong></span></div>
-          </section>
 
           <div className="arena-layout">
             <div className="main-column">
@@ -223,7 +215,7 @@ export default function MemeArena() {
                   </div>
                 )}
 
-                <div className="arena-note"><ShieldCheck size={14} /><span>Monad testnet · demo MON · gerçek para değildir</span></div>
+                <div className="arena-note"><ShieldCheck size={14} /><span>Monad testnet · demo MON</span></div>
               </section>
 
               {/* Join + Refund actions */}
@@ -250,8 +242,7 @@ export default function MemeArena() {
             <aside className="side-column">
               <section className="manifesto">
                 <span className="aside-eyebrow"><Sparkles size={14} /> CANLI OYLAMA</span>
-                <h2>Sahnedeki video<br />senin seçiminle devam eder.</h2>
-                <p>Cüzdan otomatik oluşturuldu. Demo bakiye ile oy ver, sonuçları izle.</p>
+                <h2>Seç, oy ver,<br />sahneyi yönlendir.</h2>
                 <div className="manifesto-bottom">
                   <div className="stacked-icons"><span>✳</span><span>◈</span><span>☺</span></div>
                   <span>Aynı zincir.<br /><b>Bin farklı tepki.</b></span>
@@ -259,16 +250,16 @@ export default function MemeArena() {
               </section>
               <section className="how-it-works">
                 <h3>Nasıl çalışır?</h3>
-                <div><span>01</span><p><strong>Katıl</strong>Demo MON al, cüzdanın hazır.</p></div>
-                <div><span>02</span><p><strong>Oy ver</strong>Tur açılınca seçimini yap.</p></div>
-                <div><span>03</span><p><strong>Sonuçlar</strong>Kazanan seçenek sahneyi yönlendirir.</p></div>
+                <div><span>01</span><p><strong>Katıl</strong>Demo MON al.</p></div>
+                <div><span>02</span><p><strong>Oy ver</strong>Seçimini yap.</p></div>
+                <div><span>03</span><p><strong>Sonuç</strong>Kazanan sahneyi yönlendirir.</p></div>
               </section>
             </aside>
           </div>
 
           <footer>
-            <span><Mark small /> monad / pulse</span>
-            <span>İnternetin ruhu. Monad'ın hızı.</span>
+            <span><Mark small /> inscribi / monad</span>
+            <span>Monad üzerinde canlı oylama.</span>
             <span className="footer-mode">CANLI <i /></span>
           </footer>
         </main>
@@ -299,39 +290,31 @@ export default function MemeArena() {
   return (
     <>
       <header className="navbar">
-        <a className="brand" href="/" aria-label="Monad Pulse ana sayfa">
-          <Mark /><span>monad <b>/</b> <strong>pulse</strong></span>
+        <a className="brand" href="/" aria-label="Inscribi ana sayfa">
+          <Mark /><span>inscribi <b>/</b> <strong>monad</strong></span>
         </a>
         <div className="nav-label"><span className="nav-live" />Meme arena <span className="beta">BETA</span></div>
         <div className="wallet-wrap">
           <button className="wallet-button" onClick={() => setWalletOpen(!walletOpen)} aria-expanded={walletOpen} aria-controls="wallet-detail">
             <span className="wallet-avatar"><Wallet size={17} /></span>
             <span className="wallet-copy">
-              <span>Monad Wallet <span className="demo-label">DEMO</span></span>
+              <span>Inscribi Wallet <span className="demo-label">DEMO</span></span>
               <strong>128.50 <small>MON</small></strong>
             </span>
             <ChevronDown size={14} />
           </button>
           {walletOpen && (
             <div className="wallet-popover" id="wallet-detail">
-              <div><strong>Demo cüzdan</strong><button onClick={() => setWalletOpen(false)} aria-label="Cüzdan detayını kapat"><X size={18} /></button></div>
+              <div><strong>Demo cüzdan</strong><button onClick={() => setWalletOpen(false)} aria-label="Kapat"><X size={18} /></button></div>
               <p>0x7A2…8F4C</p>
               <b>128.50 MON</b>
-              <p>Bu bakiye örnektir. Gerçek cüzdan bağlı değil; oy verirken MON harcanmaz.</p>
+              <p>Örnek bakiye. Oy verirken MON harcanmaz.</p>
             </div>
           )}
         </div>
       </header>
 
       <main>
-        <section className="intro">
-          <div>
-            <div className="eyebrow"><span />TOPLULUĞUN NABZI BURADA</div>
-            <h1>Az laf.<br className="mobile-break" /> Çok <span>meme.</span><Sparkles className="title-spark" size={25} /></h1>
-            <p>Bir soru, üç meme. Cevabı topluluk versin.</p>
-          </div>
-          <div className="built-on"><Mark small /><span>BUILT ON<strong>Monad</strong></span></div>
-        </section>
 
         <div className="arena-layout">
           <div className="main-column">
@@ -408,7 +391,7 @@ export default function MemeArena() {
                 </div>
               )}
 
-              <div className="arena-note"><ShieldCheck size={14} /><span>Demo tur · Örnek topluluk oyları · MON harcanmaz</span></div>
+              <div className="arena-note"><ShieldCheck size={14} /><span>Demo tur · Örnek oylar · MON harcanmaz</span></div>
             </section>
 
             <section className="desktop-vote">
@@ -431,9 +414,8 @@ export default function MemeArena() {
 
           <aside className="side-column">
             <section className="manifesto">
-              <span className="aside-eyebrow"><Sparkles size={14} /> MEME'LER KONUŞSUN.</span>
+              <span className="aside-eyebrow"><Sparkles size={14} /> MEME ARENA</span>
               <h2>Sen seç.<br />Topluluk karar versin.</h2>
-              <p>En çok oyu alan meme sahneyi kapar. Her tur, yeni bir ruh hâli.</p>
               <div className="manifesto-bottom">
                 <div className="stacked-icons"><span>✳</span><span>◈</span><span>☺</span></div>
                 <span>Aynı zincir.<br /><b>Bin farklı tepki.</b></span>
@@ -441,9 +423,9 @@ export default function MemeArena() {
             </section>
             <section className="how-it-works">
               <h3>Nasıl çalışır?</h3>
-              <div><span>01</span><p><strong>Meme'ini seç</strong>Seni en iyi anlatana dokun.</p></div>
-              <div><span>02</span><p><strong>Oyunu bırak</strong>Seçimini onayla, sonuçları bekle.</p></div>
-              <div><span>03</span><p><strong>Kazanan sahnede</strong>En çok oy alan ana ekrana çıkar.</p></div>
+              <div><span>01</span><p><strong>Seç</strong>Meme'ini seç.</p></div>
+              <div><span>02</span><p><strong>Oyla</strong>Seçimini onayla.</p></div>
+              <div><span>03</span><p><strong>Sonuç</strong>Kazanan sahnede.</p></div>
             </section>
             {demoState.history.length > 0 && (
               <section className="recent-winners">
@@ -463,17 +445,13 @@ export default function MemeArena() {
                 })}
               </section>
             )}
-            <div className="demo-explainer">
-              <Info size={15} />
-              <p>Şu an demo arenadasın. Oylar bu oturuma özeldir; canlı topluluk ve cüzdan bağlantısı henüz aktif değil.</p>
-            </div>
           </aside>
         </div>
 
         <footer>
-          <span><Mark small /> monad / pulse</span>
-          <span>İnternetin ruhu. Monad'ın hızı.</span>
-          <span className="footer-mode">DEMO DENEYİMİ <i /></span>
+          <span><Mark small /> inscribi / monad</span>
+          <span>Monad üzerinde meme oylama.</span>
+          <span className="footer-mode">DEMO <i /></span>
         </footer>
       </main>
 
