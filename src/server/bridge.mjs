@@ -4,10 +4,14 @@
 // never re-sent automatically, because a lost acknowledgement does not prove the prompt was lost.
 
 const FINAL = new Set(['applied', 'rejected', 'abandoned']);
+// Used when a chunk report lacks its playback length (a 10 s chunk plays about 8.5 s).
+const DEFAULT_PLAYBACK_SECONDS = 8.5;
+const MAX_SECONDS = 15;
 
 export class Bridge {
-  constructor(store) {
+  constructor(store, {now = Date.now} = {}) {
     this.store = store;
+    this.now = now;
     this.state = store.read('bridge', null) ?? Bridge.empty();
   }
 
@@ -38,7 +42,7 @@ export class Bridge {
     const existing = this.state.entries.find((entry) => entry.round === round);
     if (existing) return existing;
     if (this.unresolved) return null;
-    const entry = {round, choice, prompt, version: ++this.state.version, status: 'waiting', createdAt: new Date().toISOString()};
+    const entry = {round, choice, prompt, version: ++this.state.version, status: 'waiting', createdAt: new Date(this.now()).toISOString()};
     this.state.entries.push(entry);
     this.save();
     return entry;
@@ -55,7 +59,26 @@ export class Bridge {
     if (message?.type === 'prompt_applied') return this.settle(message.prompt_version, 'applied');
     if (message?.type === 'prompt_rejected') return this.settle(message.prompt_version, 'rejected');
     if (message?.type === 'error' && message.code === 'stale_prompt_version') return this.settle(message.prompt_version, 'rejected');
+    if (message?.type === 'chunk') return this.chunk(message);
     return false;
+  }
+
+  // The first video chunk made with a direction is when the audience sees it. The stage reports each chunk
+  // as it arrives; a chunk starts playing once the video already buffered has played out.
+  chunk({prompt_version: version, playback_seconds: playback, buffer_depth_seconds: buffered}) {
+    const entry = this.state.entries.find((e) => e.version === version);
+    if (!entry || entry.shownAt || entry.status === 'rejected' || entry.status === 'abandoned') return false;
+    const seconds = (value) => (Number.isFinite(value) && value > 0 ? Math.min(value, MAX_SECONDS) : 0);
+    const now = this.now();
+    entry.shownAt = new Date(now + seconds(buffered) * 1000).toISOString();
+    entry.playbackMs = Math.round((seconds(playback) || DEFAULT_PLAYBACK_SECONDS) * 1000);
+    // A chunk made with the prompt proves it was applied, even if that report is still on its way.
+    if (entry.status === 'waiting') {
+      entry.status = 'applied';
+      entry.settledAt = new Date(now).toISOString();
+    }
+    this.save();
+    return true;
   }
 
   // The operator gives up on a direction that never got an answer, so the show can continue.
@@ -71,7 +94,7 @@ export class Bridge {
     const entry = this.state.entries.find((e) => e.version === version);
     if (!entry || FINAL.has(entry.status)) return false;
     entry.status = status;
-    entry.settledAt = new Date().toISOString();
+    entry.settledAt = new Date(this.now()).toISOString();
     this.save();
     return true;
   }

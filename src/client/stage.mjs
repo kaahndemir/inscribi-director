@@ -68,6 +68,11 @@ function startLive() {
         return;
       }
       if (RELAYED.has(message.type)) void event({type: 'provider', message});
+      // Chunk reports tell the server when a winner reaches the screen; only the timing fields are needed.
+      if (message.type === 'chunk') {
+        const {prompt_version, playback_seconds, buffer_depth_seconds} = message;
+        void event({type: 'provider', message: {type: 'chunk', prompt_version, playback_seconds, buffer_depth_seconds}});
+      }
       if (message.type === 'stream_exhausted') void stop('Director akışı sona erdi.');
     },
   });
@@ -77,6 +82,7 @@ function startLive() {
     prompt_version: 1,
     resolution: '480p',
     aspect_ratio: '16:9',
+    chunk_duration: state.settings.chunkSeconds,
     memory: 3,
     prompt: state.story.opening,
   });
@@ -153,19 +159,28 @@ function render() {
     void stop(session.reason === 'time-limit' ? 'Süre doldu, yayın kapandı.' : session.reason === 'budget' ? 'fal bütçesi doldu, yayın kapandı.' : 'Yayın kapandı.');
   }
 
+  renderWinner(round);
   if (!round) {
     $('stage-round-title').textContent = session.status === 'live' ? 'İlk tur birazdan' : 'Oylama birazdan';
     $('stage-countdown').textContent = '';
     $('tally').replaceChildren();
-    $('winner').hidden = true;
     return;
   }
   $('stage-round-title').textContent = `Tur ${round.number}`;
-  $('stage-countdown').textContent = formatSeconds(secondsLeft(round, state.blockTime, fetchedAt));
+  $('stage-countdown').textContent = round.open ? formatSeconds(secondsLeft(round, state.blockTime, fetchedAt)) : '';
   renderTally($('tally'), round, {highlight: round.finalized ? round.winner : null});
-  const showWinner = round.finalized && round.winner !== null;
-  $('winner').hidden = !showWinner;
-  if (showWinner) $('winner').textContent = `Seçilen: ${round.labels[round.winner]}`;
+}
+
+// Between rounds the banner follows the winner: chosen, then on screen while its first chunk plays.
+function renderWinner(round) {
+  const {effect} = state;
+  let text = null;
+  if (round?.open) text = null;
+  else if (effect?.state === 'showing') text = `Şimdi sahnede: ${effect.label}`;
+  else if (effect) text = `Seçilen: ${effect.label} · sahneye geliyor…`;
+  else if (round?.finalized && round.winner !== null) text = `Seçilen: ${round.labels[round.winner]}`;
+  $('winner').hidden = !text;
+  $('winner').textContent = text ?? '';
 }
 
 async function poll() {

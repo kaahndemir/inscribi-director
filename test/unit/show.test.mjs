@@ -34,3 +34,48 @@ test('after every step was used, steps repeat at random but never twice in a row
 test('rounds from an earlier session do not count toward this session\'s order', () => {
   assert.equal(showWith(3, {1: {round: 1, step: 0, attempt: 0}, 2: {round: 2, step: 1, attempt: 0}}, []).nextStep(), 0);
 });
+
+function liveShow({entries, latest, now}) {
+  const show = new Show({
+    config: {},
+    chain: {},
+    store: new MemoryStore({rounds: {7: {round: 7, step: 0, attempt: 1}}}),
+    story: {rounds: [{step: 0, choices: [{label: 'A'}, {label: 'B'}, {label: 'C'}, {label: 'D'}]}]},
+    session: {state: {attempts: 1}, live: true},
+    bridge: {state: {entries}},
+    now: () => now,
+  });
+  show.snapshot = latest && {latestRound: 7, blockTime: 0n, round: {deadline: 0n, fee: 1n, counts: [0n, 0n, 0n, 0n], ...latest}};
+  return show;
+}
+
+const T0 = Date.parse('2026-09-26T10:00:00Z');
+const at = (ms) => new Date(T0 + ms).toISOString();
+
+test('the next round waits until the winner\'s first chunk has played in full', () => {
+  const entry = {round: 7, choice: 1, status: 'applied', createdAt: at(0)};
+  assert.equal(liveShow({entries: [entry], now: T0 + 20000}).effectWatched(7), false);
+  const shown = {...entry, shownAt: at(6000), playbackMs: 4400};
+  assert.equal(liveShow({entries: [shown], now: T0 + 10000}).effectWatched(7), false);
+  assert.equal(liveShow({entries: [shown], now: T0 + 10400}).effectWatched(7), true);
+});
+
+test('the show moves on without a chunk report after a timeout, or at once when the direction was refused', () => {
+  const entry = {round: 7, choice: 1, status: 'applied', createdAt: at(0)};
+  assert.equal(liveShow({entries: [entry], now: T0 + 30000}).effectWatched(7), true);
+  assert.equal(liveShow({entries: [{...entry, status: 'rejected'}], now: T0}).effectWatched(7), true);
+  assert.equal(liveShow({entries: [{...entry, status: 'abandoned'}], now: T0}).effectWatched(7), true);
+});
+
+test('a round with no votes or a cancelled round needs no wait; an unsteered winner does', () => {
+  assert.equal(liveShow({entries: [], latest: {finalized: true, cancelled: false, winner: 255}, now: T0}).effectWatched(7), true);
+  assert.equal(liveShow({entries: [], latest: {finalized: false, cancelled: true, winner: 0}, now: T0}).effectWatched(7), true);
+  assert.equal(liveShow({entries: [], latest: {finalized: true, cancelled: false, winner: 2}, now: T0}).effectWatched(7), false);
+});
+
+test('screens say the winner is coming, then on stage once its chunk plays', () => {
+  const entry = {round: 7, choice: 1, status: 'applied', createdAt: at(0), shownAt: at(6000), playbackMs: 4400};
+  assert.deepEqual(liveShow({entries: [entry], now: T0 + 3000}).effect(), {round: 7, label: 'B', state: 'coming'});
+  assert.deepEqual(liveShow({entries: [entry], now: T0 + 6000}).effect(), {round: 7, label: 'B', state: 'showing'});
+  assert.equal(liveShow({entries: [{...entry, status: 'rejected'}], now: T0 + 6000}).effect(), null);
+});

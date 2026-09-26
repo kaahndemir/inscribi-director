@@ -155,7 +155,16 @@ test('full rehearsal on a local chain', {timeout: 240000}, async (t) => {
     }, {label: 'direction applied'});
     assert.equal(state.bridge.entries[0].choice, 1);
     assert.equal(state.bridge.entries[0].version, 2);
-    await until(() => stage.locator('#winner').textContent().then((s) => s.includes('Seçilen')), {label: 'stage winner banner'});
+    await until(() => stage.locator('#winner').textContent().then((s) => s.includes('Şimdi sahnede')), {label: 'stage shows the winner on screen'});
+    await until(() => phones[0].locator('#result').textContent().then((s) => s.includes('Şimdi sahnede')), {label: 'phone points to the stage'});
+    // The next vote opens only after the winner's first chunk has played in full.
+    const next = await until(async () => {
+      const s = await adminState();
+      return s.rounds.find((r) => r.round === round.id + 1) ? s : null;
+    }, {label: 'round 2 opened'});
+    const shown = next.bridge.entries.find((e) => e.round === round.id);
+    const opened = next.rounds.find((r) => r.round === round.id + 1);
+    assert.ok(Date.parse(opened.openedAt) >= Date.parse(shown.shownAt) + shown.playbackMs, 'round 2 opened before the winner was watched');
   });
 
   await t.test('round 2 opens automatically and steers the same session', async () => {

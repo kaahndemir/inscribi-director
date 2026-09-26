@@ -236,6 +236,14 @@ function refundableRound() {
   return (state?.cancelledRounds ?? []).find((id) => record[id] === 'paid') ?? null;
 }
 
+// After a round: the winner, then a pointer to the stage while its video plays.
+function finalText(round, effect) {
+  if (round.winner === null) return 'Bu turda oy çıkmadı.';
+  const label = round.labels[round.winner];
+  if (effect?.round !== round.id) return `Seçilen: ${label}`;
+  return effect.state === 'showing' ? `Şimdi sahnede: ${label}. Ekrana bak!` : `Seçilen: ${label}. Birazdan sahnede.`;
+}
+
 function render() {
   const ready = !!account && funded();
   $('join').hidden = !account || ready;
@@ -265,7 +273,7 @@ function render() {
   renderTally($('choices'), round, {onPick: (choice) => pay('vote', round.id, choice), disabled: !canVote, highlight: round.finalized ? round.winner : null});
 
   if (round.cancelled) $('result').textContent = 'Bu tur iptal edildi; ödediğin bedeli geri alabilirsin.';
-  else if (round.finalized) $('result').textContent = round.winner === null ? 'Bu turda oy çıkmadı.' : `Seçilen: ${round.labels[round.winner]}`;
+  else if (round.finalized) $('result').textContent = finalText(round, state.effect);
   else if (voted) $('result').textContent = 'Oyun kayıtlı. Sonucu bekle.';
   else if (!ready) $('result').textContent = 'Oy vermek için önce katıl.';
   else $('result').textContent = left > 0 ? 'Seçimini yap: her oy 0,001 demo MON.' : 'Oylama kapandı, sonuç hesaplanıyor.';

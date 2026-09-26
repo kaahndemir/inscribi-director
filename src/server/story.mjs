@@ -2,7 +2,7 @@
 import {readFileSync} from 'node:fs';
 import {keccak256, toBytes} from 'viem';
 
-const MAX_LABEL = 40;
+const MAX_LABEL = 60;
 const MAX_PROMPT = 2000;
 
 export function loadStory(path) {

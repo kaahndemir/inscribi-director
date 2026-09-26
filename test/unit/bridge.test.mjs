@@ -50,3 +50,33 @@ test('reset starts a new version sequence for a new Director session', () => {
   bridge.reset();
   assert.equal(bridge.steer(5, 1, 'c').version, 2);
 });
+
+test('the first chunk made with a direction records when it reaches the screen and how long it plays', () => {
+  let now = Date.parse('2026-09-26T10:00:00Z');
+  const bridge = new Bridge(new MemoryStore(), {now: () => now});
+  bridge.steer(1, 0, 'a');
+  assert.equal(bridge.message({type: 'prompt_applied', prompt_version: 2}), true);
+  now += 3000;
+  assert.equal(bridge.message({type: 'chunk', prompt_version: 2, playback_seconds: 4.4, buffer_depth_seconds: 0.5}), true);
+  const [entry] = bridge.state.entries;
+  assert.equal(entry.shownAt, '2026-09-26T10:00:03.500Z');
+  assert.equal(entry.playbackMs, 4400);
+  // Later chunks with the same prompt do not move it.
+  now += 5000;
+  assert.equal(bridge.message({type: 'chunk', prompt_version: 2, playback_seconds: 4.4}), false);
+  assert.equal(bridge.state.entries[0].shownAt, '2026-09-26T10:00:03.500Z');
+});
+
+test('a chunk for a direction still waiting also settles it; refused directions are never shown', () => {
+  const bridge = new Bridge(new MemoryStore());
+  bridge.steer(1, 0, 'a');
+  assert.equal(bridge.message({type: 'chunk', prompt_version: 2, playback_seconds: 99}), true);
+  assert.equal(bridge.state.entries[0].status, 'applied');
+  assert.equal(bridge.state.entries[0].playbackMs, 15000);
+  assert.equal(bridge.message({type: 'prompt_applied', prompt_version: 2}), false);
+
+  bridge.steer(2, 1, 'b');
+  bridge.message({type: 'prompt_rejected', prompt_version: 3});
+  assert.equal(bridge.message({type: 'chunk', prompt_version: 3, playback_seconds: 4}), false);
+  assert.equal(bridge.state.entries[1].shownAt, undefined);
+});

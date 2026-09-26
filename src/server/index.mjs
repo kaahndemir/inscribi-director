@@ -12,6 +12,7 @@ import {Show} from './show.mjs';
 import {createApp, roomIdFor} from './app.mjs';
 
 const FAKE_ACK_DELAY_MS = 1500;
+const FAKE_PLAYBACK_SECONDS = 3;
 const SHUTDOWN_GRACE_MS = 10000;
 
 const log = (message, details) => console.log(JSON.stringify({at: new Date().toISOString(), message, ...(details ? {details} : {})}));
@@ -38,11 +39,13 @@ const drip = new DripGate({store, chain, amount: parseEther(config.dripAmountMon
 const show = new Show({config, chain, store, story, session, bridge, log});
 await show.start();
 
-// Fake mode is for local rehearsal and tests only: directions are acknowledged without any provider.
+// Fake mode is for local rehearsal and tests only: directions are acknowledged and "shown" without any provider.
 if (config.directorMode === 'fake') {
   setInterval(() => {
     const pending = bridge.unresolved;
-    if (pending && Date.now() - Date.parse(pending.createdAt) > FAKE_ACK_DELAY_MS) bridge.message({type: 'prompt_applied', prompt_version: pending.version});
+    if (!pending || Date.now() - Date.parse(pending.createdAt) <= FAKE_ACK_DELAY_MS) return;
+    bridge.message({type: 'prompt_applied', prompt_version: pending.version});
+    bridge.message({type: 'chunk', prompt_version: pending.version, playback_seconds: FAKE_PLAYBACK_SECONDS, buffer_depth_seconds: 0});
   }, 250);
 }
 

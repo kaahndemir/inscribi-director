@@ -22,7 +22,7 @@ sahne (/stage) ◀──── tur, oy sayısı, kazanan ───── sunucu 
 2. İlk kare geldiğinde sunucu hikâyenin ilk turunu zincirde açar (`open`). Seçenekler, etiket ve prompt'ların hash'iyle zincirde dondurulur.
 3. İzleyiciler QR ile siteye girer, tek dokunuşla demo MON alır ve dört seçenekten birine oy verir. Her oy kontrata 0,001 MON ödeyen bir işlemdir; bir cüzdan her turda bir kez oy verebilir.
 4. Süre dolunca sunucu turu sonuçlandırır (`finalize`). Kazananın prompt'u köprüye kaydedilir; sahne sekmesi onu Director'a bir kez gönderir ve sağlayıcının kabulünü geri bildirir.
-5. Bir sonraki tur kendiliğinden açılır. Hikâyedeki sorular önce sırayla gelir; hepsi kullanılınca mevcut sorular rastgele tekrar eder (aynı soru art arda gelmez). Yayın durdurulunca açık tur iptal edilir; oy verenler bedellerini telefondan geri alır.
+5. Director her video parçasıyla hangi prompt sürümüyle üretildiğini bildirir; sahne sekmesi bunu sunucuya iletir. Kazananın ilk parçası ekrana gelince sahnede ve telefonlarda "Şimdi sahnede: …" yazar. Bir sonraki tur, bu parça tamamen oynadıktan sonra kendiliğinden açılır; parça bildirimi 30 sn içinde gelmezse gösteri beklemeden devam eder. Hikâyedeki sorular önce sırayla gelir; hepsi kullanılınca mevcut sorular rastgele tekrar eder (aynı soru art arda gelmez). Yayın durdurulunca açık tur iptal edilir; oy verenler bedellerini telefondan geri alır.
 
 ## Ekranlar
 
@@ -83,7 +83,11 @@ Dağıtan cüzdan kontratın sahibidir; sunucu aynı `OPERATOR_PRIVATE_KEY` ile 
 
 Hikâye `src/story/story.json` dosyasıdır: açılış sahnesi, sabit sahne tarifi ve her turda dört seçenek (Türkçe etiket, İngilizce eylem). Sunucu açılışta doğrular. Seçenekler oy başladıktan sonra değiştirilemez; zincirdeki hash farkı gösterir.
 
-Hazırlık denetiminden öğrenilen: model sahnedeki nesnelere (ör. top, kapı) komut olmadan yöneliyor. Seçenekler sahnenin kendiliğinden davet etmediği ve görsel olarak belirgin hareketlerden seçilmeli. Şu anki içerik yer tutucudur.
+Şu anki içerik "Mahalle memeleri": Dilanur'un 33 memesi, dörder seçenekli 9 tur. Düğmede meme cümlesi yazar; komut aynı sahneyi tek bir çizgi film karakterine canlandırtır. Gerçek kişilerin adı ve görünüşü komutlara girmez. Modelin Türkçe cümleyi seslendirmesi henüz doğrulanmadı.
+
+Hazırlık denetiminden öğrenilen: model sahnedeki nesnelere komut olmadan yönelebiliyor. Seçenekler sahnenin kendiliğinden davet etmediği ve görsel olarak belirgin hareketlerden seçilmeli.
+
+Kazanan bir sonraki video parçasında görünür. Parça süresi `CHUNK_SECONDS` ile ayarlanır (sağlayıcı aralığı 5–15, varsayılan 6); kısa parça kazananı daha erken gösterir, fakat üretim yetişmezse görüntü kısa süre donar. Donma görülürse `CHUNK_SECONDS=10` ile eski davranışa dönülür.
 
 ## Coolify'a kurulum
 

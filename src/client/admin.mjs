@@ -86,7 +86,8 @@ function render() {
 
   const items = bridge.entries.slice(-6).map((entry) => {
     const li = document.createElement('li');
-    li.textContent = `Tur #${entry.round} → seçenek ${entry.choice + 1}, sürüm ${entry.version}: ${DIRECTION_TEXT[entry.status] ?? entry.status}`;
+    const status = entry.shownAt ? 'sahnede gösterildi' : DIRECTION_TEXT[entry.status] ?? entry.status;
+    li.textContent = `Tur #${entry.round} → seçenek ${entry.choice + 1}, sürüm ${entry.version}: ${status}`;
     return li;
   });
   $('directions').replaceChildren(...items);
@@ -96,7 +97,8 @@ function render() {
     ['Bağlantı', state.stale ? 'Yenileniyor' : 'Canlı'],
     ['Operatör cüzdanı', `${operator.address.slice(0, 8)}… · ${operator.balanceMon ?? '?'} MON`],
     ['Demo bakiye verilen', `${drip.funded} / ${drip.limit} kişi (${drip.amountMon} MON)`],
-    ['Otomatik turlar', settings.autoRounds ? `Açık · ${settings.roundSeconds} sn` : 'Kapalı'],
+    ['Otomatik turlar', settings.autoRounds ? `Açık · ${settings.roundSeconds} sn, kazanan izlendikten sonra` : 'Kapalı'],
+    ['Video parçası', `${settings.chunkSeconds} sn`],
     ['Son hata', state.lastError ?? '-'],
   ]);
 }
