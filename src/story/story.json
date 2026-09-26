@@ -1,6 +1,6 @@
 {
   "title": "Mahalle memeleri",
-  "note": "Memeler Dilanur'un listesinden (memes.pdf, 33 madde). Düğmede meme cümlesi yazar; komut aynı sahneyi tek bir çizgi film karakterine canlandırtır. Gerçek kişilerin adı ve görünüşü komutlara girmez. Türkçe seslendirme doğrulanmadı. Kontrat tur başına dört seçenek istediği için 33. meme son turda üç memeyle birlikte tekrar edilir; turlar bitince sunucu turları rastgele tekrarlar.",
+  "note": "Memeler Dilanur'un listesinden (memes.pdf, 33 madde). Her meme videosu izlenip internetteki anlamı araştırıldı; bağlam ve kaynaklar docs/memes.md'de. Düğmede meme cümlesi yazar; komut aynı sahneyi mahalledeki bıyıklı çizgi film karakterine canlandırtır. Gerçek kişilerin adı ve görünüşü komutlara girmez. Kontrat tur başına dört seçenek istediği için 33. meme son turda üç memeyle birlikte tekrar edilir; turlar bitince sunucu turları rastgele tekrarlar.",
   "opening": "3D animated cartoon, bright and funny. One cheerful middle-aged Turkish man with a thick black mustache, a flat cap, a white shirt and a brown knitted vest stands on a colorful Istanbul neighborhood street, in front of a corner shop with a blue wooden door, a small patch of grass and a wooden table. He sips tea from a small tulip glass and looks around, waiting for something to happen. Warm afternoon light. Medium-wide camera. Street ambience. No on-screen text or subtitles.",
   "premise": "3D animated cartoon, bright and funny. One cheerful middle-aged Turkish man with a thick black mustache, a flat cap, a white shirt and a brown knitted vest, on a colorful Istanbul neighborhood street with a corner shop, a blue wooden door, a small patch of grass and a wooden table. Keep the same man and street. Medium-wide camera. No on-screen text or subtitles.",
   "continuation": "Big, exaggerated cartoon expressions. Continue from the current moment; do not reset the scene.",
@@ -9,39 +9,39 @@
       "choices": [
         {
           "label": "Sen seçildin Recep",
-          "action": "A golden beam of light shines down on the man from the sky; he looks up in awe and points at himself as a deep voice booms in Turkish: \"Sen seçildin Recep.\""
+          "action": "A burst of bright white light fills the street and an old man with a long white beard, a white robe and a wooden staff appears before the mustached man, points at him and says slowly and solemnly in Turkish: \"Sen seçildin Recep.\" The mustached man freezes, points at his own chest and asks, baffled and whiny: \"Neden ben?\""
         },
         {
           "label": "Çimenlere girme",
-          "action": "The man tiptoes onto the small patch of grass, then jumps back off in panic and wags his finger, saying in Turkish: \"Çimenlere girme!\""
+          "action": "A nervous teenage boy drives a small car down the street with the mustached man in the passenger seat; the car veers toward the patch of grass and the engine roars. The man grips the dashboard and shouts in Turkish, panicking: \"Çimenlere girme, çimenlere girme! Motoru bağırtma!\""
         },
         {
           "label": "Yoğurt doldurmak bir sanat işidir",
-          "action": "The man slowly fills a big tub on the table with thick white yogurt using a ladle, smoothing it like a proud artist, and says in Turkish: \"Yoğurt doldurmak bir sanat işidir.\""
+          "action": "The mustached man ties on a white apron at the wooden table, where a big tray of white yogurt sits, and carefully cuts and spoons yogurt into small cups like a master craftsman while a small cartoon cockroach in an apron watches. He turns to the camera and says proudly in Turkish, in a calm interview tone: \"Bazen yoğurt doldurmak çok kolay gözüküyor ama tamamen bir sanat işi.\""
         },
         {
           "label": "Anneeğ",
-          "action": "The man throws his head back and wails like a small child calling for his mother, mouth wide open, shouting in Turkish: \"Anneeğ!\""
+          "action": "The mustached man kicks a football into a little goal by the corner shop, whirls his flat cap over his head and sprints straight at the camera. He makes a heart shape with both hands, then pushes his face right up to the lens and yells in Turkish, ecstatic and stretched out: \"Anneeeğ!\""
         }
       ]
     },
     {
       "choices": [
         {
-          "label": "Sayın bezmenler",
-          "action": "The man stands behind a small wooden podium and gives a very formal, pompous speech with grand hand gestures, saying in Turkish: \"Sayın bezmenler!\""
+          "label": "Sayın Bezmenler",
+          "action": "The mustached man, now holding a TV reporter's microphone, knocks firmly on the blue wooden door, leans his ear against it, then says into the mic in a formal, polite but insistent tone in Turkish: \"Sayın Bezmenler, lütfen açar mısınız efendim kapıyı?\" The door stays shut and he knocks again, waiting."
         },
         {
           "label": "La gelir misin lütfen",
-          "action": "The man beckons someone off-screen with his finger, impatient but polite, calling in Turkish: \"La gelir misin lütfen.\""
+          "action": "A woman in a long black coat shouts \"İnanmıyorum!\" at the mustached man, turns and storms off down the street. He spreads both hands wide and calls after her in Turkish, exasperated and pleading with a rough voice: \"La gelir misin lütfen?\""
         },
         {
           "label": "Yalan söyleme yalancı",
-          "action": "The man frowns and points accusingly at the camera, shaking his finger, saying in Turkish: \"Yalan söyleme yalancı!\""
+          "action": "The mustached man holds a phone up close to his face like a selfie, his eyes squeezed and watery, lower lip trembling, and he shakes his head while sobbing in Turkish, whiny and broken: \"La sus yalancı, yalan söyleme la, inanmıyom inanmıyom!\""
         },
         {
-          "label": "Yeter artık buramıza geldi ya",
-          "action": "The man, completely fed up, holds his flat hand under his chin to show he has had enough and sighs, saying in Turkish: \"Yeter artık, buramıza geldi ya!\""
+          "label": "Yeter artık, buramıza geldi ya",
+          "action": "A reporter pushes a bunch of plain microphones at the man's face. Red-faced and trembling with anger, he taps the edge of his flat hand against his throat and shouts in Turkish, voice cracking with exasperation: \"Yeter artık! Yeter, buramıza geldi ya! Nedir bu be?\""
         }
       ]
     },
@@ -49,19 +49,19 @@
       "choices": [
         {
           "label": "Ya ne anlatıyon be abla",
-          "action": "The man throws both hands up in confusion and disbelief, shaking his head, saying in Turkish: \"Ya ne anlatıyon be abla!\""
+          "action": "A woman chatters nonstop at the man, waving her hands and pointing in every direction. Completely lost, he stares at her, spreads his palms and says in Turkish, baffled and pleading: \"Ya ne anlatıyon be abla, gözünü seveyim be abi!\" Then he droops his shoulders and sighs: \"Böyle mi olduk abi şimdi ya?\""
         },
         {
           "label": "Gene başladı",
-          "action": "The man rolls his eyes and slaps his forehead in exasperation, saying in Turkish: \"Gene başladı.\""
+          "action": "The man sits hunched on a low stool beside a small iron wood stove. The stove clanks and coughs out another puff of smoke; he rolls his eyes, flicks his hand at it again and again and grumbles in Turkish in a flat, weary monotone: \"Gene başladı, gene başladı, gene başladı!\""
         },
         {
           "label": "Bu benim kaderim",
-          "action": "Rain suddenly starts falling only on the man; he looks up at the sky with his hand on his heart, dramatically resigned, saying in Turkish: \"Bu benim kaderim.\""
+          "action": "The man staggers under a huge armful of pink quilts and pillows, shoves them through the blue wooden door into a cramped storeroom stacked with bedding, then bends to pick up yet another bundle. Resigned, sighing, he mutters in Turkish in a sing-song monotone: \"Bu benim kaderim, bu benim kaderim.\""
         },
         {
           "label": "Abi geldiler abi",
-          "action": "The man runs toward the camera in panic, looking back over his shoulder, shouting in Turkish: \"Abi geldiler abi!\""
+          "action": "The man holds a smartphone right up to his face as if live streaming. Suddenly a flood of cartoon hearts and gift boxes bursts out of the screen around him; overwhelmed, eyes squeezed half shut, mouth wide open, he wails in Turkish in a high, emotional, almost crying voice: \"Abi geldiler abi!\""
         }
       ]
     },
@@ -69,39 +69,39 @@
       "choices": [
         {
           "label": "Ee sen şimdi naneyi yemedin mi",
-          "action": "The man holds up a sprig of green mint leaves and stares at it with a slow, suspicious realization, saying in Turkish: \"Ee sen şimdi naneyi yemedin mi?\""
+          "action": "A young man in a blue T-shirt marches up to the man on the patch of grass; they stand nose to nose, holding each other's shirt fronts as if a fight is coming, but nobody swings. The man tilts his head and asks in Turkish, calm, slow and deadpan: \"Ee şimdi sen naneyi yemedin mi?\""
         },
         {
           "label": "Aç lan gapıyı",
-          "action": "The man pounds angrily on the blue wooden door with his fist, shouting in Turkish: \"Aç lan gapıyı!\""
+          "action": "The man storms down the street to the blue wooden door, pounds on it with his fist, grabs the handle and rattles it hard, then leans in and yells in Turkish, furious and impatient, in a thick Anatolian accent: \"Aç lan gapıyı!\""
         },
         {
           "label": "Terliyorum",
-          "action": "The man sweats heavily, wiping his forehead with a handkerchief and fanning himself with his cap, saying in Turkish: \"Terliyorum.\""
+          "action": "A serious woman stands beside the man and talks earnestly to a reporter holding a microphone. The man sits at the wooden table, bored, rolling his head and staring at the sky, then interrupts her, fanning his face with his cap, and says in Turkish in a small, flat, whiny voice: \"Terliyorum.\""
         },
         {
-          "label": "Çok şükür yarabbi",
-          "action": "The man raises both open palms to the sky with a huge grateful smile, saying in Turkish: \"Çok şükür yarabbi!\""
+          "label": "Çok şükür Yarabbi",
+          "action": "The man sits at the wooden table next to a row of huge water bottles while a reporter holds a microphone to him. He gulps down a full glass of water in long greedy swallows, one hand pressed on his chest, then lowers the glass, closes his eyes and exhales with deep relief in Turkish: \"Oh, çok şükür Yarabbim.\""
         }
       ]
     },
     {
       "choices": [
         {
-          "label": "Selam sana imparator",
-          "action": "The man bows deeply with a grand sweeping arm gesture, as if greeting an emperor, saying in Turkish: \"Selam sana imparator!\""
+          "label": "Selam sana İmparator",
+          "action": "The man stands on the street at night under bright floodlights, a red-and-yellow scarf around his neck and a red-and-yellow flag waving behind him. He raises his right arm high with an open palm in a solemn salute and shouts three times in Turkish, rhythmically, hoarse and full of passion: \"Selam sana İmparator!\""
         },
         {
           "label": "Hemen engellendin koçum",
-          "action": "The man holds up a smartphone, taps it firmly with one finger and smirks, saying in Turkish: \"Hemen engellendin koçum.\""
+          "action": "The man sits at the wooden table staring down at his smartphone, reading an annoying message. Unimpressed, he jabs the screen with his finger, looks up at the camera with a smug little smile and says in Turkish, calm and dismissive: \"Hemen engellendin, hemen engellendin koçum. Sana güle güle!\" and waves goodbye."
         },
         {
-          "label": "Nasıl?",
-          "action": "The man freezes in total shock, jaw dropping and eyes wide open, saying in Turkish: \"Nasıl?\""
+          "label": "Nasıl",
+          "action": "A smiling woman walks up to the man and greets him warmly, asking in Azerbaijani: \"Necəsiz?\" The man freezes, squints, leans his ear toward her with a puzzled, sheepish half-smile and asks in Turkish, drawn out and confused: \"Nasıl?\""
         },
         {
           "label": "Yirmağa gideyrum",
-          "action": "The man puts a fishing rod over his shoulder and happily marches off down the street, saying in Turkish: \"Yirmağa gideyrum!\""
+          "action": "The man slips on a sheet of snow at the top of the steep street and slides down on his back, unable to stop, holding his phone up to film himself, arms flailing, speeding toward a little stream at the bottom. He yells in Turkish with a Black Sea accent, half laughing, half panicking: \"Ula yirmağa gideyrum! Yirmağa gideyrum!\""
         }
       ]
     },
@@ -109,19 +109,19 @@
       "choices": [
         {
           "label": "Noluyor lan kim bu",
-          "action": "A strange man in a bright tracksuit suddenly appears next to him; the man jumps back startled and stares, saying in Turkish: \"Noluyor lan, kim bu?\""
+          "action": "The man dozes on a chair by the wooden table, then jolts awake, eyes bulging, whipping his head left and right in alarm, and shouts in Turkish, gruff and panicked: \"Noluyo lan? Kim lan bu?\" Then he leaps up and dives behind the table to peek out suspiciously."
         },
         {
           "label": "La bizi kim alabilir",
-          "action": "The man puffs out his chest, crosses his arms and swaggers with total confidence, saying in Turkish: \"La bizi kim alabilir?\""
+          "action": "A cartoon street reporter holds a red microphone up to him. He pulls his chin up, spreads both open palms wide, shrugs and says in Turkish with cocky Black Sea swagger, totally unbothered: \"La bizi kim alabilir? Biz buradayız, şansı yok!\" He then taps his chest proudly and grins."
         },
         {
           "label": "Aynen aynen",
-          "action": "The man nods enthusiastically again and again with a big thumbs up, saying in Turkish: \"Aynen aynen.\""
+          "action": "He sits at the wooden table wearing big gaming headphones in front of a small laptop, listens, then leans back with a sly sarcastic smirk, nods slowly again and again and says in Turkish, mockingly and drawn out: \"Aynen, aynen!\" before chuckling to himself."
         },
         {
           "label": "Biz de birileriyiz",
-          "action": "The man straightens his vest, lifts his chin and stands proudly with dignity, saying in Turkish: \"Biz de birileriyiz.\""
+          "action": "A neighbor points admiringly at a flashy stranger in a shiny suit strolling past. The mustached man frowns, slightly offended, puts a hand on his chest, then spreads his hands and says in Turkish, calm but proud: \"Canım, biz de birileriyiz yani. Biz de kendi çapımızda birileriyiz!\""
         }
       ]
     },
@@ -129,19 +129,19 @@
       "choices": [
         {
           "label": "Beni ilgilendirmiyor hanımefendi",
-          "action": "The man turns his back and waves his hand dismissively, not interested at all, saying in Turkish: \"Beni ilgilendirmiyor hanımefendi.\""
+          "action": "His mobile phone rings; he answers it and listens to a chattering woman's voice. His face goes flat and stern and he repeats in Turkish, slow and utterly unimpressed: \"Beni ilgilendirmiyor. Beni ilgilendirmiyor hanımefendi, beni ilgilendirmiyor.\" Then he lowers the phone, frowns at the screen and jabs the button to hang up."
         },
         {
           "label": "Alacaksan al beni",
-          "action": "The man spreads his arms wide and dramatically offers himself, pleading, saying in Turkish: \"Alacaksan al beni.\""
+          "action": "A rope swing hangs from a wooden beam by the corner shop. He plops onto it, swings back and forth with both hands folded on his belly, bats his eyelashes coyly and sings a folk tune in Turkish, playful and flirty: \"Alacaksan al beni, sonra pişman olursun!\" while neighbors laugh."
         },
         {
           "label": "Her gün de karşıma çıkıyorsun",
-          "action": "The same stranger pops up in front of the man again; he throws his hands up in annoyance, saying in Turkish: \"Her gün de karşıma çıkıyorsun.\""
+          "action": "Walking past the corner shop, he nearly bumps into the same grinning neighbor who pops out from behind the blue door. He jumps back, throws both arms up in exasperation and shouts in Turkish, fed up: \"Yine mi sen lan? Her gün de karşıma çıkıyorsun! Yeter lan!\""
         },
         {
-          "label": "İlkkan seni hiç dinlemedim ama bence haksızsın",
-          "action": "The man covers his ears, shakes his head and wags his finger in disagreement, saying in Turkish: \"Seni hiç dinlemedim ama bence haksızsın.\""
+          "label": "İlkkan, seni hiç dinlemedim ama bence haksızsın",
+          "action": "A thin friend beside the man talks nonstop, waving his hands. The man squeezes his eyes shut, grabs his head with both hands and groans in Turkish, weary and dismissive: \"Yani seni hiç dinlemedim ama yani bence haksızsın ya... üff!\""
         }
       ]
     },
@@ -149,19 +149,19 @@
       "choices": [
         {
           "label": "Bu halıyı dokuyan çocuk kör oldu",
-          "action": "The man proudly unrolls a colorful, intricately patterned Turkish carpet on the street and shows it off, saying in Turkish: \"Bu halıyı dokuyan çocuk kör oldu.\""
+          "action": "The man flings open a colorful patterned carpet on the street, kneels on it and lovingly strokes the pattern in front of a doubtful customer in a dark suit. He looks up with a sincere, pleading salesman face and says in Turkish: \"Samimiyetimle söylüyorum, bunu dokuyan çocuk kör oldu ya!\""
         },
         {
-          "label": "Cama ekmek banmak",
-          "action": "The man presses a piece of bread against the corner shop window, pretending to dip it into the food displayed behind the glass, and eats it happily."
+          "label": "Cama ekmek banan adam",
+          "action": "The corner shop window shows golden roast chickens turning on a spit. The man presses a piece of bread against the glass, rubs it slowly up and down over the chickens as if dipping it in their juices, then bites it with closed eyes and chews blissfully, murmuring \"Mmm...\""
         },
         {
           "label": "Benim oğlum koronavirüsün ilacını bulmuştur",
-          "action": "The man proudly holds up a small glowing medicine bottle, beaming like a proud father, saying in Turkish: \"Benim oğlum koronavirüsün ilacını bulmuştur.\""
+          "action": "A reporter holding a red microphone interviews a woman on the street. The man pushes in from behind, raises his index finger, leans into the mic and announces in Turkish, dead serious and proud: \"Benim oğlum, on beş yaşındaki oğlum, koronavirüsün ilacını bulmuştur! Hayırlı olsun ülkemize!\" The reporter's jaw drops."
         },
         {
           "label": "Yalnız penguen",
-          "action": "A lonely little penguin waddles slowly across the street all alone; the man watches it with a sad, sympathetic face."
+          "action": "A group of cartoon penguins waddles happily one way down the street while the man waddles alone the opposite way, arms stiff at his sides like flippers. A calm voice asks in Turkish: \"Neden bay penguen, neden inat ediyorsun?\" Without looking back he answers, solemn and determined: \"Çünkü bu benim seçimim.\""
         }
       ]
     },
@@ -169,19 +169,19 @@
       "choices": [
         {
           "label": "Bonibon yiyen fare",
-          "action": "A tiny mouse sits on the wooden table eating colorful candy-coated chocolates one by one; the man leans in and watches, amazed."
+          "action": "Colorful candy-coated chocolate buttons spill from a tipped-over candy tube onto the wooden table. The man and a small gray clay mouse sit side by side, each holding one big red candy with both hands, nibbling it super fast with crunching sounds, cheeks puffed and eyes wide, glancing around suspiciously."
         },
         {
           "label": "Aç lan gapıyı",
-          "action": "The man pounds angrily on the blue wooden door with his fist, shouting in Turkish: \"Aç lan gapıyı!\""
+          "action": "The man storms down the street to the blue wooden door, pounds on it with his fist, grabs the handle and rattles it hard, then leans in and yells in Turkish, furious and impatient, in a thick Anatolian accent: \"Aç lan gapıyı!\""
         },
         {
-          "label": "Nasıl?",
-          "action": "The man freezes in total shock, jaw dropping and eyes wide open, saying in Turkish: \"Nasıl?\""
+          "label": "Nasıl",
+          "action": "A smiling woman walks up to the man and greets him warmly, asking in Azerbaijani: \"Necəsiz?\" The man freezes, squints, leans his ear toward her with a puzzled, sheepish half-smile and asks in Turkish, drawn out and confused: \"Nasıl?\""
         },
         {
           "label": "Terliyorum",
-          "action": "The man sweats heavily, wiping his forehead with a handkerchief and fanning himself with his cap, saying in Turkish: \"Terliyorum.\""
+          "action": "A serious woman stands beside the man and talks earnestly to a reporter holding a microphone. The man sits at the wooden table, bored, rolling his head and staring at the sky, then interrupts her, fanning his face with his cap, and says in Turkish in a small, flat, whiny voice: \"Terliyorum.\""
         }
       ]
     }

@@ -83,7 +83,7 @@ Dağıtan cüzdan kontratın sahibidir; sunucu aynı `OPERATOR_PRIVATE_KEY` ile 
 
 Hikâye `src/story/story.json` dosyasıdır: açılış sahnesi, sabit sahne tarifi ve her turda dört seçenek (Türkçe etiket, İngilizce eylem). Sunucu açılışta doğrular. Seçenekler oy başladıktan sonra değiştirilemez; zincirdeki hash farkı gösterir.
 
-Şu anki içerik "Mahalle memeleri": Dilanur'un 33 memesi, dörder seçenekli 9 tur. Düğmede meme cümlesi yazar; komut aynı sahneyi tek bir çizgi film karakterine canlandırtır. Gerçek kişilerin adı ve görünüşü komutlara girmez. Modelin Türkçe cümleyi seslendirmesi henüz doğrulanmadı.
+Şu anki içerik "Mahalle memeleri": Dilanur'un 33 memesi, dörder seçenekli 9 tur. Her meme videosu izlendi (konuşma metni ve kareler) ve internetteki anlamı araştırıldı; bağlam, kaynak ve Director eylemi [docs/memes.md](docs/memes.md) dosyasında. Düğmede meme cümlesi yazar; komut aynı sahneyi tek bir çizgi film karakterine canlandırtır ve memenin Türkçe cümlesini söyletir. Gerçek kişilerin adı ve görünüşü komutlara girmez.
 
 Hazırlık denetiminden öğrenilen: model sahnedeki nesnelere komut olmadan yönelebiliyor. Seçenekler sahnenin kendiliğinden davet etmediği ve görsel olarak belirgin hareketlerden seçilmeli.
 
