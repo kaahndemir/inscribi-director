@@ -64,11 +64,11 @@ function LiveChoices({
               role="radio"
               aria-checked={false}
               disabled={!canVote}
-              className={`meme-card ${isWinner ? 'selected' : ''}`}
+              className={`meme-card live-card ${isWinner ? 'selected' : ''}`}
               key={`live-${round.id}-${i}`}
               onClick={() => wallet.vote(round.id, i, state)}
             >
-              <div className="meme-card-copy" style={{ padding: '20px 16px' }}>
+              <div className="meme-card-copy">
                 <strong>{label}</strong>
                 <span>{count} oy · %{share}</span>
                 <div style={{
@@ -164,6 +164,7 @@ export default function MemeArena() {
     const countdown = secondsLeft(round, liveState.blockTime, fetchedAt);
     const refundRound = wallet.findRefundableRound(liveState.cancelledRounds);
     const statusText = wallet.status || liveStatusText(round, wallet, countdown, liveState.director?.live);
+    const waitingForResult = !!round && !!wallet.payments[round.id] && !round.finalized && !round.cancelled;
 
     return (
       <>
@@ -176,7 +177,7 @@ export default function MemeArena() {
             <button className="wallet-button" onClick={() => setWalletOpen(!walletOpen)} aria-expanded={walletOpen}>
               <span className="wallet-avatar"><Wallet size={17} /></span>
               <span className="wallet-copy">
-                <span>Inscribi Wallet {wallet.funded && <span className="demo-label">DEMO</span>}</span>
+                <span>Inscribi Wallet</span>
                 <strong>{wallet.displayAddress || '…'}</strong>
               </span>
               <ChevronDown size={14} />
@@ -235,7 +236,7 @@ export default function MemeArena() {
                     Tur {refundRound} için ödediğini geri al
                   </button>
                 )}
-                {statusText && <div className="action-caption"><span>{statusText}</span></div>}
+                {waitingForResult ? <VoteCountdown seconds={countdown} /> : statusText && <div className="action-caption"><span>{statusText}</span></div>}
               </section>
             </div>
 
@@ -270,6 +271,8 @@ export default function MemeArena() {
             <button className="vote-button" onClick={wallet.join} disabled={wallet.busy}>
               <span>Katıl ve demo MON al</span><ArrowUpRight size={20} />
             </button>
+          ) : waitingForResult ? (
+            <VoteCountdown seconds={countdown} />
           ) : (
             <div className="action-caption"><span>{statusText}</span></div>
           )}
@@ -298,7 +301,7 @@ export default function MemeArena() {
           <button className="wallet-button" onClick={() => setWalletOpen(!walletOpen)} aria-expanded={walletOpen} aria-controls="wallet-detail">
             <span className="wallet-avatar"><Wallet size={17} /></span>
             <span className="wallet-copy">
-              <span>Inscribi Wallet <span className="demo-label">DEMO</span></span>
+              <span>Inscribi Wallet</span>
               <strong>128.50 <small>MON</small></strong>
             </span>
             <ChevronDown size={14} />
@@ -321,7 +324,7 @@ export default function MemeArena() {
             <section className="arena" aria-labelledby="question">
               <div className="arena-top">
                 <span className={`round-status ${results ? 'finished' : ''}`}>
-                  <i />{results ? 'TUR TAMAMLANDI' : demoState.phase === 'counting' ? 'OYLAR SAYILIYOR' : 'SÖZ SENDE'}
+                  <i />{results ? 'TUR TAMAMLANDI' : demoState.phase === 'counting' ? 'OYUN KAYDEDİLDİ' : 'SÖZ SENDE'}
                 </span>
                 <span className="round-number">
                   TUR {String(round.id).padStart(2, '0')} <span>/ {String(rounds.length).padStart(2, '0')}</span>
@@ -391,7 +394,6 @@ export default function MemeArena() {
                 </div>
               )}
 
-              <div className="arena-note"><ShieldCheck size={14} /><span>Demo tur · Örnek oylar · MON harcanmaz</span></div>
             </section>
 
             <section className="desktop-vote">
@@ -483,28 +485,28 @@ function VoteAction({
   phase: string; selected: number | null; seconds: number; last: boolean;
   onVote: () => void; onNext: () => void; onRestart: () => void;
 }) {
+  if (phase === 'counting') {
+    return <VoteCountdown seconds={seconds} duration={4} />;
+  }
+
   return (
     <>
       <div className="action-caption">
         {phase === 'voting' ? (
           <><span>{selected === null ? 'Bir meme seç, sohbete katıl.' : 'Güzel seçim. Söz artık sende.'}</span><small>1 TUR = 1 OY</small></>
-        ) : phase === 'counting' ? (
-          <><span><span className="counting-dot" />Oyun kaydedildi</span><small>{seconds} sn · sonuçlar hazırlanıyor</small></>
         ) : phase === 'complete' ? (
           <><span><Check size={14} />{rounds.length} tur, {rounds.length} tepki. İyi ki katıldın.</span><small>TAMAMLANDI</small></>
         ) : (
-          <><span><Crown size={14} />Topluluğun favorisi sahnede.</span><small><Clock3 size={12} />{seconds} sn</small></>
+          <><span><Crown size={14} />Sonuçlar hazır</span><small><Clock3 size={12} />Sonraki tur: {seconds} sn</small></>
         )}
       </div>
       <button
-        className={`vote-button ${phase === 'counting' ? 'counting' : ''}`}
-        disabled={phase === 'counting' || (phase === 'voting' && selected === null)}
+        className="vote-button"
+        disabled={phase === 'voting' && selected === null}
         onClick={phase === 'voting' ? onVote : phase === 'complete' ? onRestart : onNext}
       >
         {phase === 'voting' ? (
           <><span>Bu meme'e oy ver</span><ArrowUpRight size={20} /></>
-        ) : phase === 'counting' ? (
-          <><span>Topluluğun seçimi geliyor</span><span className="spinner" /></>
         ) : phase === 'complete' ? (
           <><span>Yeniden oyna</span><RotateCcw size={18} /></>
         ) : (
@@ -512,5 +514,21 @@ function VoteAction({
         )}
       </button>
     </>
+  );
+}
+
+function VoteCountdown({ seconds, duration }: { seconds: number; duration?: number }) {
+  const remaining = Math.max(0, Math.ceil(seconds));
+  const clock = `${String(Math.floor(remaining / 60)).padStart(2, '0')}:${String(remaining % 60).padStart(2, '0')}`;
+
+  return (
+    <div className="vote-countdown">
+      <div className="action-caption"><span><Check size={14} />Oyun kaydedildi</span><small>SONUÇ BEKLENİYOR</small></div>
+      <div className="countdown-panel">
+        <span className="countdown-copy"><Clock3 size={20} /><span>{remaining > 0 ? 'Oylama bitiyor' : 'Sonuçlar hazırlanıyor'}<small>{remaining > 0 ? 'Süre dolunca sonuçlar gösterilecek' : 'Oylama süresi doldu'}</small></span></span>
+        <strong role="timer" aria-label={`Kalan süre: ${remaining} saniye`}>{clock}</strong>
+        {duration !== undefined && <span className="countdown-track" aria-hidden="true"><i style={{ width: `${Math.min(100, remaining / duration * 100)}%` }} /></span>}
+      </div>
+    </div>
   );
 }
