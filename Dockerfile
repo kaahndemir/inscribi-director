@@ -13,6 +13,8 @@ ENV NODE_ENV=production \
     PORT=3000 \
     DATA_DIR=/data
 WORKDIR /app
+# Coolify's health check runs curl inside the container.
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 COPY package.json ./
@@ -22,5 +24,5 @@ USER node
 VOLUME ["/data"]
 EXPOSE 3000
 HEALTHCHECK --interval=15s --timeout=5s --start-period=20s --retries=3 \
-  CMD node -e "fetch('http://127.0.0.1:3000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+  CMD curl -fsS http://127.0.0.1:3000/healthz || exit 1
 CMD ["node", "src/server/index.mjs"]
