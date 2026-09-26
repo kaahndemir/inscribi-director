@@ -46,7 +46,7 @@ Yönetim bağlantısı yalnız bir kez açılır; anahtar HttpOnly çereze çevr
 Gerekenler: Node 24, Foundry (`forge`, `anvil`) ve uçtan uca test için Google Chrome.
 
 ```bash
-git clone --recurse-submodules git@github.com:kaahndemir/inscribi-director.git
+git clone --recurse-submodules https://github.com/kaahndemir/inscribi-director.git
 cd inscribi-director
 npm ci
 cp .env.example .env   # değerleri doldurun
