@@ -33,8 +33,9 @@ test('MAX_SESSION_SECONDS=0 means no server-side limit; tiny limits are rejected
   assert.throws(() => loadConfig({...valid, MAX_SESSION_SECONDS: '10'}), /MAX_SESSION_SECONDS/);
 });
 
-test('CHUNK_SECONDS defaults to 6 and stays inside the provider range', () => {
-  assert.equal(loadConfig(valid).chunkSeconds, 6);
+test('CHUNK_SECONDS defaults to 10 and stays inside the provider range', () => {
+  assert.equal(loadConfig(valid).chunkSeconds, 10);
+  assert.equal(loadConfig({...valid, CHUNK_SECONDS: '6'}).chunkSeconds, 6);
   assert.equal(loadConfig({...valid, CHUNK_SECONDS: '10'}).chunkSeconds, 10);
   assert.throws(() => loadConfig({...valid, CHUNK_SECONDS: '4'}), /CHUNK_SECONDS/);
   assert.throws(() => loadConfig({...valid, CHUNK_SECONDS: '16'}), /CHUNK_SECONDS/);

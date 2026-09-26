@@ -180,9 +180,12 @@ test('full rehearsal on a local chain', {timeout: 240000}, async (t) => {
       const s = await adminState();
       return s.bridge.entries.find((e) => e.round === round.id && e.status === 'applied') ? s : null;
     }, {label: 'round 2 direction applied'});
-    const entry = state.bridge.entries.find((e) => e.round === round.id);
+    const entry = state.bridge.entries.find((e) => e.round === round.id && e.kind !== 'idle');
     assert.equal(entry.choice, 3);
-    assert.equal(entry.version, 3);
+    // Between the two winners the Director got one calm everyday scene (version 3).
+    const idle = state.bridge.entries.find((e) => e.kind === 'idle' && e.round === round.id - 1);
+    assert.equal(idle?.version, 3);
+    assert.equal(entry.version, 4);
     assert.equal(state.session.attempts, 1);
   });
 

@@ -102,6 +102,7 @@ export class Show {
       }
       if (round?.open && round.expired) await this.finalizeLatest();
       this.steerPending();
+      this.steerIdle();
       if (this.config.autoRounds && this.canAutoOpen()) await this.openNext(this.config.roundSeconds);
     }).catch((error) => {
       this.lastError = String(error?.shortMessage ?? error?.message ?? error);
@@ -128,7 +129,7 @@ export class Show {
   // The audience watches a winner before the next vote: the first chunk made with it has played in full.
   // A round without a winner, and a direction the provider refused or the operator abandoned, need no wait.
   effectWatched(roundId) {
-    const entry = this.bridge.state.entries.find((e) => e.round === roundId);
+    const entry = this.bridge.state.entries.find((e) => e.round === roundId && e.kind !== 'idle');
     if (!entry) {
       const round = this.latest;
       return round?.id === roundId && (round.cancelled || (round.finalized && round.winner === NO_WINNER));
@@ -139,10 +140,18 @@ export class Show {
     return now - Date.parse(entry.createdAt) >= EFFECT_TIMEOUT_MS;
   }
 
+  // Once the latest winner has been watched, the Director returns to a calm everyday scene until the next winner.
+  steerIdle() {
+    if (!this.session.live || !this.story.idle?.length) return;
+    const last = this.bridge.state.entries.at(-1);
+    if (!last || last.kind === 'idle' || this.bridge.unresolved || !this.effectWatched(last.round)) return;
+    this.bridge.idle(last.round, this.story.idle[Math.floor(this.random() * this.story.idle.length)]);
+  }
+
   // What the screens say about the latest winner: on its way to the video, then on stage.
   effect() {
     if (!this.session.live) return null;
-    const entry = this.bridge.state.entries.at(-1);
+    const entry = this.bridge.state.entries.filter((e) => e.kind !== 'idle').at(-1);
     if (!entry || entry.status === 'rejected' || entry.status === 'abandoned') return null;
     const choice = this.choicesFor(this.rounds[entry.round])?.[entry.choice];
     if (!choice) return null;

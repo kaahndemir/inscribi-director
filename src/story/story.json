@@ -1,9 +1,20 @@
 {
   "title": "Hamam böceği memeleri",
   "note": "Türk memeleri hamam böceği tarzında: Dilanur'un 33 video memesi (memes.pdf) ve 20 fotoğraf memesi (memes2). Her video izlendi ve internetteki anlamı araştırıldı; her meme için ikonik bir kare seçildi (src/story/images). Bağlam, kaynak ve Director eylemi docs/memes.md'de. Gerçek kişilerin adı ve görünüşü komutlara girmez. Kontrat tur başına dört seçenek istediği için son turda bir fotoğraf memesi üç memeyle birlikte tekrar edilir; turlar bitince sunucu turları rastgele tekrarlar.",
-  "opening": "3D animated cartoon in the style of viral AI cockroach videos. Every character is an anthropomorphic cartoon cockroach with big expressive eyes, standing upright on two legs and wearing human clothes. A cheerful cockroach with a thick black mustache, a flat cap, a white shirt and a brown knitted vest stands on a colorful miniature Istanbul neighborhood street, in front of a corner shop with a blue wooden door, a small patch of grass and a wooden table. He sips tea from a tiny tulip glass and looks around, waiting for something to happen. Warm afternoon light. Medium-wide camera. Street ambience. No on-screen text or subtitles.",
-  "premise": "3D animated cartoon in the style of viral AI cockroach videos. Every character is an anthropomorphic cartoon cockroach with big expressive eyes, standing upright on two legs and wearing human clothes. The lead is a cockroach with a thick black mustache, a flat cap, a white shirt and a brown knitted vest, on a colorful miniature Istanbul neighborhood street with a corner shop, a blue wooden door, a small patch of grass and a wooden table. Keep the same lead and street. Medium-wide camera. No on-screen text or subtitles.",
-  "continuation": "Big, exaggerated cartoon expressions. Continue from the current moment; do not reset the scene.",
+  "opening": "3D animated cartoon in the style of viral AI cockroach videos. Every character is an anthropomorphic cartoon cockroach with big expressive eyes, standing upright on two legs and wearing human clothes. A cheerful cockroach with a thick black mustache, a flat cap, a white shirt and a brown knitted vest strolls calmly along a colorful miniature Istanbul neighborhood street, past a corner shop with a blue wooden door, a small patch of grass and a wooden table. He sits down at the table, sips tea from a tiny tulip glass and greets a passing neighbor in Turkish: \"Günaydın komşu!\" Calm, friendly everyday mood. Warm afternoon light. Medium-wide camera. Street ambience. No on-screen text or subtitles.",
+  "premise": "3D animated cartoon in the style of viral AI cockroach videos. Every character is an anthropomorphic cartoon cockroach with big expressive eyes, standing upright on two legs and wearing human clothes. The lead is a cockroach with a thick black mustache, a flat cap, a white shirt and a brown knitted vest, on a colorful miniature Istanbul neighborhood street with a corner shop, a blue wooden door, a small patch of grass and a wooden table. Everyone speaks Turkish. Friendly everyday neighborhood life; nobody fights or attacks anyone. Keep the same lead and street. Medium-wide camera. No on-screen text or subtitles.",
+  "continuation": "Expressive cartoon faces. Continue from the current moment; do not reset the scene.",
+  "idleContinuation": "Everyone else from the previous moment has gone on their way; the street is calm and friendly again. Continue from the current moment; do not reset the scene.",
+  "idle": [
+    "The mustached cockroach calmly walks down the street with a newspaper under his arm, nodding hello to passers-by.",
+    "The mustached cockroach sits at the wooden table, slowly stirring his tea and watching the street, relaxed.",
+    "The mustached cockroach waters the flowers in front of the corner shop with a small watering can, humming to himself.",
+    "The mustached cockroach sweeps the pavement in front of the corner shop with a broom, taking his time.",
+    "The mustached cockroach reads a newspaper on a wooden bench, turning a page and sipping tea.",
+    "The mustached cockroach walks to work with a briefcase, checking his watch, in no hurry.",
+    "The mustached cockroach rides an old bicycle slowly along the street, ringing the bell and waving.",
+    "The mustached cockroach buys fresh simit from a street cart, pays with a smile and takes a bite."
+  ],
   "rounds": [
     {
       "choices": [
@@ -264,7 +275,7 @@
         },
         {
           "label": "Keyifli köpek",
-          "action": "A fluffy cartoon shiba inu dog lounges on a cream sofa next to the wooden table, front paws crossed, and throws a slow, smug side-eye with raised eyebrows. The mustached cockroach sits beside it, crosses his arms the same way, copies the smug side-eye and says in a pleased hum: \"Much wow. Very keyif.\"",
+          "action": "A fluffy cartoon shiba inu dog lounges on a cream sofa next to the wooden table, front paws crossed, and throws a slow, smug side-eye with raised eyebrows. The mustached cockroach sits beside it, crosses his arms the same way, copies the smug side-eye and says in a pleased hum in Turkish: \"Oh, keyfim yerinde.\"",
           "image": "p11.jpg"
         }
       ]
@@ -273,7 +284,7 @@
       "choices": [
         {
           "label": "Siyah takımlı gözlüklü adamlar",
-          "action": "Dozens of identical cockroaches in black suits, thin black ties and small dark sunglasses march out of the corner shop and surround the mustached cockroach in a tight, stone-faced crowd. In perfect unison they adjust their sunglasses and say in a flat monotone English: \"Me... me... me too.\" The mustached cockroach looks around, sweating.",
+          "action": "Dozens of identical cockroaches in black suits, thin black ties and small dark sunglasses march out of the corner shop and surround the mustached cockroach in a tight, stone-faced crowd. In perfect unison they adjust their sunglasses and say in a flat monotone in Turkish: \"Ben de... ben de... ben de.\" The mustached cockroach looks around, sweating.",
           "image": "p12.jpg"
         },
         {

@@ -93,7 +93,11 @@ Bir seçeneğe görsel eklemek için dosyayı `src/story/images/` altına koyup 
 
 Hazırlık denetiminden öğrenilen: model sahnedeki nesnelere komut olmadan yönelebiliyor. Seçenekler sahnenin kendiliğinden davet etmediği ve görsel olarak belirgin hareketlerden seçilmeli.
 
-Kazanan bir sonraki video parçasında görünür. Parça süresi `CHUNK_SECONDS` ile ayarlanır (sağlayıcı aralığı 5–15, varsayılan 6); kısa parça kazananı daha erken gösterir, fakat üretim yetişmezse görüntü kısa süre donar. Donma görülürse `CHUNK_SECONDS=10` ile eski davranışa dönülür.
+Kazanan bir sonraki video parçasında görünür. Parça süresi `CHUNK_SECONDS` ile ayarlanır (sağlayıcı aralığı 5–15, varsayılan 10); 6 sn kazananı daha erken gösterdi, fakat ekip canlı izlemede kısa donmalar gördü.
+
+Kazanan izlendikten sonra Director hikâyedeki `idle` sahnelerinden birine döner (yürümek, çay içmek, gazete okumak gibi gündelik işler); böylece video meme'i tekrar tekrar oynamaz ve bir sonraki meme yalnız oylamayla gelir. Sahne tarifi Türkçe konuşmayı ve saldırgan olmayan, sakin bir mahalle havasını şart koşar.
+
+Eşitlikte kontrat en küçük sıra numaralı seçeneği kazanan sayar (rastgele değildir); hiç oy yoksa kazanan yoktur.
 
 ## Coolify'a kurulum
 

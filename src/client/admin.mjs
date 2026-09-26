@@ -93,7 +93,9 @@ function render() {
   const items = bridge.entries.slice(-6).map((entry) => {
     const li = document.createElement('li');
     const status = entry.shownAt ? 'sahnede gösterildi' : DIRECTION_TEXT[entry.status] ?? entry.status;
-    li.textContent = `Tur #${entry.round} → seçenek ${entry.choice + 1}, sürüm ${entry.version}: ${status}`;
+    li.textContent = entry.kind === 'idle'
+      ? `Tur #${entry.round} sonrası sakin sahne, sürüm ${entry.version}: ${status}`
+      : `Tur #${entry.round} → seçenek ${entry.choice + 1}, sürüm ${entry.version}: ${status}`;
     return li;
   });
   $('directions').replaceChildren(...items);

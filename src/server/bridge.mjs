@@ -39,10 +39,21 @@ export class Bridge {
     if (!Number.isSafeInteger(round) || round < 1 || !Number.isInteger(choice) || choice < 0 || choice > 3 || !prompt?.trim()) {
       throw new Error('invalid direction');
     }
-    const existing = this.state.entries.find((entry) => entry.round === round);
+    const existing = this.state.entries.find((entry) => entry.round === round && entry.kind !== 'idle');
     if (existing) return existing;
     if (this.unresolved) return null;
     const entry = {round, choice, prompt, version: ++this.state.version, status: 'waiting', createdAt: new Date(this.now()).toISOString()};
+    this.state.entries.push(entry);
+    this.save();
+    return entry;
+  }
+
+  // A calm everyday scene once a winner has been watched, so the video does not keep replaying the meme
+  // until the next vote. At most one per round; it waits like any other direction.
+  idle(afterRound, prompt) {
+    if (!prompt?.trim() || this.unresolved) return null;
+    if (this.state.entries.some((e) => e.kind === 'idle' && e.round === afterRound)) return null;
+    const entry = {kind: 'idle', round: afterRound, choice: null, prompt, version: ++this.state.version, status: 'waiting', createdAt: new Date(this.now()).toISOString()};
     this.state.entries.push(entry);
     this.save();
     return entry;

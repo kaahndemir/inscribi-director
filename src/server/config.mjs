@@ -66,7 +66,7 @@ export function loadConfig(env = process.env) {
     falBudgetUsd: integer('FAL_BUDGET_USD', 20, 5, 1000),
     roundSeconds: integer('ROUND_SECONDS', 20, 5, 600),
     // Length of each Director video chunk. A winner shows up at the next chunk, so shorter chunks show it sooner.
-    chunkSeconds: integer('CHUNK_SECONDS', 6, 5, 15),
+    chunkSeconds: integer('CHUNK_SECONDS', 10, 5, 15),
     autoRounds: (env.AUTO_ROUNDS ?? 'true') !== 'false',
     voteFeeMon: decimal('VOTE_FEE_MON', '0.001'),
     dripAmountMon: decimal('DRIP_AMOUNT_MON', '0.08'),

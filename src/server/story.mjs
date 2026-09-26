@@ -43,7 +43,12 @@ export function parseStory(raw, {imageUrl = (name) => `/memes/${name}`} = {}) {
     return Object.freeze({step: index, choices: Object.freeze(choices)});
   });
 
-  return Object.freeze({title: typeof raw.title === 'string' ? raw.title : 'Hikâye', opening, rounds: Object.freeze(rounds)});
+  // Optional calm everyday scenes the Director returns to between winners.
+  if (raw.idle !== undefined && (!Array.isArray(raw.idle) || raw.idle.length === 0)) throw new Error('story: idle must be a non-empty array when present');
+  const idleContinuation = raw.idle ? text(raw.idleContinuation ?? raw.continuation, 'idleContinuation') : null;
+  const idle = (raw.idle ?? []).map((action, i) => text(`${premise} ${text(action, `idle ${i + 1}`)} ${idleContinuation}`, 'prompt'));
+
+  return Object.freeze({title: typeof raw.title === 'string' ? raw.title : 'Hikâye', opening, rounds: Object.freeze(rounds), idle: Object.freeze(idle)});
 }
 
 // The hash covers labels and prompts, so changing the story after a round opened is detectable.

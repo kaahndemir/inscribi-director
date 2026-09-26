@@ -80,3 +80,23 @@ test('screens say the winner is coming, then on stage once its chunk plays', () 
   assert.deepEqual(liveShow({entries: [entry], now: T0 + 6000}).effect(), {round: 7, label: 'B', image: null, state: 'showing'});
   assert.equal(liveShow({entries: [{...entry, status: 'rejected'}], now: T0 + 6000}).effect(), null);
 });
+
+test('after the winner has been watched the Director gets one calm everyday scene', () => {
+  const idles = [];
+  const entry = {round: 7, choice: 1, status: 'applied', createdAt: at(0), shownAt: at(6000), playbackMs: 4400};
+  const show = liveShow({entries: [entry], now: T0 + 8000});
+  show.story.idle = ['calm A', 'calm B'];
+  show.random = () => 0.9;
+  show.bridge.unresolved = null;
+  show.bridge.idle = (round, prompt) => idles.push([round, prompt]);
+  show.steerIdle();
+  assert.deepEqual(idles, []); // still playing
+  show.now = () => T0 + 10400;
+  show.steerIdle();
+  assert.deepEqual(idles, [[7, 'calm B']]);
+  show.bridge.state.entries.push({kind: 'idle', round: 7, status: 'waiting'});
+  show.steerIdle();
+  assert.equal(idles.length, 1);
+  // The banner keeps naming the winner, not the idle scene.
+  assert.equal(show.effect().label, 'B');
+});

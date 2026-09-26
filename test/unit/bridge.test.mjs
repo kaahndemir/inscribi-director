@@ -80,3 +80,18 @@ test('a chunk for a direction still waiting also settles it; refused directions 
   assert.equal(bridge.message({type: 'chunk', prompt_version: 3, playback_seconds: 4}), false);
   assert.equal(bridge.state.entries[1].shownAt, undefined);
 });
+
+test('a calm idle scene follows a winner once, waits like any direction and never replaces the winner', () => {
+  const bridge = new Bridge(new MemoryStore());
+  bridge.steer(1, 2, 'meme');
+  assert.equal(bridge.idle(1, 'calm'), null); // the winner is still waiting
+  bridge.message({type: 'prompt_applied', prompt_version: 2});
+  const idle = bridge.idle(1, 'calm');
+  assert.deepEqual([idle.kind, idle.round, idle.version], ['idle', 1, 3]);
+  assert.equal(bridge.idle(1, 'calm again'), null);
+  assert.deepEqual(bridge.current(), {type: 'prompt', prompt_version: 3, prompt: 'calm'});
+  assert.equal(bridge.steer(1, 0, 'other').kind, undefined); // round 1 still maps to its winner
+  assert.equal(bridge.steer(2, 1, 'next'), null); // waits for the idle scene
+  bridge.message({type: 'prompt_applied', prompt_version: 3});
+  assert.equal(bridge.steer(2, 1, 'next').version, 4);
+});

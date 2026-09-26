@@ -58,3 +58,10 @@ test('the hash ignores images, so a new picture does not change what voters chos
   withImage.rounds[0].choices[0].image = 'm01.jpg';
   assert.equal(choicesHash(parseStory(withImage).rounds[0].choices), choicesHash(parseStory(base).rounds[0].choices));
 });
+
+test('idle scenes are wrapped in the premise and their own continuation', () => {
+  const story = parseStory({...base, idle: ['Walks.'], idleContinuation: 'Calm again.'});
+  assert.deepEqual(story.idle, ['A robot in a room. Walks. Calm again.']);
+  assert.deepEqual(parseStory(base).idle, []);
+  assert.throws(() => parseStory({...base, idle: []}), /idle/);
+});
