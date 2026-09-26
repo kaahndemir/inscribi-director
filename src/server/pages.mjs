@@ -16,7 +16,10 @@ const brand = `<div class="brand"><span class="brand-mark" aria-hidden="true"></
 export const participantPage = () => `${head('inscribi director', 'participant')}
 <body class="participant">
 <main class="phone">
-  <header class="phone-header">${brand}<p class="tagline">Sahnedeki canlı videonun devamını sen seç.</p></header>
+  <header class="phone-header">
+    <div class="phone-top">${brand}<span class="wallet-chip" id="balance" hidden></span></div>
+    <p class="tagline">Sahnedeki canlı videonun devamını sen seç.</p>
+  </header>
 
   <section class="card" id="wallet-card">
     <p class="muted" id="wallet-status">Cüzdan hazırlanıyor…</p>

@@ -4,6 +4,10 @@ Salondaki izleyiciler telefonlarından Monad testnet üzerinde MON ödeyerek oy 
 
 Monad Blitz İstanbul v2 (26 Eylül 2026) için hazırlandı. Bu depo yalnız ürün kodunu içerir. Deneyler, doğrulama kanıtları ve denetim raporları ayrı hazırlık deposundadır.
 
+## Neden
+
+Canlı etkinlikler ve yayıncılar için izleyicinin sahnedeki videoyu küçük bir ödemeyle birlikte yönettiği bir etkileşim katmanı: konser, stand-up veya Twitch/Kick yayını sırasında izleyici telefonundan seçer, kazanan seçim anında canlı üretilen videoyu değiştirir. Her oy zincirde bir ödemedir; kontratın hazinesinde toplanan gelir yayıncı ile platform arasında paylaştırılabilir. Monad'ın hızı, oyların saniyenin altında onaylanıp aynı turda sayılmasını sağlar.
+
 ## Nasıl çalışır
 
 ```

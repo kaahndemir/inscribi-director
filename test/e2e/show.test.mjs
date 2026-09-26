@@ -119,6 +119,7 @@ test('full rehearsal on a local chain', {timeout: 240000}, async (t) => {
     await page.goto(APP);
     await page.locator('#join').click();
     await until(() => page.locator('#wallet-status').textContent().then((s) => s.includes('hazır')), {label: `phone ${i} funded`});
+    await until(() => page.locator('#balance').textContent().then((s) => s.includes('0,08 MON')), {label: `phone ${i} balance shown`});
     phones.push(page);
   }
 

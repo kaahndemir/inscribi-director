@@ -5,7 +5,7 @@
 // - A lost answer is retried with the identical signed bytes, never with a new signature.
 // - A vote counts only when its receipt carries the expected Voted event.
 // - Web Locks keep two tabs of the same browser from paying at the same time.
-import {createPublicClient, decodeEventLog, encodeFunctionData, http, keccak256} from 'viem';
+import {createPublicClient, decodeEventLog, encodeFunctionData, formatEther, http, keccak256} from 'viem';
 import {generatePrivateKey, privateKeyToAccount} from 'viem/accounts';
 import {$, getJson, postJson, renderTally, secondsLeft, formatSeconds} from './shared.mjs';
 
@@ -14,6 +14,8 @@ const SEND_ATTEMPTS = 3;
 const RECEIPT_WAIT_MS = 15000;
 const POLL_MS = 1000;
 const RESEND_AFTER_MS = 5000;
+// Balance is read rarely to keep load on the shared RPC low, and right after every payment.
+const BALANCE_REFRESH_MS = 15000;
 
 const config = await getJson('/api/config');
 const chain = {
@@ -55,6 +57,7 @@ let state = null;
 let fetchedAt = 0;
 let busy = false;
 let syncSupported = true;
+let balanceAt = 0;
 
 const setStatus = (text) => {
   $('status').textContent = text;
@@ -75,6 +78,18 @@ function loadWallet() {
   }
 }
 
+async function refreshBalance(force = false) {
+  if (!account || !funded() || (!force && Date.now() - balanceAt < BALANCE_REFRESH_MS)) return;
+  balanceAt = Date.now();
+  try {
+    const wei = await rpc.getBalance({address: account.address});
+    $('balance').textContent = `${Number(formatEther(wei)).toLocaleString('tr-TR', {maximumFractionDigits: 3})} MON`;
+    $('balance').hidden = false;
+  } catch {
+    // Keep the last known balance.
+  }
+}
+
 const payments = () => storage.get(keys.payments, {});
 const funded = () => storage.get(keys.funded, false) === true;
 
@@ -89,6 +104,7 @@ async function join() {
     const result = await postJson('/api/drip', {address: account.address});
     if (result.status !== 'confirmed') throw new Error(result.status);
     storage.set(keys.funded, true);
+    void refreshBalance(true);
     setStatus('Hazırsın. Tur açılınca seçimini yap.');
   } catch (error) {
     setStatus(error.message === 'drip limit reached' ? 'Katılım doldu. Sahnedeki videoyu izlemeye devam edebilirsin.' : 'Demo bakiye doğrulanamadı; ikinci ödeme yapılmadı. Birazdan tekrar deneyin.');
@@ -133,6 +149,7 @@ function settle(receipt, pending) {
   }
   storage.set(keys.nonce, pending.nonce + 1);
   storage.remove(keys.pending);
+  void refreshBalance(true);
   setStatus(succeeded ? (pending.kind === 'refund' ? 'İade hesabına döndü.' : 'Oyun zincire yazıldı.') : 'İşlem reddedildi; oy sayılmadı.');
 }
 
@@ -260,6 +277,7 @@ async function poll() {
     fetchedAt = Date.now();
     if (state.stale) setStatus('Zincir bağlantısı yenileniyor…');
     if (storage.get(keys.pending) && !busy) await reconcile();
+    void refreshBalance();
   } catch {
     setStatus('Bağlantı koptu; son durum gösteriliyor.');
   }
