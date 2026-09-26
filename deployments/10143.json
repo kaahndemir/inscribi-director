@@ -1,0 +1,9 @@
+{
+  "contract": "0x0f99d626d223f6cde1bfaa994293bcbbf9d92c7a",
+  "owner": "0xcD31b213632749064a36359b09a36Ecded28178e",
+  "chainId": 10143,
+  "transaction": "0x879b54d00b1ec341cb90f092068ae2a49e78a18fdd7355fbbbb54e47865673bc",
+  "block": 65797921,
+  "deployedAt": "2026-09-26T07:50:27.000Z",
+  "gasUsed": 833883
+}
