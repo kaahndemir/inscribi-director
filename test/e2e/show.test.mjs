@@ -132,9 +132,12 @@ test('full rehearsal on a local chain', {timeout: 240000}, async (t) => {
       return s.round?.open && s.round.number === step ? s.round : null;
     }, {label: `round ${step} open`});
     for (const [index, choice] of picks.entries()) {
-      const button = phones[index].locator('#choices button').nth(choice);
-      await until(() => button.isEnabled(), {label: `phone ${index} can vote`});
-      await button.click();
+      // Two steps: pick a meme card, then confirm the paid vote.
+      const card = phones[index].locator('#choices button').nth(choice);
+      await until(() => card.isEnabled(), {label: `phone ${index} can pick`});
+      await card.click();
+      await until(() => phones[index].locator('#vote').isEnabled(), {label: `phone ${index} can vote`});
+      await phones[index].locator('#vote').click();
       await until(() => phones[index].locator('#result').textContent().then((s) => s.includes('kayıtlı')), {label: `phone ${index} vote recorded`});
       // The same phone cannot vote again in this round.
       assert.equal(await phones[index].locator('#choices button').first().isDisabled(), true);
@@ -156,6 +159,10 @@ test('full rehearsal on a local chain', {timeout: 240000}, async (t) => {
     assert.equal(state.bridge.entries[0].choice, 1);
     assert.equal(state.bridge.entries[0].version, 2);
     await until(() => stage.locator('#winner').textContent().then((s) => s.includes('Şimdi sahnede')), {label: 'stage shows the winner on screen'});
+    // Story images reach the phones and the stage.
+    assert.match(await phones[0].locator('#choices img').first().getAttribute('src'), /^\/memes\/[a-z0-9-]+\.jpg\?v=[0-9a-f]{10}$/);
+    const image = await fetch(`${APP}${await phones[0].locator('#choices img').first().getAttribute('src')}`);
+    assert.equal(image.headers.get('content-type'), 'image/jpeg');
     await until(() => phones[0].locator('#result').textContent().then((s) => s.includes('Şimdi sahnede')), {label: 'phone points to the stage'});
     // The next vote opens only after the winner's first chunk has played in full.
     const next = await until(async () => {

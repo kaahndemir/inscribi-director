@@ -3,7 +3,8 @@
 // and relays the provider's answers back to the server.
 import {createFalClient} from '@fal-ai/client';
 import {wma} from '@fal-ai/client/realtime';
-import {$, getJson, postJson, renderTally, secondsLeft, formatSeconds} from './shared.mjs';
+import {$, getJson, postJson, secondsLeft, formatSeconds} from './shared.mjs';
+import {icon} from '../shared/icons.mjs';
 
 const DIRECTOR_APP = 'minimax/h3-max/director';
 const STATE_POLL_MS = 700;
@@ -140,9 +141,44 @@ async function stop(reason) {
 
 // Display -----------------------------------------------------------------------------------
 
+// Tally rows are built once per round and updated in place, so images do not reload on every poll.
+let tallyFor = null;
+function renderTally(round) {
+  if (tallyFor !== round.id) {
+    const rows = round.labels.map((label, index) => {
+      const li = document.createElement('li');
+      li.className = 'choice';
+      if (round.images?.[index]) {
+        const img = document.createElement('img');
+        img.className = 'choice-thumb';
+        img.src = round.images[index];
+        img.alt = '';
+        li.append(img);
+      }
+      const name = document.createElement('span');
+      name.className = 'choice-label';
+      name.textContent = label;
+      const votes = document.createElement('span');
+      votes.className = 'choice-count';
+      li.append(name, votes);
+      return li;
+    });
+    $('tally').replaceChildren(...rows);
+    tallyFor = round.id;
+  }
+  const total = round.counts.reduce((a, b) => a + b, 0);
+  [...$('tally').children].forEach((li, index) => {
+    li.style.setProperty('--share', `${total ? Math.round((round.counts[index] / total) * 100) : 0}%`);
+    li.classList.toggle('winner', round.finalized && round.winner === index);
+    li.querySelector('.choice-count').textContent = `${round.counts[index]} oy`;
+  });
+}
+
 function render() {
   const {round, session} = state;
   $('join-url').textContent = state.joinUrl.replace(/^https?:\/\//, '');
+  $('mode').textContent = state.settings.directorMode === 'fake' ? 'PROVA' : 'DIRECTOR';
+  $('live-status').lastElementChild.textContent = session.status === 'live' ? 'YAYIN CANLI' : 'YAYIN BEKLENİYOR';
   const limit = session.maxMs === null ? 'süre sınırı yok' : `en fazla ${Math.round(session.maxMs / 1000)} sn`;
   const budget = session.budgetUsd === null ? '' : ` · fal ${session.spentUsd.toFixed(2)}/${session.budgetUsd} USD`;
   $('budget').textContent = `Kalan yayın hakkı: ${session.remaining}/${session.maxSessions} · ${limit}${budget}`;
@@ -160,27 +196,53 @@ function render() {
   }
 
   renderWinner(round);
+  $('tally-placeholder').hidden = !!round;
   if (!round) {
     $('stage-round-title').textContent = session.status === 'live' ? 'İlk tur birazdan' : 'Oylama birazdan';
     $('stage-countdown').textContent = '';
     $('tally').replaceChildren();
+    tallyFor = null;
     return;
   }
   $('stage-round-title').textContent = `Tur ${round.number}`;
   $('stage-countdown').textContent = round.open ? formatSeconds(secondsLeft(round, state.blockTime, fetchedAt)) : '';
-  renderTally($('tally'), round, {highlight: round.finalized ? round.winner : null});
+  renderTally(round);
 }
 
 // Between rounds the banner follows the winner: chosen, then on screen while its first chunk plays.
+let bannerKey = null;
 function renderWinner(round) {
-  const {effect} = state;
-  let text = null;
-  if (round?.open) text = null;
-  else if (effect?.state === 'showing') text = `Şimdi sahnede: ${effect.label}`;
-  else if (effect) text = `Seçilen: ${effect.label} · sahneye geliyor…`;
-  else if (round?.finalized && round.winner !== null) text = `Seçilen: ${round.labels[round.winner]}`;
-  $('winner').hidden = !text;
-  $('winner').textContent = text ?? '';
+  // The winner of the latest round only; a round without votes shows nothing new.
+  const effect = state.effect?.round === round?.id ? state.effect : null;
+  let banner = null;
+  if (round?.open) banner = null;
+  else if (effect?.state === 'showing') banner = {title: 'Şimdi sahnede', label: effect.label, image: effect.image, showing: true};
+  else if (effect) banner = {title: 'Seçilen · sahneye geliyor…', label: effect.label, image: effect.image};
+  else if (round?.finalized && round.winner !== null) banner = {title: 'Seçilen', label: round.labels[round.winner], image: round.images?.[round.winner]};
+  const winner = $('winner');
+  winner.hidden = !banner;
+  const key = banner && `${banner.title}|${banner.label}`;
+  if (!banner || key === bannerKey) return;
+  bannerKey = key;
+  winner.classList.toggle('showing', !!banner.showing);
+  const parts = [];
+  if (banner.image) {
+    const img = document.createElement('img');
+    img.src = banner.image;
+    img.alt = '';
+    parts.push(img);
+  } else {
+    const trophy = document.createElement('span');
+    trophy.innerHTML = icon('trophy', 22);
+    parts.push(trophy);
+  }
+  const text = document.createElement('span');
+  const small = document.createElement('small');
+  small.textContent = banner.title;
+  const strong = document.createElement('strong');
+  strong.textContent = banner.label;
+  text.append(small, strong);
+  winner.replaceChildren(...parts, text);
 }
 
 async function poll() {

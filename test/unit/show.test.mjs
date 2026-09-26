@@ -76,7 +76,7 @@ test('a round with no votes or a cancelled round needs no wait; an unsteered win
 
 test('screens say the winner is coming, then on stage once its chunk plays', () => {
   const entry = {round: 7, choice: 1, status: 'applied', createdAt: at(0), shownAt: at(6000), playbackMs: 4400};
-  assert.deepEqual(liveShow({entries: [entry], now: T0 + 3000}).effect(), {round: 7, label: 'B', state: 'coming'});
-  assert.deepEqual(liveShow({entries: [entry], now: T0 + 6000}).effect(), {round: 7, label: 'B', state: 'showing'});
+  assert.deepEqual(liveShow({entries: [entry], now: T0 + 3000}).effect(), {round: 7, label: 'B', image: null, state: 'coming'});
+  assert.deepEqual(liveShow({entries: [entry], now: T0 + 6000}).effect(), {round: 7, label: 'B', image: null, state: 'showing'});
   assert.equal(liveShow({entries: [{...entry, status: 'rejected'}], now: T0 + 6000}).effect(), null);
 });

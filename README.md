@@ -60,6 +60,10 @@ npm run dev
 
 Ücretsiz prova için `.env` içinde `DIRECTOR_MODE=fake` kullanın: video üretilmez, yönlendirmeler sunucu tarafından onaylanır, zincir işlemleri gerçektir.
 
+`.env` gerektirmeyen yerel prova: `npm run rehearsal` yeni bir Anvil zinciri açar, kontratı kurar, sunucuyu prova modunda başlatır ve telefon ile yönetim bağlantılarını yazar.
+
+Arayüz tasarımı Yakup'un Meme Arena çalışmasıdır (`src/client/app.css`); sayfalar sunucuda üretilir, davranış `src/client/*.mjs` içindedir.
+
 ## Testler
 
 ```bash
@@ -83,7 +87,9 @@ Dağıtan cüzdan kontratın sahibidir; sunucu aynı `OPERATOR_PRIVATE_KEY` ile 
 
 Hikâye `src/story/story.json` dosyasıdır: açılış sahnesi, sabit sahne tarifi ve her turda dört seçenek (Türkçe etiket, İngilizce eylem). Sunucu açılışta doğrular. Seçenekler oy başladıktan sonra değiştirilemez; zincirdeki hash farkı gösterir.
 
-Şu anki içerik "Mahalle memeleri": Dilanur'un 33 memesi, dörder seçenekli 9 tur. Her meme videosu izlendi (konuşma metni ve kareler) ve internetteki anlamı araştırıldı; bağlam, kaynak ve Director eylemi [docs/memes.md](docs/memes.md) dosyasında. Düğmede meme cümlesi yazar; komut aynı sahneyi tek bir çizgi film karakterine canlandırtır ve memenin Türkçe cümlesini söyletir. Gerçek kişilerin adı ve görünüşü komutlara girmez.
+Şu anki içerik "Hamam böceği memeleri": Türk memeleri viral yapay zekâ böcek videoları tarzında, bütün karakterler çizgi film hamam böceği. Dilanur'un 33 video memesi ve 20 fotoğraf memesi, dörder seçenekli 14 tur. Her video izlendi (konuşma metni ve kareler), internetteki anlamı araştırıldı ve ikonik bir kare seçildi; görseller `src/story/images/`, bağlam, kaynak ve Director eylemi [docs/memes.md](docs/memes.md) dosyasında. Telefonda ve sahnede her seçenek görseliyle görünür; Director'a yalnız metin komutu gider. Gerçek kişilerin adı ve görünüşü komutlara girmez.
+
+Bir seçeneğe görsel eklemek için dosyayı `src/story/images/` altına koyup seçenekte `"image": "dosya.jpg"` yazın (küçük harf, .jpg/.png/.webp). Sunucu açılışta dosyanın varlığını denetler; görsel adresi dosya içeriğinin özetini taşır, böylece değiştirilen görsel eski önbellekten gelmez.
 
 Hazırlık denetiminden öğrenilen: model sahnedeki nesnelere komut olmadan yönelebiliyor. Seçenekler sahnenin kendiliğinden davet etmediği ve görsel olarak belirgin hareketlerden seçilmeli.
 

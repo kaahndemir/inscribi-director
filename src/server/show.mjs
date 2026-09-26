@@ -144,10 +144,10 @@ export class Show {
     if (!this.session.live) return null;
     const entry = this.bridge.state.entries.at(-1);
     if (!entry || entry.status === 'rejected' || entry.status === 'abandoned') return null;
-    const label = this.choicesFor(this.rounds[entry.round])?.[entry.choice]?.label;
-    if (!label) return null;
+    const choice = this.choicesFor(this.rounds[entry.round])?.[entry.choice];
+    if (!choice) return null;
     const showing = !!entry.shownAt && this.now() >= Date.parse(entry.shownAt);
-    return {round: entry.round, label, state: showing ? 'showing' : 'coming'};
+    return {round: entry.round, label: choice.label, image: choice.image ?? null, state: showing ? 'showing' : 'coming'};
   }
 
   // Operator-facing actions ------------------------------------------------------------
@@ -246,6 +246,7 @@ export class Show {
             storyStep: round.meta.step + 1,
             number: Object.values(this.rounds).filter((r) => r.attempt === round.meta.attempt && r.round <= round.id).length,
             labels: choices.map((c) => c.label),
+            images: choices.map((c) => c.image ?? null),
             counts: round.counts,
             deadline: round.deadline,
             fee: String(round.fee),

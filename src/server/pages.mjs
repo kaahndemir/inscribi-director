@@ -1,6 +1,7 @@
 // HTML shells for the three screens. All behaviour lives in the bundled scripts under /assets.
 import {createHash} from 'node:crypto';
 import {readdirSync, readFileSync} from 'node:fs';
+import {icon, mark} from '../shared/icons.mjs';
 
 const DIST = new URL('../../dist/', import.meta.url);
 
@@ -22,112 +23,217 @@ const head = (title, script) => `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0d12">
+<meta name="theme-color" content="#0c0a12">
 <title>${title}</title>
 <link rel="stylesheet" href="/assets/app.css?v=${assetVersion()}">
 <script type="module" src="/assets/${script}.js?v=${assetVersion()}"></script>
 </head>`;
 
-const brand = `<div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>inscribi <b>director</b></span></div>`;
+const brand = `<a class="brand" href="/" aria-label="inscribi ana sayfa">${mark()}<span>inscribi <b>/</b> <strong>monad</strong></span></a>`;
 
-export const participantPage = () => `${head('inscribi director', 'participant')}
-<body class="participant">
-<main class="phone">
-  <header class="phone-header">
-    <div class="phone-top">${brand}<span class="wallet-chip" id="balance" hidden></span></div>
-    <p class="tagline">Sahnedeki canlı videonun devamını sen seç.</p>
-  </header>
+const footer = (mode, text) => `<footer class="operator-footer">
+  <span>${mark(true)} inscribi / monad</span>
+  <span>${text}</span>
+  <span class="footer-mode">${mode} <i></i></span>
+</footer>`;
 
-  <section class="card" id="wallet-card">
-    <p class="muted" id="wallet-status">Cüzdan hazırlanıyor…</p>
-    <button class="primary" id="join" hidden>Katıl ve demo MON al</button>
-  </section>
+export const participantPage = () => `${head('inscribi · canlı meme oylaması', 'participant')}
+<body>
+<div class="participant-shell">
+<header class="navbar">
+  ${brand}
+  <div class="nav-label"><span class="nav-live"></span>Canlı arena</div>
+  <div class="wallet-wrap">
+    <button class="wallet-button" id="wallet-button" type="button" aria-expanded="false" aria-controls="wallet-detail">
+      <span class="wallet-avatar">${icon('wallet', 17)}</span>
+      <span class="wallet-copy"><span>Inscribi Wallet <span class="demo-label">DEMO</span></span><strong id="balance">–</strong></span>
+      ${icon('chevron-down', 14)}
+    </button>
+    <div class="wallet-popover" id="wallet-detail" hidden>
+      <div><strong>Canlı cüzdan</strong><button type="button" id="wallet-close" aria-label="Kapat">${icon('x', 18)}</button></div>
+      <p class="address" id="address"></p>
+      <p id="wallet-status">Cüzdan hazırlanıyor…</p>
+      <p>Monad testnet · demo MON gerçek para değildir.</p>
+    </div>
+  </div>
+</header>
 
-  <section class="card" id="round-card" hidden>
-    <div class="round-head"><h1 id="round-title"></h1><span class="countdown" id="countdown"></span></div>
-    <div class="choices" id="choices"></div>
-    <p class="result" id="result" role="status"></p>
-    <button class="secondary" id="refund" hidden></button>
-  </section>
+<main>
+  <div class="arena-layout">
+    <div class="main-column">
+      <section class="arena" aria-labelledby="question">
+        <div class="arena-top">
+          <span class="round-status" id="round-status"><i></i><span id="round-status-text">BEKLENİYOR</span></span>
+          <span class="round-number" id="round-number"></span>
+        </div>
+        <div class="question">
+          <span class="topic">${icon('flame', 13)}<span id="topic">CANLI OYLAMA</span></span>
+          <h2 id="question">Sahnede hangi meme canlansın?</h2>
+          <div class="question-meta">
+            <span>${icon('layers-3', 14)}<span id="total-votes">0 oy</span></span>
+            <span class="meta-dot"></span>
+            <span id="countdown">Yayın başlayınca oylama açılır</span>
+          </div>
+        </div>
+        <div class="arena-waiting" id="waiting-card"><p id="waiting-text">Yayın başlayınca oylama burada açılacak.</p></div>
+        <div class="meme-options two-by-two" id="choices" role="radiogroup" aria-label="Meme seçenekleri"></div>
+        <div class="arena-note">${icon('shield-check', 14)}<span>Monad testnet · her oy zincirde bir işlem · demo MON</span></div>
+      </section>
 
-  <section class="card waiting" id="waiting-card">
-    <p id="waiting-text">Yayın başlayınca oylama burada açılacak.</p>
-  </section>
+      <section class="desktop-vote vote-dock" id="dock">
+        <div class="action-caption"><span id="result" role="status"></span><small id="caption-meta">1 TUR = 1 OY</small></div>
+        <div class="vote-countdown" id="clock-panel" hidden>
+          <div class="countdown-panel">
+            <span class="countdown-copy">${icon('clock-3', 20)}<span id="clock-title">Oylama bitiyor<small>Süre dolunca kazanan sahneye çıkar</small></span></span>
+            <strong role="timer" id="clock">00:00</strong>
+          </div>
+        </div>
+        <button class="vote-button" id="join" type="button" hidden><span>Katıl ve demo MON al</span>${icon('arrow-up-right', 20)}</button>
+        <button class="vote-button" id="vote" type="button" hidden disabled><span id="vote-label">Bu meme'e oy ver</span>${icon('arrow-up-right', 20)}</button>
+        <button class="vote-button quiet" id="refund" type="button" hidden></button>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </section>
+    </div>
 
-  <p class="status" id="status" role="status" aria-live="polite"></p>
-
-  <footer class="phone-footer">
-    <span>Monad testnet · demo MON gerçek para değildir</span>
-    <span class="address" id="address"></span>
-  </footer>
+    <aside class="side-column">
+      <section class="manifesto">
+        <span class="aside-eyebrow">${icon('sparkles', 14)} CANLI OYLAMA</span>
+        <h2>Seç, oy ver,<br>sahneyi yönlendir.</h2>
+        <div class="manifesto-bottom">
+          <div class="stacked-icons"><span>✳</span><span>◈</span><span>☺</span></div>
+          <span>Aynı zincir.<br><b>Bin farklı tepki.</b></span>
+        </div>
+      </section>
+      <section class="how-it-works">
+        <h3>Nasıl çalışır?</h3>
+        <div><span>01</span><p><strong>Katıl</strong>Demo MON al, cüzdan kurman gerekmez.</p></div>
+        <div><span>02</span><p><strong>Oy ver</strong>Meme'ini seç, oyunu onayla.</p></div>
+        <div><span>03</span><p><strong>Sahnede izle</strong>Kazanan meme canlı videoda canlanır.</p></div>
+      </section>
+    </aside>
+  </div>
+  ${footer('CANLI', 'Monad üzerinde canlı meme oylaması.')}
 </main>
-</body>
-</html>`;
-
-export const stagePage = () => `${head('inscribi director · sahne', 'stage')}
-<body class="stage">
-<div class="stage-grid">
-  <section class="screen">
-    <video id="video" autoplay playsinline></video>
-    <div class="screen-overlay" id="overlay">
-      <div class="overlay-box">
-        <p id="overlay-text">Sahne hazırlanıyor…</p>
-        <button class="primary large" id="start" hidden>Yayını başlat</button>
-        <p class="muted" id="budget"></p>
-      </div>
-    </div>
-    <div class="winner-banner" id="winner" hidden></div>
-    <div class="director-status" id="director-status"></div>
-  </section>
-
-  <aside class="panel">
-    ${brand}
-    <div class="join">
-      <img src="/qr.svg" alt="Katılım QR kodu" class="qr">
-      <p class="join-url" id="join-url"></p>
-    </div>
-    <div class="stage-round" id="stage-round">
-      <div class="round-head"><h2 id="stage-round-title">Oylama birazdan</h2><span class="countdown" id="stage-countdown"></span></div>
-      <ol class="tally" id="tally"></ol>
-    </div>
-    <p class="panel-footer">Monad testnet üzerinde her oy bir işlemdir.</p>
-  </aside>
 </div>
 </body>
 </html>`;
 
-export const adminPage = () => `${head('inscribi director · yönetim', 'admin')}
-<body class="admin">
-<main class="console">
-  <header class="console-header">${brand}<a class="secondary link" href="/stage" target="_blank" rel="noopener">Sahneyi aç</a></header>
-  <p class="status" id="status" role="status" aria-live="polite"></p>
-
-  <section class="console-grid" id="console" hidden>
-    <article class="card">
-      <h2>Director</h2>
-      <dl id="director"></dl>
-      <div class="actions"><button class="danger" id="stop">Yayını durdur</button></div>
-    </article>
-    <article class="card">
-      <h2>Tur</h2>
-      <dl id="round"></dl>
-      <div class="actions">
-        <label>Süre (sn) <input id="duration" type="number" min="5" max="600" step="1"></label>
-        <button class="primary" id="open">Turu aç</button>
-        <button class="secondary" id="finalize">Sonuçlandır</button>
-        <button class="secondary" id="cancel">İptal et</button>
+export const stagePage = () => `${head('inscribi · sahne', 'stage')}
+<body>
+<div class="operator-shell stage-shell">
+<header class="navbar">
+  ${brand}
+  <div class="nav-label"><span class="nav-live"></span>Canlı sahne</div>
+  <nav class="operator-nav" aria-label="Ekranlar"><a href="/">Oylama ${icon('arrow-up-right', 14)}</a><a class="wallet-button" href="/admin">Yönetim ${icon('arrow-up-right', 16)}</a></nav>
+</header>
+<main class="stage">
+  <div class="operator-intro">
+    <div><span class="topic">${icon('sparkles', 14)} TOPLULUĞUN SAHNESİ</span>
+      <h1>Sen seç. <span>Sahne değişsin.</span></h1>
+      <p>Her oy hikâyenin bir sonraki adımını belirler.</p>
+    </div>
+    <span class="round-status" id="live-status"><i></i><span>YAYIN BEKLENİYOR</span></span>
+  </div>
+  <div class="stage-grid">
+    <section class="arena stage-player">
+      <div class="arena-top"><span class="topic">${icon('radio', 14)} CANLI SAHNE</span><span class="round-number" id="mode"></span></div>
+      <div class="screen">
+        <video id="video" autoplay playsinline></video>
+        <div class="screen-overlay" id="overlay">
+          <div class="overlay-box">
+            <span class="stage-play-mark" aria-hidden="true">${icon('radio', 28)}</span>
+            <p id="overlay-text" role="status">Sahne hazırlanıyor…</p>
+            <button class="primary large" id="start" type="button" hidden>Yayını başlat</button>
+            <p class="muted" id="budget"></p>
+          </div>
+        </div>
+        <div class="winner-banner" id="winner" hidden></div>
       </div>
-    </article>
-    <article class="card">
-      <h2>Yönlendirmeler</h2>
-      <ol class="log" id="directions"></ol>
-      <div class="actions"><button class="secondary" id="abandon">Bekleyeni bırak</button></div>
-    </article>
-    <article class="card">
-      <h2>Zincir ve bakiye</h2>
-      <dl id="chain"></dl>
-    </article>
-  </section>
+      <div class="arena-note director-status" id="director-status" role="status">Yayın başladığında görüntü burada görünecek.</div>
+    </section>
+
+    <aside class="panel">
+      <section class="manifesto stage-join-card">
+        <span class="aside-eyebrow">${icon('scan-line', 14)} SAHNEYE KATIL</span>
+        <h2>Telefonunu çıkar.<br>Hikâyeyi sen seç.</h2>
+        <div class="join">
+          <img src="/qr.svg" alt="Katılım QR kodu" class="qr">
+          <p class="join-url" id="join-url"></p>
+        </div>
+      </section>
+      <section class="arena stage-round" id="stage-round">
+        <div class="round-head"><h2 id="stage-round-title">Oylama birazdan</h2><span class="countdown" id="stage-countdown"></span></div>
+        <p class="operator-placeholder" id="tally-placeholder">Yayın başlayınca seçenekler burada görünecek.</p>
+        <ol class="tally" id="tally"></ol>
+      </section>
+      <p class="panel-footer">Monad testnet üzerinde her oy bir işlemdir.</p>
+    </aside>
+  </div>
 </main>
+${footer('SAHNE', 'Monad üzerinde canlı oylama.')}
+</div>
+</body>
+</html>`;
+
+export const adminPage = () => `${head('inscribi · yönetim', 'admin')}
+<body>
+<div class="operator-shell admin-shell">
+<header class="navbar">
+  ${brand}
+  <div class="nav-label"><span class="nav-live"></span>Yönetim paneli</div>
+  <nav class="operator-nav" aria-label="Ekranlar"><a href="/">Oylama ${icon('arrow-up-right', 14)}</a><a class="wallet-button" href="/stage" target="_blank" rel="noopener">Sahneyi aç ${icon('arrow-up-right', 16)}</a></nav>
+</header>
+<main class="console">
+  <div class="operator-intro">
+    <div><span class="topic">${icon('sparkles', 14)} KONTROL SENDE</span>
+      <h1>Sahneyi <span>yönet.</span></h1>
+      <p>Yayını takip et, turları aç, topluluğun seçimini sahneye taşı.</p>
+    </div>
+    <span class="round-status" id="live-status"><i></i><span>BAĞLANIYOR</span></span>
+  </div>
+  <p class="status operator-message" id="status" role="status" aria-live="polite" hidden></p>
+
+  <div id="console" hidden>
+    <section class="operator-metrics" aria-label="Yayın özeti">
+      <div><span>Yayın durumu</span><strong id="m-status">–</strong></div>
+      <div><span>Kalan yayın hakkı</span><strong id="m-remaining">–</strong></div>
+      <div><span>Bu yayındaki tur</span><strong id="m-round">–</strong></div>
+      <div><span>fal harcaması</span><strong id="m-spend">–</strong></div>
+    </section>
+    <section class="console-grid">
+      <article class="arena operator-card">
+        <div class="arena-top"><span class="topic">${icon('radio', 14)} YAYIN</span></div>
+        <div class="operator-card-body"><h2>Director</h2><dl id="director"></dl>
+          <div class="actions"><button class="danger" id="stop" type="button">Yayını durdur</button></div>
+        </div>
+      </article>
+      <article class="arena operator-card">
+        <div class="arena-top"><span class="topic">${icon('layers-3', 14)} OYLAMA</span></div>
+        <div class="operator-card-body"><h2>Tur</h2><dl id="round"></dl>
+          <div class="actions">
+            <label>Süre (sn) <input id="duration" type="number" min="5" max="600" step="1"></label>
+            <button class="primary" id="open" type="button">Turu aç</button>
+            <button class="secondary" id="finalize" type="button">Sonuçlandır</button>
+            <button class="secondary" id="cancel" type="button">İptal et</button>
+          </div>
+        </div>
+      </article>
+      <article class="arena operator-card">
+        <div class="arena-top"><span class="topic">${icon('activity', 14)} AKIŞ</span></div>
+        <div class="operator-card-body"><h2>Yönlendirmeler</h2>
+          <p class="operator-placeholder" id="directions-empty">Henüz yönlendirme yok. İlk turun sonucu burada görünecek.</p>
+          <ol class="log" id="directions"></ol>
+          <div class="actions"><button class="secondary" id="abandon" type="button">Bekleyeni bırak</button></div>
+        </div>
+      </article>
+      <article class="arena operator-card">
+        <div class="arena-top"><span class="topic">${icon('wallet', 14)} MONAD TESTNET</span></div>
+        <div class="operator-card-body"><h2>Zincir ve bakiye</h2><dl id="chain"></dl></div>
+      </article>
+    </section>
+  </div>
+</main>
+${footer('YÖNETİM', 'Monad üzerinde canlı oylama.')}
+</div>
 </body>
 </html>`;

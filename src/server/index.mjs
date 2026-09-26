@@ -49,7 +49,7 @@ if (config.directorMode === 'fake') {
   }, 250);
 }
 
-const server = createApp({config, store, show, session, bridge, drip, chain, abi, roomId: roomIdFor(store), log});
+const server = createApp({config, store, show, session, bridge, drip, chain, abi, roomId: roomIdFor(store), story, log});
 server.listen(config.port, config.listenHost, () => {
   log('listening', {url: config.publicOrigin, port: config.port, operator: chain.operator, contract: config.contract, directorMode: config.directorMode, sessionsLeft: session.remaining});
 });

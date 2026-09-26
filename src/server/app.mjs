@@ -3,11 +3,12 @@ import {createServer} from 'node:http';
 import {createHash, randomBytes, timingSafeEqual} from 'node:crypto';
 import {readFileSync, existsSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
-import {resolve, extname} from 'node:path';
+import {resolve, extname, join} from 'node:path';
 import QRCode from 'qrcode';
 import {getAddress, isAddress, parseTransaction} from 'viem';
 import {adminPage, participantPage, stagePage} from './pages.mjs';
 import {forwardToFal, sendJson} from './fal-proxy.mjs';
+import {IMAGE_NAME} from './story.mjs';
 
 const ASSET_DIR = fileURLToPath(new URL('../../dist/', import.meta.url));
 const ASSET_TYPES = {'.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.map': 'application/json'};
@@ -24,9 +25,10 @@ const SEND_METHODS = new Set(['eth_sendRawTransaction', 'eth_sendRawTransactionS
 // Provider errors after which the Director session cannot continue.
 const FATAL_PROVIDER_ERRORS = new Set(['configuration_timeout', 'initialization_timeout', 'invalid_initial_image', 'invalid_initial_audio', 'invalid_initial_script', 'invalid_input', 'balance_unavailable', 'content_policy', 'generation_timeout', 'generation_failed']);
 
-const PAGE_CSP = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
+const PAGE_CSP = "default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
+const IMAGE_TYPES = {'.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp'};
 
-export function createApp({config, store, show, session, bridge, drip, chain, abi, roomId, log}) {
+export function createApp({config, store, show, session, bridge, drip, chain, abi, roomId, story = {}, log}) {
   // Operator logins survive a redeploy; only SHA-256 digests of the cookie values are stored.
   const digest = (value) => createHash('sha256').update(value).digest('hex');
   const operatorSessions = new Map(Object.entries(store.read('operators', {})).filter(([, expires]) => expires > Date.now()));
@@ -196,6 +198,14 @@ export function createApp({config, store, show, session, bridge, drip, chain, ab
         // Versioned URLs (?v=<build hash>) never change content; unversioned ones must not outlive a deploy.
         const cache = url.searchParams.has('v') ? 'public, max-age=31536000, immutable' : 'no-cache';
         res.writeHead(200, {'content-type': ASSET_TYPES[extname(file)], 'cache-control': cache});
+        return res.end(readFileSync(file));
+      }
+      if (path.startsWith('/memes/') && story.imageDir) {
+        const name = path.slice('/memes/'.length);
+        const file = join(story.imageDir, name);
+        if (!IMAGE_NAME.test(name) || !existsSync(file)) return sendJson(res, 404, {error: 'not found'});
+        // Story image URLs carry a content hash (?v=), so they can be cached for good.
+        res.writeHead(200, {'content-type': IMAGE_TYPES[extname(name)], 'cache-control': 'public, max-age=31536000, immutable'});
         return res.end(readFileSync(file));
       }
       if (path === '/api/state') return sendJson(res, 200, show.publicState());

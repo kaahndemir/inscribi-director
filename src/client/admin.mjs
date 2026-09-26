@@ -21,6 +21,7 @@ let fetchedAt = 0;
 
 const setStatus = (text) => {
   $('status').textContent = text;
+  $('status').hidden = !text;
 };
 
 function fill(list, rows) {
@@ -60,6 +61,11 @@ async function act(label, path, body) {
 function render() {
   const {session, round, bridge, drip, operator, settings} = state;
   $('console').hidden = false;
+  $('live-status').lastElementChild.textContent = state.stale ? 'BAĞLANTI BEKLENİYOR' : session.status === 'live' ? 'YAYIN CANLI' : 'YAYIN BEKLENİYOR';
+  $('m-status').textContent = STATUS_TEXT[session.status] ?? session.status;
+  $('m-remaining').innerHTML = `${session.remaining}<small> / ${session.maxSessions}</small>`;
+  $('m-round').textContent = round ? String(round.number).padStart(2, '0') : '–';
+  $('m-spend').innerHTML = state.budgetUsd === null ? 'prova' : `${state.spentUsd.toFixed(2)}<small> / ${state.budgetUsd} USD</small>`;
 
   const elapsed = Math.round(session.elapsedMs / 1000);
   fill($('director'), [
@@ -91,6 +97,7 @@ function render() {
     return li;
   });
   $('directions').replaceChildren(...items);
+  $('directions-empty').hidden = items.length > 0;
   $('abandon').disabled = !bridge.entries.some((e) => e.status === 'waiting');
 
   fill($('chain'), [
@@ -110,6 +117,7 @@ async function poll() {
     render();
   } catch (error) {
     $('console').hidden = true;
+    $('live-status').lastElementChild.textContent = 'GİRİŞ GEREKLİ';
     setStatus(error.status === 401 ? 'Giriş gerekli: özel yönetim bağlantısını açın.' : 'Sunucuya ulaşılamıyor.');
   }
 }

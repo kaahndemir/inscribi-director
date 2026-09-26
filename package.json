@@ -11,6 +11,7 @@
     "build": "node scripts/build.mjs",
     "start": "node src/server/index.mjs",
     "dev": "npm run build && node --env-file=.env src/server/index.mjs",
+    "rehearsal": "node scripts/rehearsal.mjs",
     "test": "node --test test/unit/*.test.mjs",
     "test:e2e": "npm run build && node --test --test-concurrency=1 test/e2e/*.test.mjs",
     "test:contracts": "forge test --root contracts --offline",

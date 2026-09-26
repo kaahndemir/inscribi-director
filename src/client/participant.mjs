@@ -7,7 +7,8 @@
 // - Web Locks keep two tabs of the same browser from paying at the same time.
 import {createPublicClient, decodeEventLog, encodeFunctionData, formatEther, http, keccak256} from 'viem';
 import {generatePrivateKey, privateKeyToAccount} from 'viem/accounts';
-import {$, getJson, postJson, renderTally, secondsLeft, formatSeconds} from './shared.mjs';
+import {$, getJson, postJson, secondsLeft} from './shared.mjs';
+import {icon} from '../shared/icons.mjs';
 
 const WALLET_KEY = 'inscribi-director.wallet.v1';
 const SEND_ATTEMPTS = 3;
@@ -83,8 +84,7 @@ async function refreshBalance(force = false) {
   balanceAt = Date.now();
   try {
     const wei = await rpc.getBalance({address: account.address});
-    $('balance').textContent = `${Number(formatEther(wei)).toLocaleString('tr-TR', {maximumFractionDigits: 3})} MON`;
-    $('balance').hidden = false;
+    $('balance').innerHTML = `${Number(formatEther(wei)).toLocaleString('tr-TR', {maximumFractionDigits: 3})} <small>MON</small>`;
   } catch {
     // Keep the last known balance.
   }
@@ -105,7 +105,7 @@ async function join() {
     if (result.status !== 'confirmed') throw new Error(result.status);
     storage.set(keys.funded, true);
     void refreshBalance(true);
-    setStatus('Hazırsın. Tur açılınca seçimini yap.');
+    setStatus('Demo bakiyen hazır.');
   } catch (error) {
     setStatus(error.message === 'drip limit reached' ? 'Katılım doldu. Sahnedeki videoyu izlemeye devam edebilirsin.' : 'Demo bakiye doğrulanamadı; ikinci ödeme yapılmadı. Birazdan tekrar deneyin.');
   } finally {
@@ -231,6 +231,9 @@ async function pay(kind, round, choice = 0) {
 
 // Rendering -------------------------------------------------------------------------------
 
+let selected = null; // {round, choice}: picked on screen, paid only after the vote button
+let cardsFor = null; // round id the cards were built for
+
 function refundableRound() {
   const record = payments();
   return (state?.cancelledRounds ?? []).find((id) => record[id] === 'paid') ?? null;
@@ -244,39 +247,128 @@ function finalText(round, effect) {
   return effect.state === 'showing' ? `Şimdi sahnede: ${label}. Ekrana bak!` : `Seçilen: ${label}. Birazdan sahnede.`;
 }
 
+const clock = (seconds) => `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+
+// Meme cards are built once per round and updated in place, so images do not reload on every poll.
+function buildCards(round) {
+  const cards = round.labels.map((label, index) => {
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'meme-card';
+    card.setAttribute('role', 'radio');
+    const image = round.images?.[index];
+    if (image) {
+      const photo = document.createElement('div');
+      photo.className = 'meme-photo';
+      const img = document.createElement('img');
+      img.src = image;
+      img.alt = label;
+      img.decoding = 'async';
+      const badge = document.createElement('span');
+      badge.className = 'option-badge';
+      badge.textContent = String(index + 1).padStart(2, '0');
+      const circle = document.createElement('span');
+      circle.className = 'select-circle';
+      circle.innerHTML = icon('check', 15);
+      photo.append(img, badge, circle);
+      card.append(photo);
+    } else card.classList.add('live-card');
+    const copy = document.createElement('div');
+    copy.className = 'meme-card-copy';
+    const name = document.createElement('strong');
+    name.textContent = label;
+    const votes = document.createElement('span');
+    votes.className = 'choice-count';
+    const track = document.createElement('div');
+    track.className = 'share-track';
+    track.append(document.createElement('i'));
+    copy.append(name, votes, track);
+    card.append(copy);
+    card.addEventListener('click', () => {
+      selected = {round: round.id, choice: index};
+      render();
+    });
+    return card;
+  });
+  $('choices').replaceChildren(...cards);
+  cardsFor = round.id;
+}
+
+function renderCards(round, canPick, voted) {
+  if (cardsFor !== round.id) buildCards(round);
+  const total = round.counts.reduce((a, b) => a + b, 0);
+  const paidChoice = voted ? storage.get(keys.pending)?.choice ?? null : null;
+  [...$('choices').children].forEach((card, index) => {
+    const share = total ? Math.round((round.counts[index] / total) * 100) : 0;
+    const isSelected = selected?.round === round.id && selected.choice === index;
+    card.disabled = !canPick;
+    card.classList.toggle('selected', isSelected && !round.finalized);
+    card.classList.toggle('winner', round.finalized && round.winner === index);
+    card.setAttribute('aria-checked', String(isSelected));
+    card.querySelector('.choice-count').textContent = `${round.counts[index]} oy · %${share}`;
+    card.querySelector('.share-track').style.setProperty('--share', `${share}%`);
+    card.classList.toggle('voted', paidChoice === index);
+  });
+}
+
 function render() {
   const ready = !!account && funded();
-  $('join').hidden = !account || ready;
-  $('join').disabled = busy;
-  if (account) $('wallet-status').textContent = ready ? 'Cüzdanın hazır.' : 'Katılmak için demo bakiye al. Cüzdan kurman gerekmez.';
-
   const round = state?.round;
   const refundRound = refundableRound();
+  const pendingTx = !!storage.get(keys.pending);
+
+  if (account) $('wallet-status').textContent = ready ? 'Cüzdanın hazır.' : 'Katılmak için demo bakiye al. Cüzdan kurman gerekmez.';
+  $('join').hidden = !account || ready;
+  $('join').disabled = busy;
   $('refund').hidden = !ready || refundRound === null;
   $('refund').textContent = refundRound ? `Tur ${refundRound} için ödediğini geri al` : '';
-  $('refund').disabled = busy || !!storage.get(keys.pending);
+  $('refund').disabled = busy || pendingTx;
 
+  const status = $('round-status');
   if (!round) {
-    $('round-card').hidden = refundRound === null;
+    status.classList.remove('finished');
+    $('round-status-text').textContent = state?.director?.live ? 'YAYIN CANLI' : 'BEKLENİYOR';
+    $('round-number').textContent = '';
+    $('total-votes').textContent = '0 oy';
+    $('countdown').textContent = state?.director?.live ? 'İlk tur birazdan' : 'Yayın başlayınca oylama açılır';
     $('waiting-card').hidden = false;
     $('waiting-text').textContent = state?.director?.live ? 'Video başladı; ilk tur birazdan açılacak.' : 'Yayın başlayınca oylama burada açılacak.';
+    $('choices').replaceChildren();
+    cardsFor = null;
+    $('vote').hidden = true;
+    $('clock-panel').hidden = true;
+    $('result').textContent = ready ? 'Hazırsın. Tur açılınca seçimini yap.' : '';
     return;
   }
-  $('round-card').hidden = false;
-  $('waiting-card').hidden = true;
-  $('round-title').textContent = `Tur ${round.number}`;
 
   const left = secondsLeft(round, state.blockTime, fetchedAt);
-  $('countdown').textContent = formatSeconds(left);
-  const voted = payments()[round.id];
-  const canVote = ready && round.open && left > 0 && !voted && !busy && !state.stale && !storage.get(keys.pending) && !!state.fees;
-  renderTally($('choices'), round, {onPick: (choice) => pay('vote', round.id, choice), disabled: !canVote, highlight: round.finalized ? round.winner : null});
+  const voted = payments()[round.id] === 'paid' || (pendingTx && storage.get(keys.pending)?.round === round.id);
+  const canVote = ready && round.open && left > 0 && !voted && !busy && !state.stale && !pendingTx && !!state.fees;
+  const total = round.counts.reduce((a, b) => a + b, 0);
+
+  status.classList.toggle('finished', !round.open);
+  $('round-status-text').textContent = round.cancelled ? 'TUR İPTAL' : round.finalized ? 'TUR TAMAMLANDI' : voted ? 'OYUN KAYDEDİLDİ' : 'SÖZ SENDE';
+  $('round-number').textContent = `TUR ${String(round.number).padStart(2, '0')}`;
+  $('total-votes').textContent = `${total} oy`;
+  $('countdown').textContent = round.open && left > 0 ? `${left} sn kaldı` : round.open ? 'Oylama kapandı' : 'Sonuç belli';
+  $('waiting-card').hidden = true;
+  if (selected && selected.round !== round.id) selected = null;
+  renderCards(round, canVote, voted);
+
+  const choice = selected?.round === round.id ? selected.choice : null;
+  $('vote').hidden = !ready || !round.open || voted;
+  $('vote').disabled = !canVote || choice === null;
+  $('vote-label').textContent = choice === null ? 'Bir meme seç' : `“${round.labels[choice]}” için oy ver`;
+  $('clock-panel').hidden = !(voted && round.open);
+  $('clock').textContent = clock(left);
+  $('clock-title').firstChild.textContent = left > 0 ? 'Oylama bitiyor' : 'Sonuç hesaplanıyor';
+  $('caption-meta').textContent = round.open ? `HER OY ${formatEther(BigInt(round.fee))} MON` : 'TUR BİTTİ';
 
   if (round.cancelled) $('result').textContent = 'Bu tur iptal edildi; ödediğin bedeli geri alabilirsin.';
   else if (round.finalized) $('result').textContent = finalText(round, state.effect);
   else if (voted) $('result').textContent = 'Oyun kayıtlı. Sonucu bekle.';
   else if (!ready) $('result').textContent = 'Oy vermek için önce katıl.';
-  else $('result').textContent = left > 0 ? 'Seçimini yap: her oy 0,001 demo MON.' : 'Oylama kapandı, sonuç hesaplanıyor.';
+  else $('result').textContent = left > 0 ? (choice === null ? 'Bir meme seç, sonra oyunu onayla.' : 'Güzel seçim. Oyunu onayla.') : 'Oylama kapandı, sonuç hesaplanıyor.';
 }
 
 async function poll() {
@@ -292,11 +384,24 @@ async function poll() {
   render();
 }
 
+function toggleWallet(open = $('wallet-detail').hidden) {
+  $('wallet-detail').hidden = !open;
+  $('wallet-button').setAttribute('aria-expanded', String(open));
+}
+
 loadWallet();
 $('join').addEventListener('click', join);
+$('vote').addEventListener('click', () => {
+  if (selected && state?.round?.id === selected.round) pay('vote', selected.round, selected.choice);
+});
 $('refund').addEventListener('click', () => {
   const round = refundableRound();
   if (round !== null) pay('refund', round);
+});
+$('wallet-button').addEventListener('click', () => toggleWallet());
+$('wallet-close').addEventListener('click', () => toggleWallet(false));
+addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') toggleWallet(false);
 });
 await poll();
 setInterval(poll, POLL_MS);

@@ -40,3 +40,21 @@ test('the choices hash changes when any label or prompt changes', () => {
   assert.equal(choicesHash(a), choicesHash(parseStory(base).rounds[0].choices));
   assert.notEqual(choicesHash(a), choicesHash(parseStory(changed).rounds[0].choices));
 });
+
+test('choice images must be plain file names and become URLs', () => {
+  const withImage = structuredClone(base);
+  withImage.rounds[0].choices[0].image = 'm01.jpg';
+  const story = parseStory(withImage, {imageUrl: (name) => `/memes/${name}?v=x`});
+  assert.equal(story.rounds[0].choices[0].image, '/memes/m01.jpg?v=x');
+  assert.equal(story.rounds[0].choices[1].image, null);
+  for (const bad of ['../secret.jpg', 'M01.JPG', 'a/b.jpg', 'x.svg']) {
+    withImage.rounds[0].choices[0].image = bad;
+    assert.throws(() => parseStory(withImage), /image/);
+  }
+});
+
+test('the hash ignores images, so a new picture does not change what voters chose', () => {
+  const withImage = structuredClone(base);
+  withImage.rounds[0].choices[0].image = 'm01.jpg';
+  assert.equal(choicesHash(parseStory(withImage).rounds[0].choices), choicesHash(parseStory(base).rounds[0].choices));
+});
