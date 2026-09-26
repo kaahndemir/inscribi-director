@@ -1,0 +1,33 @@
+{
+  "title": "Turuncu robot",
+  "note": "Yer tutucu hikâye; son içerik Dilanur'dan gelecek. Model top ve kapıya kendiliğinden yöneliyor, bu yüzden seçenekler kendiliğinden olmayan ve görsel olarak belirgin hareketlerden seçilmeli.",
+  "opening": "A simple cinematic animated scene. One small orange robot stands still in a clean white room with a blue door and a red ball on a table. Locked wide camera. Preserve the same robot, room, blue door and red ball. Soft ambient sound. No text.",
+  "premise": "One small orange robot in a white room with a blue door and a red ball on a table. Preserve the character and room. Locked wide camera. No text.",
+  "continuation": "Continue from the current position; do not reset previous actions.",
+  "rounds": [
+    {
+      "choices": [
+        {"label": "Yere otur", "action": "The robot sits on the floor."},
+        {"label": "El salla", "action": "The robot waves one hand at the camera."},
+        {"label": "Kollarını kaldır", "action": "The robot raises both arms above its head."},
+        {"label": "Eğilerek selamla", "action": "The robot bows toward the camera."}
+      ]
+    },
+    {
+      "choices": [
+        {"label": "Dans et", "action": "The robot dances in place, swinging its arms."},
+        {"label": "Zıpla", "action": "The robot jumps up and down twice."},
+        {"label": "Başını salla", "action": "The robot nods its head slowly."},
+        {"label": "Etrafında dön", "action": "The robot turns around in a full circle."}
+      ]
+    },
+    {
+      "choices": [
+        {"label": "Uzan", "action": "The robot lies down on the floor."},
+        {"label": "Alkışla", "action": "The robot claps its hands."},
+        {"label": "Selam ver", "action": "The robot salutes the camera."},
+        {"label": "Esne", "action": "The robot stretches its arms and yawns."}
+      ]
+    }
+  ]
+}
