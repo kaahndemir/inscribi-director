@@ -1,4 +1,21 @@
 // HTML shells for the three screens. All behaviour lives in the bundled scripts under /assets.
+import {createHash} from 'node:crypto';
+import {readdirSync, readFileSync} from 'node:fs';
+
+const DIST = new URL('../../dist/', import.meta.url);
+
+// Asset URLs carry a hash of the build, so neither browsers nor the CDN keep serving an older build after a deploy.
+let version = null;
+export function assetVersion() {
+  if (version) return version;
+  const hash = createHash('sha256');
+  try {
+    for (const name of readdirSync(DIST).sort()) hash.update(name).update(readFileSync(new URL(name, DIST)));
+  } catch {
+    return 'dev';
+  }
+  return (version = hash.digest('hex').slice(0, 12));
+}
 
 const head = (title, script) => `<!doctype html>
 <html lang="tr">
@@ -7,8 +24,8 @@ const head = (title, script) => `<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0d12">
 <title>${title}</title>
-<link rel="stylesheet" href="/assets/app.css">
-<script type="module" src="/assets/${script}.js"></script>
+<link rel="stylesheet" href="/assets/app.css?v=${assetVersion()}">
+<script type="module" src="/assets/${script}.js?v=${assetVersion()}"></script>
 </head>`;
 
 const brand = `<div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>inscribi <b>director</b></span></div>`;

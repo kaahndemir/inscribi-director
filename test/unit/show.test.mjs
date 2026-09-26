@@ -54,7 +54,7 @@ const at = (ms) => new Date(T0 + ms).toISOString();
 
 test('the next round waits until the winner\'s first chunk has played in full', () => {
   const entry = {round: 7, choice: 1, status: 'applied', createdAt: at(0)};
-  assert.equal(liveShow({entries: [entry], now: T0 + 20000}).effectWatched(7), false);
+  assert.equal(liveShow({entries: [entry], now: T0 + 15000}).effectWatched(7), false);
   const shown = {...entry, shownAt: at(6000), playbackMs: 4400};
   assert.equal(liveShow({entries: [shown], now: T0 + 10000}).effectWatched(7), false);
   assert.equal(liveShow({entries: [shown], now: T0 + 10400}).effectWatched(7), true);
@@ -62,7 +62,8 @@ test('the next round waits until the winner\'s first chunk has played in full', 
 
 test('the show moves on without a chunk report after a timeout, or at once when the direction was refused', () => {
   const entry = {round: 7, choice: 1, status: 'applied', createdAt: at(0)};
-  assert.equal(liveShow({entries: [entry], now: T0 + 30000}).effectWatched(7), true);
+  assert.equal(liveShow({entries: [entry], now: T0 + 19000}).effectWatched(7), false);
+  assert.equal(liveShow({entries: [entry], now: T0 + 20000}).effectWatched(7), true);
   assert.equal(liveShow({entries: [{...entry, status: 'rejected'}], now: T0}).effectWatched(7), true);
   assert.equal(liveShow({entries: [{...entry, status: 'abandoned'}], now: T0}).effectWatched(7), true);
 });

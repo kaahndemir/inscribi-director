@@ -193,7 +193,9 @@ export function createApp({config, store, show, session, bridge, drip, chain, ab
       if (path.startsWith('/assets/')) {
         const file = resolve(ASSET_DIR, path.slice('/assets/'.length));
         if (!file.startsWith(ASSET_DIR) || !existsSync(file) || !ASSET_TYPES[extname(file)]) return sendJson(res, 404, {error: 'not found'});
-        res.writeHead(200, {'content-type': ASSET_TYPES[extname(file)], 'cache-control': 'public, max-age=60'});
+        // Versioned URLs (?v=<build hash>) never change content; unversioned ones must not outlive a deploy.
+        const cache = url.searchParams.has('v') ? 'public, max-age=31536000, immutable' : 'no-cache';
+        res.writeHead(200, {'content-type': ASSET_TYPES[extname(file)], 'cache-control': cache});
         return res.end(readFileSync(file));
       }
       if (path === '/api/state') return sendJson(res, 200, show.publicState());

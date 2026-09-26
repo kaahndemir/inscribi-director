@@ -22,7 +22,7 @@ sahne (/stage) ◀──── tur, oy sayısı, kazanan ───── sunucu 
 2. İlk kare geldiğinde sunucu hikâyenin ilk turunu zincirde açar (`open`). Seçenekler, etiket ve prompt'ların hash'iyle zincirde dondurulur.
 3. İzleyiciler QR ile siteye girer, tek dokunuşla demo MON alır ve dört seçenekten birine oy verir. Her oy kontrata 0,001 MON ödeyen bir işlemdir; bir cüzdan her turda bir kez oy verebilir.
 4. Süre dolunca sunucu turu sonuçlandırır (`finalize`). Kazananın prompt'u köprüye kaydedilir; sahne sekmesi onu Director'a bir kez gönderir ve sağlayıcının kabulünü geri bildirir.
-5. Director her video parçasıyla hangi prompt sürümüyle üretildiğini bildirir; sahne sekmesi bunu sunucuya iletir. Kazananın ilk parçası ekrana gelince sahnede ve telefonlarda "Şimdi sahnede: …" yazar. Bir sonraki tur, bu parça tamamen oynadıktan sonra kendiliğinden açılır; parça bildirimi 30 sn içinde gelmezse gösteri beklemeden devam eder. Hikâyedeki sorular önce sırayla gelir; hepsi kullanılınca mevcut sorular rastgele tekrar eder (aynı soru art arda gelmez). Yayın durdurulunca açık tur iptal edilir; oy verenler bedellerini telefondan geri alır.
+5. Director her video parçasıyla hangi prompt sürümüyle üretildiğini bildirir; sahne sekmesi bunu sunucuya iletir. Kazananın ilk parçası ekrana gelince sahnede ve telefonlarda "Şimdi sahnede: …" yazar. Bir sonraki tur, bu parça tamamen oynadıktan sonra kendiliğinden açılır; parça bildirimi 20 sn içinde gelmezse gösteri beklemeden devam eder. Hikâyedeki sorular önce sırayla gelir; hepsi kullanılınca mevcut sorular rastgele tekrar eder (aynı soru art arda gelmez). Yayın durdurulunca açık tur iptal edilir; oy verenler bedellerini telefondan geri alır.
 
 ## Ekranlar
 

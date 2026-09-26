@@ -14,7 +14,7 @@ const BALANCE_REFRESH_MS = 10000;
 // Leave time after a round for the prompt to be applied and one video chunk (~8.5 s) to play.
 const VISIBLE_EFFECT_MS = 15000;
 // If the provider never reports the winner's chunk, the show moves on after this long.
-const EFFECT_TIMEOUT_MS = 30000;
+const EFFECT_TIMEOUT_MS = 20000;
 const NO_WINNER = 255;
 
 export class Show {
