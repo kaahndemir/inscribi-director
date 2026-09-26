@@ -60,8 +60,10 @@ export function loadConfig(env = process.env) {
     adminToken,
     falKey,
     directorMode,
-    maxSessions: integer('MAX_SESSIONS', 2, 1, 20),
-    maxSessionSeconds: integer('MAX_SESSION_SECONDS', 75, 20, 900),
+    maxSessions: integer('MAX_SESSIONS', 2, 1, 50),
+    // 0 = no server-side limit; the operator stops the show (the provider caps a session at 15 minutes).
+    maxSessionSeconds: integer('MAX_SESSION_SECONDS', 75, 0, 900),
+    falBudgetUsd: integer('FAL_BUDGET_USD', 20, 5, 1000),
     roundSeconds: integer('ROUND_SECONDS', 20, 5, 600),
     autoRounds: (env.AUTO_ROUNDS ?? 'true') !== 'false',
     voteFeeMon: decimal('VOTE_FEE_MON', '0.001'),
@@ -70,6 +72,7 @@ export function loadConfig(env = process.env) {
     storyFile: env.STORY_FILE?.trim() || new URL('../story/story.json', import.meta.url).pathname,
   };
 
+  if (config.maxSessionSeconds > 0 && config.maxSessionSeconds < 20) errors.push('MAX_SESSION_SECONDS must be 0 (no limit) or at least 20');
   if (errors.length) throw new Error(`Invalid configuration:\n- ${errors.join('\n- ')}`);
   return Object.freeze(config);
 }

@@ -18,7 +18,7 @@ sahne (/stage) ◀──── tur, oy sayısı, kazanan ───── sunucu 
 2. İlk kare geldiğinde sunucu hikâyenin ilk turunu zincirde açar (`open`). Seçenekler, etiket ve prompt'ların hash'iyle zincirde dondurulur.
 3. İzleyiciler QR ile siteye girer, tek dokunuşla demo MON alır ve dört seçenekten birine oy verir. Her oy kontrata 0,001 MON ödeyen bir işlemdir; bir cüzdan her turda bir kez oy verebilir.
 4. Süre dolunca sunucu turu sonuçlandırır (`finalize`). Kazananın prompt'u köprüye kaydedilir; sahne sekmesi onu Director'a bir kez gönderir ve sağlayıcının kabulünü geri bildirir.
-5. Bir sonraki tur kendiliğinden açılır. Yayın süresi dolunca veya durdurulunca açık tur iptal edilir; oy verenler bedellerini telefondan geri alır.
+5. Bir sonraki tur kendiliğinden açılır. Hikâyedeki sorular önce sırayla gelir; hepsi kullanılınca mevcut sorular rastgele tekrar eder (aynı soru art arda gelmez). Yayın durdurulunca açık tur iptal edilir; oy verenler bedellerini telefondan geri alır.
 
 ## Ekranlar
 
@@ -33,7 +33,8 @@ Yönetim bağlantısı yalnız bir kez açılır; anahtar HttpOnly çereze çevr
 ## Güvenlik ve para kuralları
 
 - **Gizli değerler yalnız sunucuda:** `FAL_KEY`, `OPERATOR_PRIVATE_KEY` ve `ADMIN_TOKEN` ortam değişkenidir; tarayıcıya veya diske yazılmaz.
-- **Ücretli oturum sınırı:** `MAX_SESSIONS` bu kurulumun ömrü boyunca açılabilecek Director oturumu sayısıdır (kalıcı sayılır). Her oturumda sağlayıcıya tek `/session` isteği gider ve `MAX_SESSION_SECONDS` sert süre sınırıdır. Sunucu yeniden başlarsa açık oturum kapanır ve kendiliğinden yeniden açılmaz.
+- **Ücretli oturum sınırı:** `MAX_SESSIONS` bu kurulumun ömrü boyunca açılabilecek Director oturumu sayısıdır (kalıcı sayılır). Her oturumda sağlayıcıya tek `/session` isteği gider. `MAX_SESSION_SECONDS=0` ile yayın operatör durdurana kadar sürer (sağlayıcı bir oturumu en fazla 15 dakika tutar). Sunucu yeniden başlarsa açık oturum kapanır ve kendiliğinden yeniden açılmaz.
+- **Dolar bütçesi:** `FAL_BUDGET_USD`, harcamayı liste fiyatıyla (0,08 USD/sn, oturum başına en az 60 sn) kalıcı olarak sayar. Bütçe dolunca canlı yayın kapanır ve yeni yayın açılmaz. Liste fiyatı gerçek faturanın üst sınırıdır.
 - **Sahne kiralaması:** Sahne sekmesi 2 saniyede bir kalp atışı gönderir; 8 saniye gelmezse yayın kapanır ve açık tur iptal edilir.
 - **fal proxy:** Yalnız `minimax/h3-max/director` modelinin üç WMA yoluna, yalnız operatör çereziyle ve yalnız canlı oturumda izin verir.
 - **Oy güvenliği:** Tarayıcı imzalı işlemi göndermeden önce saklar; yanıt kaybolursa aynı baytları yeniden gönderir, yeni imza atmaz. Oy, makbuzda doğru `Voted` olayı varsa sayılır. Aynı tarayıcının iki sekmesi Web Locks ile aynı anda ödeme yapamaz.
@@ -100,7 +101,7 @@ Canlı gösteri sırasında yeniden dağıtım yapmayın: açık oturum kapanır
 
 ## Maliyet
 
-fal liste fiyatı: üretilen video saniyesi başına 0,08 USD, oturum başına en az 60 saniye. 75 saniyelik bir oturum liste fiyatıyla yaklaşık 6 USD'dir. Yönetim ekranı liste fiyatı tahminini gösterir; gerçek bedel fal panelindedir. Testnet MON gerçek para değildir.
+fal liste fiyatı: üretilen video saniyesi başına 0,08 USD, oturum başına en az 60 saniye. Bir dakika yaklaşık 4,80 USD, on beş dakika yaklaşık 72 USD'dir. Yönetim ve sahne ekranları bütçeye göre harcamayı gösterir; gerçek bedel fal panelindedir. Testnet MON gerçek para değildir.
 
 ## Sınırlar
 

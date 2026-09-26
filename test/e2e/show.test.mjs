@@ -78,7 +78,7 @@ test('full rehearsal on a local chain', {timeout: 240000}, async (t) => {
     ADMIN_TOKEN,
     DIRECTOR_MODE: 'fake',
     MAX_SESSIONS: '1',
-    MAX_SESSION_SECONDS: '240',
+    MAX_SESSION_SECONDS: '0',
     ROUND_SECONDS: '6',
     DRIP_AMOUNT_MON: '0.08',
   };
@@ -128,7 +128,7 @@ test('full rehearsal on a local chain', {timeout: 240000}, async (t) => {
   async function voteRound(step, picks) {
     const round = await until(async () => {
       const s = await adminState();
-      return s.round?.open && s.round.step === step ? s.round : null;
+      return s.round?.open && s.round.number === step ? s.round : null;
     }, {label: `round ${step} open`});
     for (const [index, choice] of picks.entries()) {
       const button = phones[index].locator('#choices button').nth(choice);

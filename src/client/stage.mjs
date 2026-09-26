@@ -137,15 +137,20 @@ async function stop(reason) {
 function render() {
   const {round, session} = state;
   $('join-url').textContent = state.joinUrl.replace(/^https?:\/\//, '');
-  $('budget').textContent = `Kalan yayın hakkı: ${session.remaining}/${session.maxSessions} · en fazla ${Math.round(session.maxMs / 1000)} sn`;
+  const limit = session.maxMs === null ? 'süre sınırı yok' : `en fazla ${Math.round(session.maxMs / 1000)} sn`;
+  const budget = session.budgetUsd === null ? '' : ` · fal ${session.spentUsd.toFixed(2)}/${session.budgetUsd} USD`;
+  $('budget').textContent = `Kalan yayın hakkı: ${session.remaining}/${session.maxSessions} · ${limit}${budget}`;
 
   if (!running) {
-    const canStart = session.status !== 'live' && session.remaining > 0 && !state.stale;
+    const budgetLeft = session.budgetUsd === null || session.budgetUsd - session.spentUsd >= 4.8;
+    const canStart = session.status !== 'live' && session.remaining > 0 && budgetLeft && !state.stale;
     if (session.status === 'live') overlay('Yayın başka bir sahne sekmesinde açık.');
     else if (canStart) overlay(session.attempts ? 'Yayın kapandı. Yeni yayın bir hak harcar.' : 'Sahne hazır.', {showStart: true});
-    else overlay(session.remaining === 0 ? 'Yayın hakları kullanıldı.' : 'Zincir bağlantısı bekleniyor…');
+    else if (session.remaining === 0) overlay('Yayın hakları kullanıldı.');
+    else if (session.budgetUsd !== null && session.budgetUsd - session.spentUsd < 4.8) overlay('fal bütçesi doldu.');
+    else overlay('Zincir bağlantısı bekleniyor…');
   } else if (session.status !== 'live') {
-    void stop(session.reason === 'time-limit' ? 'Süre doldu, yayın kapandı.' : 'Yayın kapandı.');
+    void stop(session.reason === 'time-limit' ? 'Süre doldu, yayın kapandı.' : session.reason === 'budget' ? 'fal bütçesi doldu, yayın kapandı.' : 'Yayın kapandı.');
   }
 
   if (!round) {
@@ -155,7 +160,7 @@ function render() {
     $('winner').hidden = true;
     return;
   }
-  $('stage-round-title').textContent = `Tur ${round.step}/${round.steps}`;
+  $('stage-round-title').textContent = `Tur ${round.number}`;
   $('stage-countdown').textContent = formatSeconds(secondsLeft(round, state.blockTime, fetchedAt));
   renderTally($('tally'), round, {highlight: round.finalized ? round.winner : null});
   const showWinner = round.finalized && round.winner !== null;

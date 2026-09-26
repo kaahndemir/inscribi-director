@@ -27,7 +27,12 @@ if (onChainChainId !== config.chainId) throw new Error(`RPC reports chain ${onCh
 const owner = await chain.read('owner');
 if (owner.toLowerCase() !== chain.operator.toLowerCase()) throw new Error('OPERATOR_PRIVATE_KEY is not the owner of CONTRACT_ADDRESS');
 
-const session = new DirectorSession({store, maxSessions: config.maxSessions, maxMs: config.maxSessionSeconds * 1000});
+const session = new DirectorSession({
+  store,
+  maxSessions: config.maxSessions,
+  maxMs: config.maxSessionSeconds ? config.maxSessionSeconds * 1000 : null,
+  budgetUsd: config.directorMode === 'live' ? config.falBudgetUsd : null,
+});
 const bridge = new Bridge(store);
 const drip = new DripGate({store, chain, amount: parseEther(config.dripAmountMon), limit: config.dripLimit});
 const show = new Show({config, chain, store, story, session, bridge, log});

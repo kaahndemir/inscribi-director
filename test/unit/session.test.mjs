@@ -75,3 +75,47 @@ test('stage ids are validated', () => {
   assert.throws(() => session.start('short'), /invalid/);
   assert.equal(session.remaining, 1);
 });
+
+test('with no time limit the session runs until stopped, as long as the stage stays connected', () => {
+  const {time, now} = clock();
+  const session = new DirectorSession({store: new MemoryStore(), maxSessions: 1, maxMs: null, now});
+  session.start(OWNER);
+  for (let t = 0; t < 400; t++) {
+    time.now += 2000;
+    session.heartbeat(OWNER);
+  }
+  assert.equal(session.live, true);
+  session.end('operator');
+  assert.equal(session.state.reason, 'operator');
+});
+
+test('spend is counted at list price and the budget ends a session and blocks new ones', () => {
+  const store = new MemoryStore();
+  const {time, now} = clock();
+  const session = new DirectorSession({store, maxSessions: 10, maxMs: null, budgetUsd: 20, now});
+  session.start(OWNER);
+  session.claimProviderSession();
+  time.now += 30000;
+  assert.equal(session.snapshot().spentUsd, 4.8); // 60 s minimum
+  session.end('operator');
+  assert.equal(session.state.spentUsd, 4.8);
+
+  session.start(OWNER);
+  session.claimProviderSession();
+  for (let t = 0; t < 100 && session.live; t++) {
+    time.now += 2000;
+    if (session.live) session.heartbeat(OWNER);
+  }
+  assert.equal(session.state.reason, 'budget');
+  assert.ok(session.state.spentUsd >= 20 && session.state.spentUsd < 20.2);
+  assert.throws(() => new DirectorSession({store, maxSessions: 10, maxMs: null, budgetUsd: 20, now}).start(OWNER), /fal budget/);
+});
+
+test('an attempt that never opened a provider session costs nothing', () => {
+  const {time, now} = clock();
+  const session = new DirectorSession({store: new MemoryStore(), maxSessions: 3, maxMs: null, budgetUsd: 20, now});
+  session.start(OWNER);
+  time.now += 5000;
+  session.end('stage-closed');
+  assert.equal(session.state.spentUsd, 0);
+});

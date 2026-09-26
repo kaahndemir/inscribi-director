@@ -3,6 +3,7 @@
 //
 // Round flow while the Director is live:
 //   open (story step N) -> votes until the on-chain deadline -> finalize -> winner prompt -> next step
+// Steps run in story order; once every step has been used in this session, steps repeat at random.
 // If the session ends while a round is open, that round is cancelled so voters can take a refund.
 import {formatEther, parseEther} from 'viem';
 import {choicesHash} from './story.mjs';
@@ -14,7 +15,8 @@ const VISIBLE_EFFECT_MS = 15000;
 const NO_WINNER = 255;
 
 export class Show {
-  constructor({config, chain, store, story, session, bridge, log = () => {}}) {
+  constructor({config, chain, store, story, session, bridge, log = () => {}, random = Math.random}) {
+    this.random = random;
     this.config = config;
     this.chain = chain;
     this.store = store;
@@ -112,10 +114,10 @@ export class Show {
     const round = this.latest;
     if (round?.open) return false;
     const opened = this.roundsThisSession();
-    if (opened.length >= this.story.rounds.length) return false;
     // Wait until the previous winner has been handed to the Director.
     const previous = opened.at(-1);
     if (previous && !this.bridge.state.entries.some((e) => e.round === previous.round) && round?.winner !== NO_WINNER && !round?.cancelled) return false;
+    if (this.session.maxMs === null) return true;
     const remainingMs = state.startedAt + this.session.maxMs - Date.now();
     return remainingMs >= this.config.roundSeconds * 1000 + VISIBLE_EFFECT_MS;
   }
@@ -138,9 +140,8 @@ export class Show {
     if (!Number.isInteger(duration) || duration < 5 || duration > 600) throw new Error('round duration must be 5-600 seconds');
     if (!this.session.live) throw new Error('the Director session is not live');
     if (this.latest?.open) throw new Error('a round is already open');
-    const step = this.roundsThisSession().length;
+    const step = this.nextStep();
     const storyRound = this.story.rounds[step];
-    if (!storyRound) throw new Error('the story has no more rounds');
 
     const hash = choicesHash(storyRound.choices);
     const fee = parseEther(this.config.voteFeeMon);
@@ -151,6 +152,17 @@ export class Show {
     this.log('round opened', {id, step: step + 1});
     await this.refresh();
     return this.rounds[id];
+  }
+
+  // Story order first; afterwards a random step, never the same one twice in a row.
+  nextStep() {
+    const opened = this.roundsThisSession();
+    const total = this.story.rounds.length;
+    if (opened.length < total) return opened.length;
+    if (total === 1) return 0;
+    const last = opened.at(-1).step;
+    const pick = Math.floor(this.random() * (total - 1));
+    return pick >= last ? pick + 1 : pick;
   }
 
   async finalizeLatest() {
@@ -203,8 +215,8 @@ export class Show {
       round: round && choices
         ? {
             id: round.id,
-            step: round.meta.step + 1,
-            steps: this.story.rounds.length,
+            storyStep: round.meta.step + 1,
+            number: Object.values(this.rounds).filter((r) => r.attempt === round.meta.attempt && r.round <= round.id).length,
             labels: choices.map((c) => c.label),
             counts: round.counts,
             deadline: round.deadline,
@@ -231,8 +243,9 @@ export class Show {
       operator: {address: this.chain.operator, balanceMon: this.operatorBalance === null ? null : formatEther(this.operatorBalance)},
       settings: {autoRounds: this.config.autoRounds, roundSeconds: this.config.roundSeconds, directorMode: this.config.directorMode, voteFeeMon: this.config.voteFeeMon},
       story: {title: this.story.title, opening: this.story.opening, steps: this.story.rounds.length},
-      // Provider list price: $0.08 per generated second with a 60 s minimum per session. The real bill is on the fal dashboard.
-      listPriceUsd: session.attempts ? Math.max(60, Math.ceil(session.elapsedMs / 1000)) * 0.08 : 0,
+      // Spend at provider list price ($0.08/s, 60 s minimum per session); an upper bound of the real bill on the fal dashboard.
+      spentUsd: session.spentUsd,
+      budgetUsd: session.budgetUsd,
       lastError: this.lastError,
     };
   }

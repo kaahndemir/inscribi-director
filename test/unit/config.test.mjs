@@ -27,3 +27,8 @@ test('missing secrets and unsafe values are rejected together', () => {
 test('fake mode does not need a fal key', () => {
   assert.equal(loadConfig({...valid, FAL_KEY: '', DIRECTOR_MODE: 'fake'}).directorMode, 'fake');
 });
+
+test('MAX_SESSION_SECONDS=0 means no server-side limit; tiny limits are rejected', () => {
+  assert.equal(loadConfig({...valid, MAX_SESSION_SECONDS: '0'}).maxSessionSeconds, 0);
+  assert.throws(() => loadConfig({...valid, MAX_SESSION_SECONDS: '10'}), /MAX_SESSION_SECONDS/);
+});

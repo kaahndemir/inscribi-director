@@ -91,7 +91,7 @@ async function join() {
     storage.set(keys.funded, true);
     setStatus('Hazırsın. Tur açılınca seçimini yap.');
   } catch (error) {
-    setStatus(error.message === 'drip limit reached' ? 'Demo bakiye kotası doldu. Ekibe haber verin.' : 'Demo bakiye doğrulanamadı; ikinci ödeme yapılmadı. Birazdan tekrar deneyin.');
+    setStatus(error.message === 'drip limit reached' ? 'Katılım doldu. Sahnedeki videoyu izlemeye devam edebilirsin.' : 'Demo bakiye doğrulanamadı; ikinci ödeme yapılmadı. Birazdan tekrar deneyin.');
   } finally {
     busy = false;
     render();
@@ -239,7 +239,7 @@ function render() {
   }
   $('round-card').hidden = false;
   $('waiting-card').hidden = true;
-  $('round-title').textContent = `Tur ${round.step}/${round.steps}`;
+  $('round-title').textContent = `Tur ${round.number}`;
 
   const left = secondsLeft(round, state.blockTime, fetchedAt);
   $('countdown').textContent = formatSeconds(left);

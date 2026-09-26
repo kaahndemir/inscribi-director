@@ -12,6 +12,7 @@ const END_REASON = {
   interrupted: 'sunucu yeniden başladı',
   shutdown: 'sunucu kapandı',
   'provider-error': 'sağlayıcı hatası',
+  budget: 'fal bütçesi doldu',
 };
 const DIRECTION_TEXT = {waiting: 'gönderildi, yanıt bekleniyor', applied: 'kabul edildi', rejected: 'reddedildi', abandoned: 'bırakıldı'};
 
@@ -63,16 +64,16 @@ function render() {
   const elapsed = Math.round(session.elapsedMs / 1000);
   fill($('director'), [
     ['Durum', `${STATUS_TEXT[session.status] ?? session.status}${session.reason ? ` (${END_REASON[session.reason] ?? session.reason})` : ''}`],
-    ['Süre', `${elapsed} / ${Math.round(session.maxMs / 1000)} sn`],
+    ['Süre', session.maxMs === null ? `${elapsed} sn · sınır yok, durdurana kadar sürer` : `${elapsed} / ${Math.round(session.maxMs / 1000)} sn`],
     ['Kalan yayın hakkı', `${session.remaining} / ${session.maxSessions}`],
     ['Mod', settings.directorMode === 'live' ? 'Canlı fal Director' : 'Prova (video yok)'],
-    ['Liste fiyatıyla son oturum', `${state.listPriceUsd.toFixed(2)} USD (gerçek bedel fal panelinde)`],
+    ['fal harcaması (liste fiyatı)', state.budgetUsd === null ? 'Sayılmıyor (prova modu)' : `${state.spentUsd.toFixed(2)} / ${state.budgetUsd} USD · gerçek bedel fal panelinde`],
   ]);
   $('stop').disabled = session.status !== 'live';
 
   fill($('round'), round
     ? [
-        ['Zincir turu', `#${round.id} · hikâye adımı ${round.step}/${round.steps}`],
+        ['Zincir turu', `#${round.id} · bu yayında ${round.number}. tur · soru ${round.storyStep}/${state.story.steps}`],
         ['Durum', round.cancelled ? 'İptal' : round.finalized ? 'Sonuçlandı' : round.open ? `Açık · ${secondsLeft(round, state.blockTime, fetchedAt)} sn` : '-'],
         ['Oylar', round.labels.map((label, i) => `${label}: ${round.counts[i]}`).join(' · ')],
         ['Kazanan', round.winner === null ? '-' : round.labels[round.winner]],
