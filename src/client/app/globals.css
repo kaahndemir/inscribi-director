@@ -517,3 +517,101 @@ footer > span:first-child { display: flex; align-items: center; gap: 5px; font-f
 @media (prefers-reduced-motion: reduce) {
   *, *:before, *:after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Operator screens share the participant arena's palette, surfaces and type. */
+.operator-shell { min-height: 100svh; padding-bottom: env(safe-area-inset-bottom); }
+.operator-nav { display: flex; align-items: center; gap: 20px; font-size: 13px; color: #c6b5df; }
+.operator-nav a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.operator-shell main { width: 100%; max-width: 1192px; margin: auto; padding: 28px 32px 0; }
+.operator-intro { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 26px; }
+.operator-intro h1 { font-size: clamp(28px, 3vw, 40px); letter-spacing: -1.5px; margin: 10px 0; }
+.operator-intro p { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0; }
+.operator-intro > .round-status { flex-shrink: 0; padding: 12px 16px; border: 1px solid #443352; border-radius: 999px; background: #1e1728; }
+.operator-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 24px; }
+.operator-metrics > div { padding: 18px 20px; border: 1px solid #392b47; border-radius: 16px; background: #1e1728; display: grid; gap: 10px; }
+.operator-metrics span { font-size: 11px; color: #a797b6; }
+.operator-metrics strong { font: 500 27px 'Space Grotesk', sans-serif; color: #dec9ff; }
+.operator-metrics small { color: #897499; font-size: 15px; }
+.operator-shell .console-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.operator-card { min-width: 0; }
+.operator-card-body { padding: 22px 24px 24px; }
+.operator-shell .operator-card h2 { font-size: 23px; margin-bottom: 20px; }
+.operator-shell .console dl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 14px; font-size: 13px; line-height: 1.6; }
+.operator-shell .console dd { text-align: right; color: #dfd2ec; }
+.operator-shell .actions { padding-top: 20px; margin-top: 22px; border-top: 1px solid #ffffff0b; gap: 10px; }
+.operator-shell .actions label { width: 100%; font-size: 12px; justify-content: space-between; }
+.operator-shell .actions input { background: #1e1728; border-color: #493655; min-height: 44px; }
+.operator-shell input:focus-visible { outline: 3px solid #d5c1ff; outline-offset: 3px; }
+.operator-shell .primary { background: linear-gradient(110deg, #d2b4fc, #b69ae9); border: 1px solid #dfc9ff; color: #291735; min-height: 44px; font-size: 13px; }
+.operator-shell .primary:hover:not(:disabled) { background: #dec5ff; }
+.operator-shell .primary.large { font-size: 16px; padding: 15px 28px; }
+.operator-shell .secondary { background: #24192f; border-color: #493655; color: #d2bce7; }
+.operator-shell .actions button { font-size: 12px; min-height: 44px; }
+.operator-shell button:disabled { opacity: .38; }
+.operator-shell .danger { background: #ff6b6b08; border-color: #ff6b6b55; }
+.operator-shell .log { padding: 0; list-style: none; gap: 10px; font-size: 13px; line-height: 1.7; }
+.operator-shell .log li { padding: 12px 14px; border-radius: 12px; background: #1e1728; border: 1px solid #392b47; overflow-wrap: anywhere; }
+.operator-placeholder { color: #a797b6; font-size: 13px; line-height: 1.8; margin: 12px 0; }
+.operator-message { padding: 14px 18px; border: 1px solid #59426d; border-radius: 12px; background: #24192f; }
+.operator-empty { min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 28px; text-align: center; }
+.operator-empty h1 { font-size: 30px; letter-spacing: -1px; }
+.operator-shell .operator-footer { max-width: 1128px; margin: 24px auto 0; padding: 20px 0; }
+.operator-shell .stage { overflow: visible; }
+.operator-shell .stage-grid { grid-template-columns: minmax(0, 1fr) 292px; grid-template-rows: auto; height: auto; gap: 28px; align-items: start; }
+.stage-player { min-width: 0; }
+.operator-shell .screen { aspect-ratio: 16 / 10; overflow: hidden; background: #100d16; }
+.operator-shell .screen video { position: absolute; inset: 0; width: 100%; height: 100%; }
+.operator-shell .screen-overlay { background: radial-gradient(ellipse at center, #50326335, transparent 75%), #100d16ed; }
+.operator-shell .overlay-box { gap: 18px; padding: 24px; }
+.operator-shell .overlay-box p { font-family: 'Space Grotesk', sans-serif; font-size: 21px; color: #e5d8f2; line-height: 1.45; }
+.operator-shell .overlay-box .muted { font: 12px/1.7 'DM Sans', sans-serif; color: #a797b6; }
+.stage-play-mark { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 20px; background: #30203f; border: 1px solid #664778; color: #c6a3f4; }
+.operator-shell .director-status { position: static; min-height: 50px; padding: 14px 20px; font-size: 11px; text-align: center; }
+.operator-shell .panel { padding: 0; gap: 18px; background: none; border: 0; min-width: 0; }
+.operator-shell .stage-join-card { padding: 22px; }
+.operator-shell .stage-join-card h2 { font-size: 24px; }
+.operator-shell .qr { width: 144px; max-width: 100%; padding: 8px; border-radius: 12px; }
+.operator-shell .join-url { font: 500 12px/1.6 'Space Grotesk', sans-serif; overflow-wrap: anywhere; max-width: 100%; text-align: center; color: #d1bce4; }
+.operator-shell .stage-round { padding: 20px; border-radius: 20px; }
+.operator-shell .stage-round h2 { font-size: 18px; }
+.operator-shell .stage-round .countdown { font-size: 20px; color: #c6a3f4; }
+.operator-shell .tally .choice { background: #1e1728; border-color: #493655; min-height: 56px; font-size: 13px; padding: 12px; gap: 10px; }
+.operator-shell .choice-label { overflow-wrap: anywhere; min-width: 0; }
+.operator-shell .choice::before { background: #b38deb20; }
+.operator-shell .choice.winner { border-color: #bd95ff; box-shadow: 0 0 0 1px #bd95ff inset; }
+.operator-shell .choice.winner::before { background: #b38deb35; }
+.operator-shell .winner-banner { display: flex; align-items: center; gap: 8px; border: 1px solid #bd95ff; background: #24192fee; font-size: 15px; padding: 12px 18px; border-radius: 14px; max-width: 90%; width: max-content; }
+.operator-shell .panel-footer { font-size: 10px; text-align: center; margin: 0; line-height: 1.7; }
+@media (max-width: 1000px) {
+  .operator-shell .navbar { min-height: 70px; height: auto; padding: 12px 24px; }
+  .operator-shell main { max-width: 800px; padding: 22px 24px 0; }
+  .operator-shell .operator-footer { margin: 20px 24px 0; font-size: 10px; }
+  .operator-shell .stage-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .operator-shell .panel { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  .operator-shell .panel-footer { grid-column: 1 / -1; }
+  .operator-shell .arena-top { padding: 16px 20px; }
+  .operator-shell .topic { font-size: 10px; }
+  .operator-shell .round-status { font-size: 10px; }
+}
+@media (max-width: 600px) {
+  .operator-shell .navbar { padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
+  .operator-nav { gap: 8px; font-size: 11px; }
+  .operator-nav .wallet-button { padding: 8px 10px; font-size: 11px; }
+  .operator-shell main { padding: 20px 14px 0; }
+  .operator-intro { align-items: flex-start; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+  .operator-intro h1 { font-size: 30px; }
+  .operator-intro p { font-size: 12px; }
+  .operator-intro > .round-status { padding: 9px 12px; }
+  .operator-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .operator-metrics > div { padding: 16px; }
+  .operator-metrics strong { font-size: 24px; }
+  .operator-shell .console-grid, .operator-shell .panel { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .operator-card-body { padding: 18px; }
+  .operator-shell .console dl { gap: 12px; font-size: 12px; }
+  .operator-shell .operator-card h2 { font-size: 22px; }
+  .operator-shell .arena { border-radius: 20px; }
+  .operator-shell .screen { aspect-ratio: auto; min-height: 330px; }
+  .operator-shell .overlay-box { padding: 20px; gap: 16px; }
+  .operator-shell .overlay-box p { font-size: 19px; }
+  .operator-shell .operator-footer { margin: 20px 14px 0; flex-wrap: wrap; }
+}

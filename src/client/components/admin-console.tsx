@@ -3,6 +3,8 @@
 // All API interactions go through the existing backend endpoints.
 
 import { useRef } from 'react';
+import { Activity, Layers3, Radio, Sparkles, Wallet } from 'lucide-react';
+import { ArenaShell } from '@/components/arena-shell';
 import { useAdminState } from '@/hooks/use-admin';
 import { secondsLeft } from '@/lib/timer';
 
@@ -42,12 +44,13 @@ export default function AdminConsole() {
 
   if (!state) {
     return (
-      <main className="console">
-        <header className="console-header">
-          <div className="brand"><span className="brand-mark" aria-hidden="true" /><span>inscribi <b>director</b></span></div>
-        </header>
-        <p className="status" role="status" aria-live="polite">{error ?? 'Bağlanıyor…'}</p>
-      </main>
+      <ArenaShell view="admin">
+        <main className="console"><section className="arena operator-empty">
+          <span className="topic"><Radio size={14} /> YÖNETİM PANELİ</span>
+          <h1>Sahneye bağlanıyor.</h1>
+          <p className="status" role="status" aria-live="polite">{error ?? 'Bağlanıyor…'}</p>
+        </section></main>
+      </ArenaShell>
     );
   }
 
@@ -56,17 +59,27 @@ export default function AdminConsole() {
   const countdown = round ? secondsLeft(round, state.blockTime, fetchedAt) : 0;
 
   return (
+    <ArenaShell view="admin">
     <main className="console">
-      <header className="console-header">
-        <div className="brand"><span className="brand-mark" aria-hidden="true" /><span>inscribi <b>director</b></span></div>
-        <a className="secondary link" href="/stage" target="_blank" rel="noopener">Sahneyi aç</a>
-      </header>
-      <p className="status" role="status" aria-live="polite">{error ?? ''}</p>
+      <div className="operator-intro">
+        <div><span className="topic"><Sparkles size={14} /> KONTROL SENDE</span>
+          <h1>Sahneyi <span>yönet.</span></h1>
+          <p>Yayını takip et, turları aç, topluluğun seçimini sahneye taşı.</p>
+        </div>
+        <span className="round-status"><i />{state.stale ? 'BAĞLANTI BEKLENİYOR' : session.status === 'live' ? 'YAYIN CANLI' : 'YAYIN BEKLENİYOR'}</span>
+      </div>
+      {error && <p className="status operator-message" role="status" aria-live="polite">{error}</p>}
+      <section className="operator-metrics" aria-label="Yayın özeti">
+        <div><span>Yayın durumu</span><strong>{STATUS_TEXT[session.status] ?? session.status}</strong></div>
+        <div><span>Kalan yayın hakkı</span><strong>{session.remaining}<small> / {session.maxSessions}</small></strong></div>
+        <div><span>Aktif tur</span><strong>{round ? String(round.step).padStart(2, '0') : '—'}<small>{round ? ` / ${round.steps}` : ''}</small></strong></div>
+        <div><span>Toplam oy · bu tur</span><strong>{round ? round.counts.reduce((a, b) => a + b, 0) : 0}</strong></div>
+      </section>
 
       <section className="console-grid">
         {/* Director */}
-        <article className="card">
-          <h2>Director</h2>
+        <article className="arena operator-card">
+          <div className="arena-top"><span className="topic"><Radio size={14} />YAYIN</span></div><div className="operator-card-body"><h2>Director</h2>
           <DL rows={[
             ['Durum', `${STATUS_TEXT[session.status] ?? session.status}${session.reason ? ` (${END_REASON[session.reason] ?? session.reason})` : ''}`],
             ['Süre', `${elapsed} / ${Math.round(session.maxMs / 1000)} sn`],
@@ -87,11 +100,11 @@ export default function AdminConsole() {
               Yayını durdur
             </button>
           </div>
-        </article>
+        </div></article>
 
         {/* Tur */}
-        <article className="card">
-          <h2>Tur</h2>
+        <article className="arena operator-card">
+          <div className="arena-top"><span className="topic"><Layers3 size={14} />OYLAMA</span></div><div className="operator-card-body"><h2>Tur</h2>
           <DL rows={round ? [
             ['Zincir turu', `#${round.id} · hikâye adımı ${round.step}/${round.steps}`],
             ['Durum', round.cancelled ? 'İptal' : round.finalized ? 'Sonuçlandı' : round.open ? `Açık · ${countdown} sn` : '-'],
@@ -112,11 +125,12 @@ export default function AdminConsole() {
               İptal et
             </button>
           </div>
-        </article>
+        </div></article>
 
         {/* Yönlendirmeler */}
-        <article className="card">
-          <h2>Yönlendirmeler</h2>
+        <article className="arena operator-card">
+          <div className="arena-top"><span className="topic"><Activity size={14} />AKIŞ</span></div><div className="operator-card-body"><h2>Yönlendirmeler</h2>
+          {bridge.entries.length === 0 && <p className="operator-placeholder">Henüz yönlendirme yok. İlk turun sonucu burada görünecek.</p>}
           <ol className="log">
             {bridge.entries.slice(-6).map((entry, i) => (
               <li key={i}>Tur #{entry.round} → seçenek {entry.choice + 1}, sürüm {entry.version}: {DIRECTION_TEXT[entry.status] ?? entry.status}</li>
@@ -131,11 +145,11 @@ export default function AdminConsole() {
               Bekleyeni bırak
             </button>
           </div>
-        </article>
+        </div></article>
 
         {/* Zincir ve bakiye */}
-        <article className="card">
-          <h2>Zincir ve bakiye</h2>
+        <article className="arena operator-card">
+          <div className="arena-top"><span className="topic"><Wallet size={14} />MONAD TESTNET</span></div><div className="operator-card-body"><h2>Zincir ve bakiye</h2>
           <DL rows={[
             ['Bağlantı', state.stale ? 'Yenileniyor' : 'Canlı'],
             ['Operatör cüzdanı', `${operator.address.slice(0, 8)}… · ${operator.balanceMon ?? '?'} MON`],
@@ -143,8 +157,9 @@ export default function AdminConsole() {
             ['Otomatik turlar', settings.autoRounds ? `Açık · ${settings.roundSeconds} sn` : 'Kapalı'],
             ['Son hata', state.lastError ?? '-'],
           ]} />
-        </article>
+        </div></article>
       </section>
     </main>
+    </ArenaShell>
   );
 }

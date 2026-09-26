@@ -6,6 +6,7 @@
 
 import { useEffect, useReducer, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { Mark } from '@/components/arena-shell';
 import {
   ArrowRight, ArrowUpRight, Check, ChevronDown, Clock3, Crown,
   Flame, Info, Layers3, RotateCcw, ShieldCheck, Sparkles, Wallet, X,
@@ -16,14 +17,6 @@ import { useWallet } from '@/hooks/use-wallet';
 import { secondsLeft, formatSeconds, type RoundData } from '@/lib/timer';
 
 // ——— Sub-components ———
-
-function Mark({ small = false }: { small?: boolean }) {
-  return (
-    <span className={`mark ${small ? 'small' : ''}`} aria-hidden="true">
-      <svg viewBox="0 0 32 32"><path d="M6 18 13 6h14L19 26H6Z" /></svg>
-    </span>
-  );
-}
 
 function MemeImage({ meme, priority = false }: { meme: Meme; priority?: boolean }) {
   return <Image src={meme.image} alt={meme.name} fill sizes="(max-width: 700px) 90vw, 480px" priority={priority} unoptimized />;

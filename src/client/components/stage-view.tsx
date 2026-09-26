@@ -3,6 +3,8 @@
 // Manages Director connection (fal.ai WebRTC), heartbeat, and direction forwarding.
 
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { ArenaShell } from '@/components/arena-shell';
+import { Radio, Sparkles, ScanLine, Trophy } from 'lucide-react';
 import { useAdminState } from '@/hooks/use-admin';
 import { getJson, postJson } from '@/lib/api';
 import { secondsLeft, formatSeconds } from '@/lib/timer';
@@ -175,18 +177,13 @@ export default function StageView() {
 
   if (!state) {
     return (
-      <div className="stage">
-        <div className="stage-grid">
-          <section className="screen">
-            <div className="screen-overlay">
-              <div className="overlay-box"><p>{error ?? 'Bağlanıyor…'}</p></div>
-            </div>
-          </section>
-          <aside className="panel">
-            <div className="brand"><span className="brand-mark" aria-hidden="true" /><span>inscribi <b>director</b></span></div>
-          </aside>
-        </div>
-      </div>
+      <ArenaShell view="stage">
+        <main className="stage"><section className="arena operator-empty">
+          <span className="topic"><Radio size={14} /> CANLI SAHNE</span>
+          <h1>Sahne hazırlanıyor.</h1>
+          <p className="status" role="status" aria-live="polite">{error ?? 'Bağlanıyor…'}</p>
+        </section></main>
+      </ArenaShell>
     );
   }
 
@@ -195,14 +192,25 @@ export default function StageView() {
   const showWinner = round?.finalized && round.winner !== null;
 
   return (
-    <div className="stage">
+    <ArenaShell view="stage">
+    <main className="stage">
+      <div className="operator-intro">
+        <div><span className="topic"><Sparkles size={14} /> TOPLULUĞUN SAHNESİ</span>
+          <h1>Sen seç. <span>Sahne değişsin.</span></h1>
+          <p>Her oy hikâyenin bir sonraki adımını belirler.</p>
+        </div>
+        <span className="round-status"><i />{session.status === 'live' ? 'YAYIN CANLI' : 'YAYIN BEKLENİYOR'}</span>
+      </div>
+      {error && <p className="status operator-message" role="status">{error}</p>}
       <div className="stage-grid">
-        <section className="screen">
+        <section className="arena stage-player">
+          <div className="arena-top"><span className="topic"><Radio size={14} /> CANLI SAHNE</span><span className="round-number">{state.settings.directorMode === 'fake' ? 'PROVA' : 'DIRECTOR'}</span></div>
+          <div className="screen">
           <video ref={videoRef} autoPlay playsInline />
           {overlayText !== null && (
             <div className="screen-overlay">
               <div className="overlay-box">
-                <p>{overlayText}</p>
+                <span className="stage-play-mark" aria-hidden="true"><Radio size={28} /></span><p role="status">{overlayText}</p>
                 {showStart && (
                   <button className="primary large" onClick={start} disabled={startDisabled}>
                     Yayını başlat
@@ -215,22 +223,27 @@ export default function StageView() {
             </div>
           )}
           {showWinner && (
-            <div className="winner-banner">Seçilen: {round!.labels[round!.winner!]}</div>
+            <div className="winner-banner"><Trophy size={18} /> Seçilen: {round!.labels[round!.winner!]}</div>
           )}
-          <div className="director-status">{directorStatus}</div>
+          </div>
+          <div className="arena-note director-status" role="status">{directorStatus || 'Yayın başladığında görüntü burada görünecek.'}</div>
         </section>
 
         <aside className="panel">
-          <div className="brand"><span className="brand-mark" aria-hidden="true" /><span>inscribi <b>director</b></span></div>
+          <section className="manifesto stage-join-card">
+          <span className="aside-eyebrow"><ScanLine size={14} /> SAHNEYE KATIL</span>
+          <h2>Telefonunu çıkar.<br />Hikâyeyi sen seç.</h2>
           <div className="join">
             <img src="/qr.svg" alt="Katılım QR kodu" className="qr" />
             <p className="join-url">{state.joinUrl?.replace(/^https?:\/\//, '') ?? ''}</p>
           </div>
-          <div className="stage-round">
+          </section>
+          <section className="arena stage-round">
             <div className="round-head">
               <h2>{round ? `Tur ${round.step}/${round.steps}` : session.status === 'live' ? 'İlk tur birazdan' : 'Oylama birazdan'}</h2>
               <span className="countdown">{round ? formatSeconds(countdown) : ''}</span>
             </div>
+            {!round && <p className="operator-placeholder">Yayın başlayınca seçenekler burada görünecek.</p>}
             {round && (
               <ol className="tally">
                 {round.labels.map((label, i) => {
@@ -246,10 +259,11 @@ export default function StageView() {
                 })}
               </ol>
             )}
-          </div>
+          </section>
           <p className="panel-footer">Monad testnet üzerinde her oy bir işlemdir.</p>
         </aside>
       </div>
-    </div>
+    </main>
+    </ArenaShell>
   );
 }
