@@ -95,3 +95,17 @@ test('a calm idle scene follows a winner once, waits like any direction and neve
   bridge.message({type: 'prompt_applied', prompt_version: 3});
   assert.equal(bridge.steer(2, 1, 'next').version, 4);
 });
+
+test('an accepted prompt gets one fixed arrival time: when the chunk playing now ends', () => {
+  let now = Date.parse('2026-09-26T10:00:00Z');
+  const bridge = new Bridge(new MemoryStore(), {now: () => now});
+  bridge.message({type: 'chunk', prompt_version: 1, playback_seconds: 8.5, buffer_depth_seconds: 0});
+  bridge.steer(1, 0, 'a');
+  now += 3000;
+  bridge.message({type: 'prompt_applied', prompt_version: 2});
+  const eta = bridge.state.entries[0].etaAt;
+  assert.equal(eta, Date.parse('2026-09-26T10:00:08.500Z'));
+  now += 2000;
+  bridge.message({type: 'chunk', prompt_version: 1, playback_seconds: 8.5}); // later chunks do not move it
+  assert.equal(bridge.state.entries[0].etaAt, eta);
+});

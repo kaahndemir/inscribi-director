@@ -113,6 +113,10 @@ export class Bridge {
     if (!entry || FINAL.has(entry.status)) return false;
     entry.status = status;
     entry.settledAt = new Date(this.now()).toISOString();
+    // An accepted prompt goes into the chunk generated next, which plays when the current one ends.
+    // Fixed once here so screens count down steadily instead of re-estimating on every chunk.
+    const last = this.state.lastChunk;
+    if (status === 'applied' && last && !entry.shownAt) entry.etaAt = Math.max(last.startAt + last.playbackMs, this.now() + 1000);
     this.save();
     return true;
   }

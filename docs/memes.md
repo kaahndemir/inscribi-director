@@ -484,7 +484,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Clay stop-motion: a small gray mouse sits upright on a floor next to a tipped-over candy tube with colorful candy-coated chocolate buttons scattered around. It holds a big red candy with both paws and nibbles it fast, eyes wide and darting. No speech, only sound/music.
 - **İnternetteki anlamı:** Relatable image of sitting alone happily munching snacks; TikTok sound 'Tek başına bonibon yiyen fare' is used for being alone, content or melancholic, eating snacks by yourself.
 - **Güven:** medium · No spoken line; exact audio track not identified. 'Bonibon' is a brand name so the action says candy-coated chocolate buttons.
-- **Director eylemi:** Colorful candy-coated chocolate buttons spill from a tipped-over candy tube onto the wooden table. The mustached cockroach and a small gray clay mouse sit side by side, each holding one big red candy with both hands, nibbling it super fast with crunching sounds, cheeks puffed and eyes wide, glancing around suspiciously.
+- **Director eylemi:** Colorful candy-coated chocolate buttons spill from a tipped-over candy tube onto the wooden table. The mustached cockroach and a small gray clay mouse sit side by side, each holding one big red candy with both hands, nibbling it super fast with crunching sounds, cheeks puffed and eyes wide, glancing around suspiciously. The mustached cockroach whispers in Turkish: "Kimseye söyleme, bu bizim sırrımız."
 - **Araştırma kaynakları:** https://youtube.com/shorts/l8_Gv2_jlLk, https://www.youtube.com/watch?v=aikPBF887z8, https://www.tiktok.com/discover/bonibon-yiyen-fare-animasyonu
 
 ## p01 · Mavi evdeki fare
@@ -496,7 +496,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Close-up of a fluffy blue puppet-style mouse (rendered like a glossy 3D/AI remake) with big pink ears, huge round eyes and a pink nose, standing behind a wooden counter against a red plank wall; hands clasped at its belly, lips pressed together, eyes glancing sideways and up with an awkward, innocent, slightly guilty look.
 - **İnternetteki anlamı:** Reaction image for acting innocent or awkward: 'ben bir şey yapmadım' looks after a small mischief, shy/sheepish waiting, or pretending not to know. Circulates mainly in Spanish-language and international TikTok/Pinterest meme pages, less as a Turkish-specific meme.
 - **Güven:** medium · Character identified with high confidence; the specific 'innocent clasped hands' usage is inferred from the image and Spanish meme pages, not documented on Know Your Meme. Mouse described generically, character name not used in action.
-- **Director eylemi:** A small fluffy blue cartoon mouse with big pink ears hops onto the wooden table beside the mustached cockroach. Both clasp their hands together at their bellies, press their lips shut and slowly glance sideways and up with huge, innocent eyes, as if pretending they did nothing wrong.
+- **Director eylemi:** A small fluffy blue cartoon mouse with big pink ears hops onto the wooden table beside the mustached cockroach. Both clasp their hands together at their bellies, press their lips shut and slowly glance sideways and up with huge, innocent eyes, as if pretending they did nothing wrong. The mustached cockroach says softly in Turkish: "Ben bir şey yapmadım ki."
 - **Araştırma kaynakları:** https://www.instagram.com/_cakeliz_/reel/C9xy9RrSu5A/, https://www.tiktok.com/discover/raton-azul-meme?lang=es, https://www.tiktok.com/discover/tutter-mouse-meme?lang=en, https://en.wikipedia.org/wiki/Bear_in_the_Big_Blue_House
 
 ## p02 · Ağlayan şef
@@ -508,7 +508,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Small green felt stop-motion puppet in a tall white chef's hat and a rainbow-striped apron, standing in a cozy miniature room (wooden wall with button decorations, potted plant, mushroom lamp), covering its face with both hands and crying. TikTok watermark bottom right.
 - **İnternetteki anlamı:** Used for heartbreak and disappointment: when something you love is cancelled or taken away, bad news arrives, or as an over-dramatic 'I'm devastated' reaction; also 'SaveTinyChef' sympathy posts.
 - **Güven:** high · Phone-call setup mirrors the viral clip and can be dropped if timing is tight. Watermark in the source image; the character and show are not named in the action.
-- **Director eylemi:** The mustached cockroach, wearing a tall white chef's hat and a plain white apron over his vest, hangs up a small phone at the wooden table. His lip trembles, then he buries his face in both hands and sobs loudly, shoulders shaking, while big cartoon tears drip through his fingers.
+- **Director eylemi:** The mustached cockroach, wearing a tall white chef's hat and a plain white apron over his vest, hangs up a small phone at the wooden table. His lip trembles, then he buries his face in both hands and sobs loudly, shoulders shaking, while big cartoon tears drip through his fingers. He sobs in Turkish: "Emeklerim boşa gitti!"
 - **Araştırma kaynakları:** https://tenor.com/view/tiny-chef-crying-tiny-chef-sad-tiny-chef-i-love-you-omg-gif-3444917374609781628, https://www.tiktok.com/discover/tiny-chef-crying-meme, https://en.wikipedia.org/wiki/The_Tiny_Chef_Show, https://www.insidermemes.com/memes/template/tiny-chef-sad
 
 ## p03 · Balkona bayrak asan abi
@@ -520,7 +520,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Middle-aged man with a moustache in a striped polo shirt leans over a yellow-painted metal balcony railing of an apartment with salmon-pink walls, carefully tying a large red Turkish flag (white crescent and star) to the railing; plastic chair beside him, serious, focused expression.
 - **İnternetteki anlamı:** Turkish Photoshop meme template: the man and his flag are edited into other scenes, or the flag is swapped for something else (a team scarf, a TV-show banner, laundry) to joke about showing loyalty or making a public statement from your balcony.
 - **Güven:** high · Real person identified in news reports; not named in label or action. Photo originated in a political context; the action keeps it to the neutral flag-hanging gesture.
-- **Director eylemi:** The mustached cockroach steps out onto a small balcony above the corner shop and leans over the yellow railing, carefully tying the Turkish flag, red with a white crescent and star, to it; he handles it with great respect and it never touches the ground. He smooths the flag with both hands, then stands up straight and gives a proud, serious little nod.
+- **Director eylemi:** The mustached cockroach steps out onto a small balcony above the corner shop and leans over the yellow railing, carefully tying the Turkish flag, red with a white crescent and star, to it; he handles it with great respect and it never touches the ground. He smooths the flag with both hands, then stands up straight and gives a proud, serious little nod. He says proudly in Turkish: "Bayrağımız hep dalgalansın."
 - **Araştırma kaynakları:** https://eksisozluk.com/balkona-bayrak-asan-adam--5080728, https://www.hurriyet.com.tr/gundem/ve-balkondaki-bayrak-asan-dayi-konustu-40122468, https://onedio.com/haber/kacin-sahibi-geldi-bayrak-asan-dayi-nin-kim-oldugu-nihayet-belli-oldu-718496, https://www.diken.com.tr/bayrak-asan-amca-behcet-hastasiymis-fotograflarini-cogunlukla-goremiyor/
 
 ## p04 · Debug çözen yazılımcı
@@ -544,7 +544,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Flat 1960s-style cartoon still: three figures in near-identical red-and-blue full-body superhero suits and masks stand in a triangle in a warehouse by a parked truck and wooden crates, each leaning forward and pointing an outstretched finger at the others, accusing each other of being the impostor.
 - **İnternetteki anlamı:** Two or more people/things that are exactly alike meet or catch each other: lookalikes, copying each other, accusing someone of what you do yourself ('pot calling the kettle black'). In Turkish use: 'aynı tas aynı hamam', two people blaming each other, identical products/teams/posts.
 - **Güven:** high · Never name the hero in prompt or label; costumes stay generic (no chest emblem). The triangle of pointing arms is the recognisable part.
-- **Director eylemi:** Two cockroaches in identical red-and-blue full-body superhero suits and masks drop down beside the mustached cockroach. All three freeze in a triangle, lean forward and jab stiff outstretched fingers at each other, eyes wide in shock, each accusing the others of being the copy.
+- **Director eylemi:** Two cockroaches in identical red-and-blue full-body superhero suits and masks drop down beside the mustached cockroach. All three freeze in a triangle, lean forward and jab stiff outstretched fingers at each other, eyes wide in shock, each accusing the others of being the copy. All three shout at once in Turkish: "Asıl sahte sensin!"
 - **Araştırma kaynakları:** https://knowyourmeme.com/memes/spider-man-pointing-at-spider-man, https://screenrant.com/spider-man-pointing-meme-cartoon-origin/, https://gamerant.com/spider-man-pointing-meme-origins/
 
 ## p06 · Ciddi kedi
@@ -556,7 +556,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Close-up of an orange tabby cat's head cut out with sharp polygon edges and pasted on a black background; the cat stares straight into the camera with wide round dark eyes and a totally blank, serious, unblinking face.
 - **İnternetteki anlamı:** Deadpan reaction: 'I am dead serious' or silent, judging stare after a ridiculous message, a bad joke or a weird request. Used as a no-words reply in chats and comments.
 - **Güven:** medium · Exact source of this cutout could not be confirmed; meaning (deadpan serious stare) is clear from the image and the Turkish name. The stare into camera is the beat to keep.
-- **Director eylemi:** An orange cartoon cat hops onto the wooden table next to the mustached cockroach. Both turn slowly toward the camera and freeze, staring dead straight ahead with huge round eyes and completely blank, serious faces, not blinking, while a leaf drifts past.
+- **Director eylemi:** An orange cartoon cat hops onto the wooden table next to the mustached cockroach. Both turn slowly toward the camera and freeze, staring dead straight ahead with huge round eyes and completely blank, serious faces, not blinking, while a leaf drifts past. After a long silence the mustached cockroach says flatly in Turkish: "Ciddiyim."
 - **Araştırma kaynakları:** https://knowyourmeme.com/memes/staring-cat-gusic, https://forum.donanimhaber.com/ciddi-kedi-ciddidir-bol-bol-ciddi-kedi-montaji-var--103209393, https://tenor.com/view/cat-stare-cat-orange-cat-gif-409976776410003122
 
 ## p07 · Denizde overthink
@@ -568,7 +568,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** A man in a dark T-shirt and jeans, seen from the side, stands at the edge of the Bosphorus with his hands clasped behind his back, gazing silently at the far shore under a clear sky; calm, lost-in-thought expression.
 - **İnternetteki anlamı:** 'İki gram deniz görünce gelen overthink': the deep, melancholic overthinking that hits the moment you see the sea. Used for staring at the water and brooding about life, exes or decisions, often self-ironically.
 - **Güven:** high · Label avoids the character/actor name. Hands behind the back, side profile and silence are what make it readable.
-- **Director eylemi:** The mustached cockroach walks to where the street opens onto a sparkling blue sea, clasps his hands behind his back and stands still, gazing at the far shore with a heavy, faraway look. The wind ruffles his vest; he lets out a long, slow sigh, lost in deep thought.
+- **Director eylemi:** The mustached cockroach walks to where the street opens onto a sparkling blue sea, clasps his hands behind his back and stands still, gazing at the far shore with a heavy, faraway look. The wind ruffles his vest; he lets out a long, slow sigh, lost in deep thought. He murmurs in Turkish: "Acaba doğru mu yaptım?"
 - **Araştırma kaynakları:** https://x.com/kdrtnrvrdii/status/1871236097344487830, https://www.tiktok.com/discover/deniz-g%C3%B6r%C3%BCnce-overthink, https://www.tiktok.com/discover/kuzey-tekino%C4%9Flu-deniz, https://en.wikipedia.org/wiki/Kuzey_G%C3%BCney
 
 ## p08 · Klavye başında masum bebek
@@ -580,7 +580,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Top-down home photo: a baby in a red sweater with a white collar sits on a wooden chair at a desk, both little hands resting on a silver-and-black computer keyboard, turning to the camera with a sly, innocent little smile; an older child plays with a gamepad in the background, patterned carpet below.
 - **İnternetteki anlamı:** Innocent face while up to something at the computer: typing a sneaky reply, pretending to work, 'I definitely didn't break anything', or proudly posting something chaotic. Used as a smug/innocent reaction.
 - **Güven:** low · No documented origin or established caption found; meaning inferred from the image and Dilanur's name ('masum', innocent). The baby is a cartoon cockroach, not a human child.
-- **Director eylemi:** A tiny baby cockroach in a red sweater with a white collar sits on a chair at the wooden table, both hands on a big computer keyboard. It slowly turns its head to the camera with a sly, innocent little smile, fingers still resting on the keys, while the mustached cockroach eyes it suspiciously.
+- **Director eylemi:** A tiny baby cockroach in a red sweater with a white collar sits on a chair at the wooden table, both hands on a big computer keyboard. It slowly turns its head to the camera with a sly, innocent little smile, fingers still resting on the keys, while the mustached cockroach eyes it suspiciously. The mustached cockroach asks suspiciously in Turkish: "Sen ne yaptın bakayım?"
 - **Araştırma kaynakları:** https://www.tiktok.com/discover/baby-typing-on-computer, https://www.tiktok.com/discover/bebek-klavye-ak%C4%B1m%C4%B1
 
 ## p09 · Hava durumu
@@ -640,7 +640,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Candid phone photo inside a metro/subway car: a young boy in a black leather jacket with a grey hood sits on a blue plastic seat, one white earphone in, hands clasped in his lap. He stares into space with heavy half-closed eyes, drooping cheeks and a blank, exhausted, fed-up expression; a pink blanket or bag covers the neighboring seat.
 - **İnternetteki anlamı:** Total exhaustion and being done with life: used for Monday mornings, the commute home after school or work, the end of a long day, or 'I am too young for this much tiredness' jokes.
 - **Güven:** low · The subject is a real, unidentified minor; the action uses a generic cockroach kid only. Meaning is inferred from the image and Dilanur's name, not from a documented meme page.
-- **Director eylemi:** The mustached cockroach slumps on a bench by the wooden table next to a small cockroach kid in a puffy black jacket with one white earphone in. The kid stares blankly into nothing with heavy half-closed eyes, drooping cheeks and hands clasped in his lap, utterly drained; the mustached cockroach glances at him, sighs and slumps into the exact same tired pose.
+- **Director eylemi:** The mustached cockroach slumps on a bench by the wooden table next to a small cockroach kid in a puffy black jacket with one white earphone in. The kid stares blankly into nothing with heavy half-closed eyes, drooping cheeks and hands clasped in his lap, utterly drained; the mustached cockroach glances at him, sighs and slumps into the exact same tired pose. He sighs in Turkish: "Ne uzun bir gündü."
 - **Araştırma kaynakları:** https://www.sondakika.com/3-sayfa/haber-metroda-cekilen-bu-goruntu-izleyenleri-kahretti-17866685/, https://guldum.net/
 
 ## p14 · Kafasını tutan maymun
@@ -652,7 +652,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Very blurry, low-quality close-up of a small pale-faced monkey (macaque-like) against a dark background, holding the top of its head with both hands, eyes wide and staring at the camera with a stunned, worried 'oh no' look.
 - **İnternetteki anlamı:** Panic, disbelief or 'what have I done / what did I just see' moments: realizing a mistake, seeing exam results, bad news, or reacting to something absurd.
 - **Güven:** medium · Dilanur named it only 'monkey'. Blurriness is part of the joke but should not be requested from the video model.
-- **Director eylemi:** A small cartoon monkey sits on the wooden table next to the mustached cockroach. Both suddenly freeze, grab the tops of their heads with both hands, eyes bulging and mouths stretched in a helpless, panicked grimace, and stare straight into the camera in stunned disbelief.
+- **Director eylemi:** A small cartoon monkey sits on the wooden table next to the mustached cockroach. Both suddenly freeze, grab the tops of their heads with both hands, eyes bulging and mouths stretched in a helpless, panicked grimace, and stare straight into the camera in stunned disbelief. The mustached cockroach cries in Turkish: "Eyvah, şimdi ne olacak?"
 - **Araştırma kaynakları:** https://www.tiktok.com/discover/monkey-with-hands-on-its-head-meme?lang=en, https://tenor.com/view/monkey-with-hands-in-the-head-gif-27591093, https://imgflip.com/memegenerator/550974154/Monkey-with-his-hands-on-head
 
 ## p15 · Muhehehe kedi
@@ -676,7 +676,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Close-up of an old brown Labrador-type dog outdoors in a golden field at sunset, eyes gently closed, chin lifted, calm and blissful, bathed in warm light.
 - **İnternetteki anlamı:** Blissful vibing to a song, or peaceful acceptance of the inevitable ('I am cooked, and I accept it'). In Turkish use it is mostly the dog enjoying music with eyes closed.
 - **Güven:** high · The song itself is copyrighted and not named in the action; 'soft soulful song' is used instead.
-- **Director eylemi:** A brown cartoon dog sits beside the mustached cockroach as a soft soulful song plays. Both lift their chins into warm golden light, close their eyes and sway slowly, lips pressed in blissful calm, completely lost in the music and at peace with the world.
+- **Director eylemi:** A brown cartoon dog sits beside the mustached cockroach as a soft soulful song plays. Both lift their chins into warm golden light, close their eyes and sway slowly, lips pressed in blissful calm, completely lost in the music and at peace with the world. The mustached cockroach hums and says in Turkish: "Oh, huzur bu."
 - **Araştırma kaynakları:** https://sg.news.yahoo.com/cooked-dog-meme-dog-closing-170000238.html, https://www.tiktok.com/discover/dog-closing-eyes-sunset, https://www.myinstants.com/en/instant/dog-closing-eyes-45003/
 
 ## p17 · Göğe bakıp no no no
@@ -712,7 +712,7 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** Cartoon drawing of a green frog in a blue T-shirt with droopy heavy eyelids, big glossy sad eyes and a thick down-turned lip, both hands raised beside its cheeks in a gesture of despair, on a plain gray background.
 - **İnternetteki anlamı:** Sadness, disappointment, failure or self-pity ('feels bad man'); posted when something goes wrong, a loss, or a relatable letdown.
 - **Güven:** high · Branded character: name never used in label or action, and the signature blue T-shirt is left out of the action to avoid describing the character; recognition relies on the droopy eyes, lip and hands-raised pose.
-- **Director eylemi:** A small sad green cartoon frog sits on the wooden table with droopy eyelids, big watery eyes and a heavy down-turned lip, both hands raised beside its cheeks in despair. The mustached cockroach sits next to it and copies the exact pose, lower lip trembling, eyes glistening, and lets out a long, sad sigh.
+- **Director eylemi:** A small sad green cartoon frog sits on the wooden table with droopy eyelids, big watery eyes and a heavy down-turned lip, both hands raised beside its cheeks in despair. The mustached cockroach sits next to it and copies the exact pose, lower lip trembling, eyes glistening, and lets out a long, sad sigh. The mustached cockroach sighs in Turkish: "Hayat bazen zor be."
 - **Araştırma kaynakları:** https://knowyourmeme.com/memes/feels-bad-man-sad-frog, https://knowyourmeme.com/memes/pepehands, https://en.wikipedia.org/wiki/Pepe_the_Frog
 
 ## p20 · Yangında gülen kız
@@ -724,5 +724,5 @@ Oyun bir meme kart oyunu gibi işler: her turda aşağıdaki durumlardan biri ve
 - **Görünen:** A small girl with messy brown hair in the foreground turns to the camera with a sly, knowing half-smile while a house burns behind her, with firefighters, a fire hose on the ground and a fire truck in the background.
 - **İnternetteki anlamı:** Smug satisfaction amid chaos, as if the subject secretly caused the disaster; used for 'I did this' moments, causing drama and watching it unfold, or evil-grin satisfaction.
 - **Güven:** high · A shed down the street burns instead of the corner shop so the premise street stays intact for later beats. Subject is a private person; no name used. Fire is cartoonish and nobody is hurt.
-- **Director eylemi:** Behind him an old wooden shed down the street burns with big cartoon flames and smoke while firefighter cockroaches spray it with a hose. In the foreground the mustached cockroach slowly turns to the camera with a small, sly, knowing smirk and narrowed eyes, as if he started it, then blinks innocently.
+- **Director eylemi:** Behind him an old wooden shed down the street burns with big cartoon flames and smoke while firefighter cockroaches spray it with a hose. In the foreground the mustached cockroach slowly turns to the camera with a small, sly, knowing smirk and narrowed eyes, as if he started it, then blinks innocently. He says innocently in Turkish: "Ben mi? Hiç alakam yok."
 - **Araştırma kaynakları:** https://knowyourmeme.com/memes/disaster-girl, https://en.wikipedia.org/wiki/Disaster_Girl, https://dailydot.com/meme-history-disaster-girl

@@ -114,15 +114,13 @@ test('after the winner has been watched the Director gets one calm everyday scen
   assert.equal(show.effect().label, 'B');
 });
 
-test('a chosen meme gets a countdown to the chunk it will appear in', () => {
-  const entry = {round: 7, choice: 2, status: 'applied', createdAt: at(0)};
+test('a chosen meme gets a fixed countdown once the provider accepted it', () => {
+  const entry = {round: 7, choice: 2, status: 'waiting', createdAt: at(0)};
   const show = liveShow({entries: [entry], now: T0 + 2000});
-  show.bridge.state.lastChunk = {version: 2, startAt: T0 - 1000, playbackMs: 8500};
-  assert.equal(show.effect().etaAt, T0 + 7500);
-  entry.status = 'waiting';
-  assert.equal(show.effect().etaAt, T0 + 16000);
-  show.bridge.state.lastChunk = null;
   assert.equal(show.effect().etaAt, null);
-  Object.assign(entry, {status: 'applied', shownAt: at(1000), playbackMs: 8500});
-  assert.deepEqual([show.effect().state, show.effect().endsAt], ['showing', T0 + 9500]);
+  Object.assign(entry, {status: 'applied', etaAt: T0 + 7500});
+  assert.equal(show.effect().etaAt, T0 + 7500);
+  Object.assign(entry, {shownAt: at(7400), playbackMs: 8500});
+  show.now = () => T0 + 8000;
+  assert.deepEqual([show.effect().state, show.effect().endsAt], ['showing', T0 + 15900]);
 });

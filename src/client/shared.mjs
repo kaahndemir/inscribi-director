@@ -26,10 +26,14 @@ export function secondsLeft(round, blockTime, fetchedAt) {
 // Server time now, from the server clock in the last state and the local time since it was fetched.
 export const serverNow = (state, fetchedAt) => (state?.serverNow ?? fetchedAt) + (Date.now() - fetchedAt);
 
-// Whole seconds until a server timestamp, or null when it is unknown or past.
+// Whole seconds until a server timestamp, or null when it is unknown or past. Counts only downwards for
+// the same timestamp, so network jitter between polls never makes the number go back up.
+const shown = new Map();
 export function secondsUntil(at, state, fetchedAt) {
   if (!at) return null;
-  const left = Math.ceil((at - serverNow(state, fetchedAt)) / 1000);
+  let left = Math.ceil((at - serverNow(state, fetchedAt)) / 1000);
+  if (shown.has(at)) left = Math.min(left, shown.get(at));
+  shown.set(at, left);
   return left > 0 ? left : null;
 }
 

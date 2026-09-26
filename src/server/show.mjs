@@ -158,18 +158,8 @@ export class Show {
     const now = this.now();
     const showing = !!entry.shownAt && now >= Date.parse(entry.shownAt);
     if (showing) return {round: entry.round, label: choice.label, image: choice.image ?? null, state: 'showing', endsAt: Date.parse(entry.shownAt) + entry.playbackMs};
-    return {round: entry.round, label: choice.label, image: choice.image ?? null, state: 'coming', etaAt: this.eta(entry, now)};
-  }
-
-  // When a chosen meme should reach the screen: an accepted prompt starts with the chunk after the one
-  // playing now; one still waiting for the provider needs one more chunk. Null when there is no chunk yet.
-  eta(entry, now) {
-    const last = this.bridge.state.lastChunk;
-    if (!last) return null;
-    let at = last.startAt + last.playbackMs;
-    if (entry.status !== 'applied') at += last.playbackMs;
-    while (at < now) at += last.playbackMs;
-    return at;
+    // The countdown starts once the provider accepted the prompt (the bridge fixes the time then).
+    return {round: entry.round, label: choice.label, image: choice.image ?? null, state: 'coming', etaAt: entry.etaAt ?? null};
   }
 
   // Operator-facing actions ------------------------------------------------------------
